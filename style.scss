@@ -1,34 +1,76 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@use '_utilities';
 
 $primary-color: #FFFFFF;
 $font-color: #0D0D24;
+$border-radius: 40px;
 
 * {
     /* CSS reset */
     box-sizing: border-box;
-    /* border box makes padding not effect the width/height of elements */
+    /* border  makes padding not effect the width/height of elements */
     margin: 0;
     padding: 0;
+    /* font-size: 16px; global size for rem */
 }
 
 body{
     font-family: 'Open Sans',sans-serif;
+    background: #E3E8EC;
+}
+
+@mixin container {
+    width: 90%;
+   max-width: 1500px;
+   margin: 0 auto;
+   /* overflow: auto; */
+   
+} 
+
+.main-container{
+   @include container;
+    display: grid;
+    grid-template-columns: repeat(3,1fr) 1.5fr;
+    align-items: space-between;
+    justify-content: space-between;
+    grid-gap: 10px;
+    background: #FFFFFF;
+    height: 700px;
+    padding: 50px;
+    border-radius: $border-radius;
+    margin-top: 50px;
+    justify-items: stretch;
+    align-items: stretch ;
+
+    div {
+
+        height: 200px;
+        border: 2px solid black;
+    }
+   
 }
 
 
-.container {
-     width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-    
-} 
-
 .city-showcase{
-    background: url('/assets/img/chicago.jpg') no-repeat center/cover;
+    display: flex;
+    background: url('/img/chicago.jpg') no-repeat center/cover;
     max-width: 1200px; 
     width: 90vw;
-    height:340px;
-    margin:  20px auto 0px auto;
-    /* Top, right, bottom, left */
-    border-radius: 10px;
+    height:325px;
+    margin:  0 auto;
+    border-radius: $border-radius;
+    grid-column: 1/5;
+    grid-row: 1;
+    
+
+
+    .location{
+        display: flex;
+    }
+
+}
+
+.cities-section{
+    grid-column: 2/5;
+    grid-row: 1/4;
 }

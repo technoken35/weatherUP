@@ -1,0 +1,64 @@
+/* Add light/dark mode color change function */
+
+$space-increments:(1,2,3,4,5);
+
+@each $space in $space-increments {
+   
+    .m-#{$space} {
+        margin:#{$space}rem;
+    }
+
+    .mx-#{$space} {
+        margin:0 #{$space}rem;
+    }
+
+    .my-#{$space} {
+        margin:#{$space} 0rem;
+    }
+
+    .mt-#{$space}{
+        margin-top: #{$space}rem;
+    }
+
+    .mr-#{$space}{
+        margin-right: #{$space}rem;
+    }
+
+    .mb-#{$space}{
+        margin-bottom: #{$space}rem;
+    }
+
+    .ml-#{$space}{
+        margin-left: #{$space}rem;
+    }
+
+    .p-#{$space}{
+        padding: #{$space}rem;
+    }
+
+    .px-#{$space}{
+        padding:0 #{$space}rem;
+    }
+
+    .py-#{$space}{
+        padding: #{$space} 0rem;
+    }
+
+    .pt-#{$space}{
+        padding-top: #{$space}rem;
+    }
+
+    .pr-#{$space}{
+        padding-right: #{$space}rem;
+    }
+    
+    .pb-#{$space}{
+        padding-bottom: #{$space}rem;
+    }
+
+    .pl-#{$space}{
+        padding-left: #{$space}rem;
+    }
+
+
+}
