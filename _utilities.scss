@@ -1,63 +1,74 @@
 /* Add light/dark mode color change function */
 
-$space-increments:(1,2,3,4,5);
+@function set-color($color){
+    // function accepts a color as its parameter
+    
+    @if(lightness($color)>70){
+        // lightness is a pre built sass function that checks how light a color is 
+        @return #333;
+    } @else {
+        @return #fff;
+    }
+}
+
+$space-increments:(1,2,3,4,5,6,7,8,9,10);
 
 @each $space in $space-increments {
    
     .m-#{$space} {
-        margin:#{$space}rem;
+        margin:#{$space}px;
     }
 
     .mx-#{$space} {
-        margin:0 #{$space}rem;
+        margin:0 #{$space}px;
     }
 
     .my-#{$space} {
-        margin:#{$space} 0rem;
+        margin:#{$space} 0px;
     }
 
     .mt-#{$space}{
-        margin-top: #{$space}rem;
+        margin-top: #{$space}px;
     }
 
     .mr-#{$space}{
-        margin-right: #{$space}rem;
+        margin-right: #{$space}px;
     }
 
     .mb-#{$space}{
-        margin-bottom: #{$space}rem;
+        margin-bottom: #{$space}px;
     }
 
     .ml-#{$space}{
-        margin-left: #{$space}rem;
+        margin-left: #{$space}px;
     }
 
     .p-#{$space}{
-        padding: #{$space}rem;
+        padding: #{$space}px;
     }
 
     .px-#{$space}{
-        padding:0 #{$space}rem;
+        padding:0 #{$space}px;
     }
 
     .py-#{$space}{
-        padding: #{$space} 0rem;
+        padding: #{$space} 0px;
     }
 
     .pt-#{$space}{
-        padding-top: #{$space}rem;
+        padding-top: #{$space}px;
     }
 
     .pr-#{$space}{
-        padding-right: #{$space}rem;
+        padding-right: #{$space}px;
     }
     
     .pb-#{$space}{
-        padding-bottom: #{$space}rem;
+        padding-bottom: #{$space}px;
     }
 
     .pl-#{$space}{
-        padding-left: #{$space}rem;
+        padding-left: #{$space}px;
     }
 
 

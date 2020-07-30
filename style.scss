@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-@use '_utilities';
+@import '_utilities';
 
 $primary-color: #FFFFFF;
+$secondary-color:  #E3E8EC;
 $font-color: #0D0D24;
 $border-radius: 40px;
+$border-radius-small:15px;
+$small-column-height: 240px;
+$heading-font-size: 20px;
 
 * {
     /* CSS reset */
@@ -11,19 +15,20 @@ $border-radius: 40px;
     /* border  makes padding not effect the width/height of elements */
     margin: 0;
     padding: 0;
-    /* font-size: 16px; global size for rem */
+    font-size: 16px; 
+    /* font-size for rem */
 }
 
 body{
     font-family: 'Open Sans',sans-serif;
-    background: #E3E8EC;
+    background: $secondary-color;
 }
 
 @mixin container {
     width: 90%;
    max-width: 1500px;
    margin: 0 auto;
-   /* overflow: auto; */
+   overflow: auto; 
    
 } 
 
@@ -33,7 +38,7 @@ body{
     grid-template-columns: repeat(3,1fr) 1.5fr;
     align-items: space-between;
     justify-content: space-between;
-    grid-gap: 10px;
+    gap: 10px;
     background: #FFFFFF;
     height: 700px;
     padding: 50px;
@@ -42,35 +47,152 @@ body{
     justify-items: stretch;
     align-items: stretch ;
 
-    div {
 
-        height: 200px;
-        border: 2px solid black;
-    }
-   
 }
 
 
-.city-showcase{
-    display: flex;
-    background: url('/img/chicago.jpg') no-repeat center/cover;
+header{
+    background: url('/img/vegas.jpeg') no-repeat center/cover;
     max-width: 1200px; 
     width: 90vw;
-    height:325px;
+    height:300px;
     margin:  0 auto;
     border-radius: $border-radius;
     grid-column: 1/5;
-    grid-row: 1;
-    
+    grid-row: 1/3;
+    padding: 30px;
 
+    h1{
+        font-size: 2rem;
+    }
+
+    h2{
+        font-size: 1.5rem;
+    }
+
+    p {
+      /* @extend .ml-10; using a class within another class */
+      margin-left: 4.5rem;
+      padding: 0.5rem;
+    }
 
     .location{
         display: flex;
+        
+        .fas {
+            padding: 10px;
+            margin-top: 5px;
+        }
     }
 
 }
 
-.cities-section{
-    grid-column: 2/5;
-    grid-row: 1/4;
+.cities{
+    grid-row: 2/4;
+    z-index: 1;
+    grid-column: 4/5;
+    height: 425px;
+    border: 2px solid black;
+
+    @include container;
+    display: grid;
+    gap: 10px;
+    grid-template-rows: repeat(3,1.5fr);
+
+    &-selection{
+        border: 2px solid black;
+        
+    }
+
 }
+
+.temp{
+    display: flex;
+    padding-left: 2rem;
+
+    h2 {
+        padding: 0 20px;
+    }
+
+    
+}
+
+.column-small {
+
+    height: $small-column-height;
+   
+}
+
+.fa-sun{
+    color: #FF8838;
+}
+
+.fa-wind{
+    color: #B8B9BD;
+}
+
+.forecast{
+
+    &-heading{
+        margin: 0px 0px 20px 10px;
+        font-size: $heading-font-size;
+
+        &-bold{
+            font-weight: bold;
+            font-size: $heading-font-size;
+
+        }
+    }
+
+    &-container{
+        display: grid;
+        flex-direction: column;
+        grid-template-rows: 1fr;
+        gap: 1rem;
+        height: $small-column-height;
+    }
+    
+
+    &-card{
+        border: 1px solid $secondary-color;
+        border-radius:$border-radius-small;
+        font-size: 20px;
+        height: 55px;
+       
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 0.5fr 1.5fr 1fr;
+
+        i {
+            padding-left: 5px;
+        }
+
+        .conditions{
+            font-size: 0.8rem;
+            color: #BFBFC4;
+        }
+
+       
+    }
+
+    &-text{
+        padding: 5px;
+    }
+
+    &-num{
+        background:#DEE7F4;
+        border: 10px solid #DEE7F4;
+        height: 100%;
+        width: 110%;
+        color: #0D0D24;
+        border-radius: $border-radius-small;
+       
+    }
+
+}
+
+
+
+
+
