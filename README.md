@@ -1,2 +1,2 @@
 # weatherUP
-weather dash with html css js
+weather dash with html css vanilla js
