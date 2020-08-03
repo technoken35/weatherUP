@@ -64,6 +64,9 @@ header{
 
     h1{
         font-size: 2rem;
+        text-shadow: 1px white;
+       font-weight: normal;
+       @extend .pb-10;
     }
 
     h2{
@@ -72,8 +75,9 @@ header{
 
     p {
       /* @extend .ml-10; using a class within another class */
-      margin-left: 4.5rem;
+      margin-left: 3.5rem;
       padding: 0.5rem;
+        text-transform: uppercase;
     }
 
     .location{
