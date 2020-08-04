@@ -12,7 +12,7 @@ $heading-font-size: 20px;
 * {
     /* CSS reset */
     box-sizing: border-box;
-    /* border-box  makes padding not effect the width/height of elements */
+    /* border-box  makes padding not effect the width/height of elements hi */
     margin: 0;
     padding: 0;
     font-size: 16px; 
@@ -40,12 +40,13 @@ body{
     justify-content: space-between;
     gap: 50px;
     background: #FFFFFF;
-    height: 700px;
+    height: 90vh;
     padding: 50px;
     border-radius: $border-radius;
     margin-top: 50px;
     justify-items: stretch;
     align-items: stretch ;
+    max-width: 90vw;
 
 
 }
@@ -53,20 +54,19 @@ body{
 
 header{
     background: url('/img/vegas.jpeg') no-repeat center/cover;
-    max-width: 1200px; 
-    width: 90vw;
-    height:300px;
+    width: 80vw; 
+    height:300pxx;
     margin:  0 auto;
     border-radius: $border-radius;
     grid-column: 1/5;
     grid-row: 1/3;
-    padding: 30px;
+    padding: 2rem;
 
     h1{
         font-size: 2rem;
         text-shadow: 1px white;
        font-weight: normal;
-       @extend .pb-10;
+       padding-bottom: 10px;
     }
 
     h2{
@@ -95,7 +95,7 @@ header{
     grid-row: 2/4;
     z-index: 1;
     grid-column: 4/5;
-    height: 425px;
+    max-height: 90vh;
     border: 2px solid black;
 
     @include container;
@@ -207,7 +207,7 @@ header{
     height: $small-column-height;
     
     i{
-        @extend .px-10;
+        padding: 0 10px;
     }
    
     h2{
@@ -228,7 +228,7 @@ header{
         border-radius: $border-radius ---10px;
         /* subtracting 10px from border radius var */
         display: flex;
-        @extend .p-15;
+        padding: 15px;
         color: $primary-color;
 
         p {
