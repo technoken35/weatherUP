@@ -1,11 +1,12 @@
-//refactor api call function to be able to use same function for every call
 // ! ADD one call API one API call for all weather data you would need on one location 
 
 var weatherDataObj={};
 
-var currentConditions=  document.querySelector("header p");
-var tempHeader=  document.querySelector("header h2");
-var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday"];
+function kelvinToFh (temp) {
+    let fhTemp= Math.round(temp * 9/5 - 459.67);
+    return fhTemp;
+    
+}
 
 function getData () {
 
@@ -37,6 +38,7 @@ function getData () {
                 .then(data => {
                    weatherDataObj=data;
                    console.log('recieved data', weatherDataObj);
+                   updateUI();
                 
                 })
             ;
@@ -48,29 +50,43 @@ function getData () {
 
 }
 
-const getDay = () => {
-    var date = new Date();
-    var day = date.getDay()
-    console.log(day +"day nigga");
-}
+function updateUI (){
+    var descriptionData=weatherDataObj.current.weather[0].description;
+    var currentTemp=weatherDataObj.current.temp;
+    var forecastTempDataDay1High= kelvinToFh(weatherDataObj.daily[1].temp.max);
+    var forecastTempDataDay1Low= kelvinToFh(weatherDataObj.daily[1].temp.min);
+    var forecastTempDataDay1Description = weatherDataObj.daily[1].weather[0].description;
 
-getDay();
+    var currentConditions=  document.querySelector("header p");
+    var tempHeader=  document.querySelector("header h2");
+    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday"];
+
+    var forecastHeaderDays1= document.querySelector(".forecast-day-1 p");
+    var forecastHeaderDays2= document.querySelector(".forecast-day-2 p");
+    var forecastHeaderDays3=document.querySelector(".forecast-day-3 p");
+    var forecastTempDay1= document.querySelector(".forecast-day-1 .forecast-num p");
+    var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
+   
+    
+    let date = new Date();
+    var day = date.getDay();
+    /* Date object has method to return day of week in integer form */
+
+    // updated UI based on var day={value} and the corresponding daysOfWeek[] index
+    forecastHeaderDays1.textContent= daysOfWeek[day];
+    forecastHeaderDays2.textContent=daysOfWeek[day+1];
+    forecastHeaderDays3.textContent=daysOfWeek[day+2];
+
+    forecastTempDay1.textContent=forecastTempDataDay1High + "°" + "/" + "°"+ forecastTempDataDay1Low;
+    forecastDescriptionDay1.textContent=forecastTempDataDay1Description;
+    
+    tempHeader.textContent= kelvinToFh(currentTemp);
+    currentConditions.textContent=descriptionData;
+    
+}
 
 window.addEventListener('load',()=> {
     getData();
-    
-    setTimeout(() => {
-        console.log(weatherDataObj, "Async Object")
-        var descriptionData=weatherDataObj.current.weather[0].description;
-        let kelvinToFh;
-
-        kelvinToFh= Math.round((weatherDataObj.current.temp-273.15) * 9/5 + 32);
-         /* formula to convert kelvin to fahrenheit */
-
-        tempHeader.textContent= kelvinToFh;
-        currentConditions.textContent=descriptionData;
-
-        
-    }, 5000);
 
 });
+

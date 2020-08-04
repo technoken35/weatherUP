@@ -1319,6 +1319,10 @@ header .location .fas {
   border-radius: 15px;
 }
 
+.forecast-num p {
+  font-size: 0.9rem;
+}
+
 .places {
   height: 240px;
 }
