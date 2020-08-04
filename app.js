@@ -51,23 +51,37 @@ function getData () {
 }
 
 function updateUI (){
-    var descriptionData=weatherDataObj.current.weather[0].description;
-    var currentTemp=weatherDataObj.current.temp;
-    var forecastTempDataDay1High= kelvinToFh(weatherDataObj.daily[1].temp.max);
-    var forecastTempDataDay1Low= kelvinToFh(weatherDataObj.daily[1].temp.min);
-    var forecastTempDataDay1Description = weatherDataObj.daily[1].weather[0].description;
 
     var currentConditions=  document.querySelector("header p");
     var tempHeader=  document.querySelector("header h2");
-    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday"];
-
+    var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
+    var forecastDescriptionDay2= document.querySelector(".forecast-day-2 .conditions");
+    var forecastDescriptionDay3= document.querySelector(".forecast-day-3 .conditions");
     var forecastHeaderDays1= document.querySelector(".forecast-day-1 p");
     var forecastHeaderDays2= document.querySelector(".forecast-day-2 p");
     var forecastHeaderDays3=document.querySelector(".forecast-day-3 p");
     var forecastTempDay1= document.querySelector(".forecast-day-1 .forecast-num p");
-    var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
-   
+    var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
+    var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
     
+    
+    var descriptionData=weatherDataObj.current.weather[0].description;
+    var currentTemp=weatherDataObj.current.temp;
+   
+   
+   
+    var forecastTempDataDay1High= kelvinToFh(weatherDataObj.daily[1].temp.max);
+    var forecastTempDataDay2High= kelvinToFh(weatherDataObj.daily[2].temp.max);
+    var forecastTempDataDay3High= kelvinToFh(weatherDataObj.daily[3].temp.max);
+    var forecastTempDataDay1Low= kelvinToFh(weatherDataObj.daily[1].temp.min);
+    var forecastTempDataDay2Low= kelvinToFh(weatherDataObj.daily[2].temp.min);
+    var forecastTempDataDay3Low= kelvinToFh(weatherDataObj.daily[3].temp.min);
+    
+    var forecastDescriptionDataDay1 = weatherDataObj.daily[1].weather[0].main;
+    var forecastDescriptionDataDay2 = weatherDataObj.daily[2].weather[0].main;
+    var forecastDescriptionDataDay3 = weatherDataObj.daily[3].weather[0].main;
+   
+    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday"];
     let date = new Date();
     var day = date.getDay();
     /* Date object has method to return day of week in integer form */
@@ -78,7 +92,15 @@ function updateUI (){
     forecastHeaderDays3.textContent=daysOfWeek[day+2];
 
     forecastTempDay1.textContent=forecastTempDataDay1High + "°" + "/" + "°"+ forecastTempDataDay1Low;
-    forecastDescriptionDay1.textContent=forecastTempDataDay1Description;
+    forecastDescriptionDay1.textContent=forecastDescriptionDataDay1;
+
+    forecastTempDay2.textContent=forecastTempDataDay2High + "°" + "/" + "°"+ forecastTempDataDay2Low;
+    forecastDescriptionDay2.textContent=forecastDescriptionDataDay2;
+
+    forecastTempDay3.textContent=forecastTempDataDay3High + "°" + "/" + "°"+ forecastTempDataDay3Low;
+    forecastDescriptionDay3.textContent=forecastDescriptionDataDay3;
+
+
     
     tempHeader.textContent= kelvinToFh(currentTemp);
     currentConditions.textContent=descriptionData;

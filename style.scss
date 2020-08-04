@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 @import '_utilities';
 
+
 $primary-color: #FFFFFF;
 $secondary-color:  #E3E8EC;
 $font-color: #0D0D24;
@@ -22,12 +23,10 @@ $heading-font-size: 20px;
 body{
     font-family: 'Open Sans',sans-serif;
     background: $secondary-color;
+  
 }
 
 @mixin container {
-    width: 90%;
-   max-width: 1500px;
-   margin: 0 auto;
    overflow: auto; 
    
 } 
@@ -40,13 +39,14 @@ body{
     justify-content: space-between;
     gap: 50px;
     background: #FFFFFF;
-    height: 90vh;
+    height: 95%;
     padding: 50px;
     border-radius: $border-radius;
-    margin-top: 50px;
+    margin: 5rem auto;
     justify-items: stretch;
     align-items: stretch ;
-    max-width: 90vw;
+    max-width: 90%;
+    
 
 
 }
@@ -55,7 +55,7 @@ body{
 header{
     background: url('/img/vegas.jpeg') no-repeat center/cover;
     width: 80vw; 
-    height:300pxx;
+    height:30vh;
     margin:  0 auto;
     border-radius: $border-radius;
     grid-column: 1/5;
@@ -240,6 +240,4 @@ header{
 }
 
 
-
-
-
+@import '_mobile';

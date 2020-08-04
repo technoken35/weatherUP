@@ -17,9 +17,6 @@ body {
 }
 
 .main-container {
-  width: 90%;
-  max-width: 1500px;
-  margin: 0 auto;
   overflow: auto;
   display: -ms-grid;
   display: grid;
@@ -33,21 +30,21 @@ body {
           justify-content: space-between;
   gap: 50px;
   background: #FFFFFF;
-  height: 90vh;
+  height: 95%;
   padding: 50px;
   border-radius: 40px;
-  margin-top: 50px;
+  margin: 5rem auto;
   justify-items: stretch;
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  max-width: 90vw;
+  max-width: 90%;
 }
 
 header {
   background: url("/img/vegas.jpeg") no-repeat center/cover;
   width: 80vw;
-  height: 300pxx;
+  height: 30vh;
   margin: 0 auto;
   border-radius: 40px;
   -ms-grid-column: 1;
@@ -98,9 +95,6 @@ header .location .fas {
   grid-column: 4/5;
   max-height: 90vh;
   border: 2px solid black;
-  width: 90%;
-  max-width: 1500px;
-  margin: 0 auto;
   overflow: auto;
   display: -ms-grid;
   display: grid;
@@ -238,5 +232,47 @@ header .location .fas {
 
 .places div p {
   font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    -ms-grid-rows: (1fr)[3];
+        grid-template-rows: repeat(3, 1fr);
+    height: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
+    border-radius: 0px;
+    border: none;
+  }
+  header {
+    -ms-grid-row: 1;
+    grid-row: 1/1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1/5;
+    width: 95%;
+  }
+  .forecast {
+    -ms-grid-row: 2;
+    grid-row: 2/2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1/5;
+  }
+  .places {
+    -ms-grid-row: 3;
+    grid-row: 3/3;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1/5;
+  }
+  .cities {
+    -ms-grid-row: 4;
+    grid-row: 4/4;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1/5;
+  }
 }
 /*# sourceMappingURL=style.css.map */
