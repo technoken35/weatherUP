@@ -52,6 +52,8 @@ function getData () {
 
 function updateUI (){
 
+    // gotta be a more DRY way of selecting elements
+
     var currentConditions=  document.querySelector("header p");
     var tempHeader=  document.querySelector("header h2");
     var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
@@ -100,10 +102,24 @@ function updateUI (){
     forecastTempDay3.textContent=forecastTempDataDay3High + "°" + "/" + "°"+ forecastTempDataDay3Low;
     forecastDescriptionDay3.textContent=forecastDescriptionDataDay3;
 
-
-    
     tempHeader.textContent= kelvinToFh(currentTemp);
     currentConditions.textContent=descriptionData;
+
+    /*  unix timestamp to UTC */
+    let unix_timestamp = 1596545408;
+    
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    date = new Date(unix_timestamp * 1000);
+    // Hours part from the timestamp
+    var hours = date.getHours();
+     // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+
+    // Will display time in 10:30:23 format
+    var formattedTime = hours + ':' + minutes.substr(-2);
+
+    console.log(formattedTime);
     
 }
 
