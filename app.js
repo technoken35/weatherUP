@@ -1,14 +1,12 @@
-// ! ADD one call API one API call for all weather data you would need on one location 
+// !! ADD better DATA visualization 
+
+// !! ADD OPEN WEATHER MAP ICONS. THEY HAVE SOME FOR DAY & NIGHT 
+
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
 var progressBar=document.querySelector(".uv-index-progress");
 
-function kelvinToFh (temp) {
-    let fhTemp= Math.round(temp * 9/5 - 459.67);
-    return fhTemp;
-    
-}
 
 function getData () {
 
@@ -29,7 +27,7 @@ function getData () {
 
             console.log(position); /* geolocation position data  */
 
-            const API = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&appid=4a9721a8067a91cc5de8f90d6c9d4c16`;
+            const API = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=minutely&appid=4a9721a8067a91cc5de8f90d6c9d4c16`;
             /* function for requests/responses returns a promise that is a response object */
             fetch(API)
                 .then(response => {
@@ -68,20 +66,26 @@ function updateUI (){
     var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
 
+    var showcaseIcon= document.querySelector("header .temp i");
+    var icon1 = document.querySelector(".forecast-day-1 i");
+    var icon2= document.querySelector(".forecast-day-2 i");
+    var icon3= document.querySelector(".forecast-day-3 i");
+
     
     
     
     var descriptionData=weatherDataObj.current.weather[0].description;
-    var currentTemp=weatherDataObj.current.temp;
+    var currentDescriptionDataShort=weatherDataObj.current.weather[0].main;
+    var currentTemp=Math.round(weatherDataObj.current.temp);
    
-   
-    var uvIndexData =weatherDataObj.current.uvi;
-    var forecastTempDataDay1High= kelvinToFh(weatherDataObj.daily[1].temp.max);
-    var forecastTempDataDay2High= kelvinToFh(weatherDataObj.daily[2].temp.max);
-    var forecastTempDataDay3High= kelvinToFh(weatherDataObj.daily[3].temp.max);
-    var forecastTempDataDay1Low= kelvinToFh(weatherDataObj.daily[1].temp.min);
-    var forecastTempDataDay2Low= kelvinToFh(weatherDataObj.daily[2].temp.min);
-    var forecastTempDataDay3Low= kelvinToFh(weatherDataObj.daily[3].temp.min);
+    var currentConditionsShort = weatherDataObj.current.weather[0].main;
+    var uvIndexData =Math.round(weatherDataObj.current.uvi);
+    var forecastTempDataDay1High= Math.round( weatherDataObj.daily[1].temp.max);
+    var forecastTempDataDay2High= Math.round(weatherDataObj.daily[2].temp.max);
+    var forecastTempDataDay3High= Math.round( weatherDataObj.daily[3].temp.max);
+    var forecastTempDataDay1Low= Math.round( weatherDataObj.daily[1].temp.min);
+    var forecastTempDataDay2Low= Math.round(weatherDataObj.daily[2].temp.min);
+    var forecastTempDataDay3Low= Math.round(weatherDataObj.daily[3].temp.min);
     
     var forecastDescriptionDataDay1 = weatherDataObj.daily[1].weather[0].main;
     var forecastDescriptionDataDay2 = weatherDataObj.daily[2].weather[0].main;
@@ -107,12 +111,16 @@ function updateUI (){
     forecastTempDay3.textContent=forecastTempDataDay3High + "°" + "/" + "°"+ forecastTempDataDay3Low;
     forecastDescriptionDay3.textContent=forecastDescriptionDataDay3;
 
-    tempHeader.textContent= kelvinToFh(currentTemp);
+    tempHeader.textContent= currentTemp;
     currentConditions.textContent=descriptionData;
 
-    uvIndexText.textContent=Math.round(uvIndexData); 
+    uvIndexText.textContent=uvIndexData; 
     console.log(weatherDataObj.current.uvi);
     setProgress(uvIndexData);
+    setIcon(forecastDescriptionDataDay1,icon1);
+    setIcon(forecastDescriptionDataDay2,icon2);
+    setIcon(forecastDescriptionDataDay3,icon3);
+    setIcon(currentDescriptionDataShort,showcaseIcon);
 
     /*  unix timestamp to UTC */
     let unix_timestamp = 1596545408;
@@ -154,6 +162,21 @@ function setProgress(uvi){
     } else if(uvi >=8) {
         progressBar.style.background="#E82F00";
         //very high
+    }
+
+}
+
+function setIcon(conditions, uiElement) {
+    // sets fontawesome icon class based on conditions in string form
+    // sets conditions to uppercase to make sure it is the same
+    if (conditions.toUpperCase()=='CLEAR') {
+
+        uiElement.classList.add("fa-sun");
+    
+    } else if(conditions.toUpperCase()=='RAIN') {
+        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
+
+        uiElement.classList.add("fa-cloud-showers-heavy");
     }
 
 }
