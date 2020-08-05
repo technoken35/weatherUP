@@ -83,7 +83,7 @@ function updateUI (){
     var forecastDescriptionDataDay2 = weatherDataObj.daily[2].weather[0].main;
     var forecastDescriptionDataDay3 = weatherDataObj.daily[3].weather[0].main;
    
-    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday"];
+    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     let date = new Date();
     var day = date.getDay();
     /* Date object has method to return day of week in integer form */
@@ -92,6 +92,7 @@ function updateUI (){
     forecastHeaderDays1.textContent= daysOfWeek[day];
     forecastHeaderDays2.textContent=daysOfWeek[day+1];
     forecastHeaderDays3.textContent=daysOfWeek[day+2];
+    
 
     forecastTempDay1.textContent=forecastTempDataDay1High + "°" + "/" + "°"+ forecastTempDataDay1Low;
     forecastDescriptionDay1.textContent=forecastDescriptionDataDay1;
