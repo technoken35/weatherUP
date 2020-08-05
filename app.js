@@ -1,6 +1,8 @@
 // ! ADD one call API one API call for all weather data you would need on one location 
 
 var weatherDataObj={};
+var uvIndexText= document.querySelector(".uv-index-text");
+var progressBar=document.querySelector(".uv-index-progress");
 
 function kelvinToFh (temp) {
     let fhTemp= Math.round(temp * 9/5 - 459.67);
@@ -65,13 +67,15 @@ function updateUI (){
     var forecastTempDay1= document.querySelector(".forecast-day-1 .forecast-num p");
     var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
+
+    
     
     
     var descriptionData=weatherDataObj.current.weather[0].description;
     var currentTemp=weatherDataObj.current.temp;
    
    
-   
+    var uvIndexData =weatherDataObj.current.uvi;
     var forecastTempDataDay1High= kelvinToFh(weatherDataObj.daily[1].temp.max);
     var forecastTempDataDay2High= kelvinToFh(weatherDataObj.daily[2].temp.max);
     var forecastTempDataDay3High= kelvinToFh(weatherDataObj.daily[3].temp.max);
@@ -106,6 +110,10 @@ function updateUI (){
     tempHeader.textContent= kelvinToFh(currentTemp);
     currentConditions.textContent=descriptionData;
 
+    uvIndexText.textContent=Math.round(uvIndexData); 
+    console.log(weatherDataObj.current.uvi);
+    setProgress(uvIndexData);
+
     /*  unix timestamp to UTC */
     let unix_timestamp = 1596545408;
     
@@ -122,6 +130,32 @@ function updateUI (){
 
     console.log(formattedTime);
     
+}
+
+function setProgress(uvi){
+    var uvi;
+
+    var uviWidth= uvi*10;
+    /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
+    
+    progressBar.style.width = uviWidth + "%";
+
+    /* sets color based on uvi value */
+    if(uvi>0 && uvi<=2){
+        progressBar.style.background="#88D813";
+        //low
+    } else if (uvi >= 3 && uvi <=5){
+        progressBar.style.background="#FEF200";
+        //moderate
+
+    } else if (uvi >= 6 && uvi <=7) {
+        progressBar.style.background="#FF7D09";
+        //high
+    } else if(uvi >=8) {
+        progressBar.style.background="#E82F00";
+        //very high
+    }
+
 }
 
 window.addEventListener('load',()=> {

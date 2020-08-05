@@ -85,28 +85,6 @@ header .location .fas {
   margin-top: 5px;
 }
 
-.cities {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 2;
-  grid-row: 2/4;
-  z-index: 1;
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 1;
-  grid-column: 4/5;
-  max-height: 90vh;
-  border: 2px solid black;
-  overflow: auto;
-  display: -ms-grid;
-  display: grid;
-  gap: 10px;
-  -ms-grid-rows: (1.5fr)[3];
-      grid-template-rows: repeat(3, 1.5fr);
-}
-
-.cities-selection {
-  border: 2px solid black;
-}
-
 .temp {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -205,6 +183,37 @@ header .location .fas {
   grid-column: 2/4;
 }
 
+.highlights .uv-index {
+  width: 90%;
+  height: 2rem;
+  border: 1px solid #E3E8EC;
+  border-radius: 40px;
+  background: #F9F9F9;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.highlights .uv-index-progress {
+  color: #FFFFFF;
+  border-radius: 15px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .highlights-container {
   display: -ms-grid;
   display: grid;
@@ -223,10 +232,6 @@ header .location .fas {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-.highlights-1 p, .highlights-2 p {
-  color: #0D0D24;
 }
 
 .highlights-1, .highlights-2 {
@@ -250,6 +255,17 @@ header .location .fas {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.highlights-card-heading {
+  color: #BFBFC4;
+  padding: 0 0 2% 5%;
 }
 
 .highlights i {
@@ -260,8 +276,31 @@ header .location .fas {
   font-size: 20px;
   font-weight: normal;
   margin-left: 0 auto;
-  font-weight: bold;
-  font-size: 20px;
+  color: #0D0D24 span;
+  color-font-weight: bold;
+  color-font-size: 20px;
+}
+
+.cities {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  grid-row: 2/4;
+  z-index: 1;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  grid-column: 4/5;
+  max-height: 90vh;
+  border: 2px solid black;
+  overflow: auto;
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  -ms-grid-rows: (1.5fr)[3];
+      grid-template-rows: repeat(3, 1.5fr);
+}
+
+.cities-selection {
+  border: 2px solid black;
 }
 
 @media (max-width: 768px) {

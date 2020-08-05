@@ -5,6 +5,7 @@
 $primary-color: #FFFFFF;
 $secondary-color:  #E3E8EC;
 $font-color: #0D0D24;
+$secondary-font-color: #BFBFC4;
 $border-radius: 40px;
 $border-radius-small:15px;
 $small-column-height: 240px;
@@ -91,24 +92,6 @@ header{
 
 }
 
-.cities{
-    grid-row: 2/4;
-    z-index: 1;
-    grid-column: 4/5;
-    max-height: 90vh;
-    border: 2px solid black;
-
-    @include container;
-    display: grid;
-    gap: 10px;
-    grid-template-rows: repeat(3,1.5fr);
-
-    &-selection{
-        border: 2px solid black;
-        
-    }
-
-}
 
 .temp{
     display: flex;
@@ -176,7 +159,7 @@ header{
 
         .conditions{
             font-size: 0.8rem;
-            color: #BFBFC4;
+            color: $secondary-font-color;
         }
 
        
@@ -207,6 +190,34 @@ header{
     height: 100%;
     grid-column: 2/4;
 
+    .uv-index{
+        width: 90%;
+        height: 2rem;
+        border: 1px solid $secondary-color;
+        border-radius:$border-radius;
+        background: #F9F9F9;
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        
+        &-progress{
+           color: $primary-color;
+            border-radius:$border-radius-small;
+        
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+
+            
+        }
+
+     
+    }
+
     &-container{
         display: grid;
         gap: 2px;
@@ -220,11 +231,6 @@ header{
        
         display: flex;
         flex-direction: column;
-            
-            
-        p {
-            color: #0D0D24
-        }
     }
 
     &-1,&-2{
@@ -247,6 +253,14 @@ header{
         
         height: 100%;
         display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        &-heading {
+            color:$secondary-font-color;
+            padding: 0 0 2% 5%;
+           
+        }
        
     }
 
@@ -258,14 +272,33 @@ header{
         font-size: $heading-font-size;
         font-weight: normal;
         margin-left: 0 auto;
+        color: #0D0D24
 
-        font-weight: bold;
-        font-size: $heading-font-size;
+        span {
+            font-weight: bold;
+            font-size: $heading-font-size;
+        }
     }
-
-   
    
 }
 
+.cities{
+    grid-row: 2/4;
+    z-index: 1;
+    grid-column: 4/5;
+    max-height: 90vh;
+    border: 2px solid black;
+
+    @include container;
+    display: grid;
+    gap: 10px;
+    grid-template-rows: repeat(3,1.5fr);
+
+    &-selection{
+        border: 2px solid black;
+        
+    }
+
+}
 
 @import '_mobile';
