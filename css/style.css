@@ -278,18 +278,18 @@ header .location .fas {
     border-radius: 0px;
     border: none;
   }
-  .highlights-container {
+  .highlights {
     -ms-grid-row: 3;
     grid-row: 3/3;
-    -ms-grid-column: 1 !important;
-    -ms-grid-column-span: 4 !important;
-    grid-column: 1/5 !important;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1/5;
+  }
+  .highlights-container {
+    -ms-grid-rows: (1fr)[2];
+        grid-template-rows: repeat(2, 1fr);
     width: 100%;
     height: 100%;
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-rows: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
   }
   header {
     -ms-grid-row: 1;
