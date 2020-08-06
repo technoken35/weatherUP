@@ -7,6 +7,7 @@
 // !! SET UV INDEX TO 0 AT NIGHT OR CHANGE TO DISPLAY DIFFERENT DATA. API DOES NOT SEND UVI DATA AT NIGHT
 
 
+
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
 var progressBar=document.querySelector(".uv-index-progress");
@@ -184,17 +185,32 @@ function setProgressBar(value,progressBar){
 
 function setIcon(conditions, uiElement) {
     // sets fontawesome icon class based on conditions in string form
+
     // sets conditions to uppercase to make sure it is the same
     if (conditions.toUpperCase()=='CLEAR') {
-
-        uiElement.classList.add("fa-sun");
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            uiElement.classList.add("fa-moon");
+            // dark mode
+        
+        } else {
+            uiElement.classList.add("fa-sun");
+        }
+        
     
     } else if(conditions.toUpperCase()=='RAIN') {
         /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
 
         uiElement.classList.add("fa-cloud-showers-heavy");
-    }
+    
+    } else if(conditions.toUpperCase()=='CLOUDS') {
+        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
 
+        uiElement.classList.add("fa-cloud");
+    } else if(conditions.toUpperCase()=='CLOUDS') {
+        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
+
+        uiElement.classList.add("fa-cloud");
+    }
 }
 
 function setDirection(degrees,uiElement){

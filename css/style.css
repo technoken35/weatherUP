@@ -326,6 +326,9 @@ header .location .fas {
 }
 
 @media (prefers-color-scheme: dark) {
+  .fa-moon {
+    color: #adadc7;
+  }
   * {
     color: #b9babd;
   }
