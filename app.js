@@ -6,6 +6,7 @@
 
 // !! SET UV INDEX TO 0 AT NIGHT OR CHANGE TO DISPLAY DIFFERENT DATA. API DOES NOT SEND UVI DATA AT NIGHT
 
+// !! ICON only loads properly when you refresh page not when you toggle between light and dark
 
 
 var weatherDataObj={};
@@ -160,25 +161,28 @@ function updateUI (){
 
 function setProgressBar(value,progressBar){
     
+    var singleDigit= value/10;
+    /* Brings value back to 1-10 to set color for UVI. UVI is 1-10 scale */
     
     progressBar.style.width = value + "%";
+    console.log(value + "Progress");
 
     /* sets color based on uvi value */
-    if(value>0 && value<=2){
+    if(singleDigit>0 && singleDigit<=2){
         progressBar.style.background="#88D813";
         //low
-    } else if (value >= 3 && value <=5){
+    } else if (singleDigit >= 3 && singleDigit <=5){
         progressBar.style.background="#FEF200";
         //moderate
 
-    } else if (value >= 6 && value <=7) {
+    } else if (singleDigit >= 6 && singleDigit <=7) {
         progressBar.style.background="#FF7D09";
         //high
-    } else if(value >=8) {
+    } else if(singleDigit >=8 && singleDigit <=10) {
         progressBar.style.background="#E82F00";
         //very high
     }  else {
-        progressBar.style.background="#FFFFFF";
+        
     }
 
 }
