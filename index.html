@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <!--! ADD FAVICON-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <title>WeatherUp</title>
 </head>
@@ -19,7 +20,7 @@
                <h2></h2>
                 <i class="fas fa-2x"></i>
            </div>
-           <p> Sunny</p>
+           <p> </p>
         </header>
 
         <div class="forecast">
@@ -60,7 +61,7 @@
         </div>
         
         <div class="highlights">
-            <h2>Today's <span>  Highlights </span> </h2>
+            <p class="highlights-heading">Today's <span class="highlights-heading-bold"> Highlights</span></p>
             <div class="highlights-container">
                 <div class="highlights-1">
                     <div class="highlights-card">
@@ -72,14 +73,20 @@
 
                         </div>
                     </div>
-                    <div class="highlights-card">
+                    <div class="highlights-card wind">
                         <p class="highlights-card-heading">Wind Speed</p>
+                        <div class="wind-speed">
+                            <p><span></span> MPH</p>
+                        </div>
+                        <p class="wind-direction"></p>
                     </div>
                 
                 </div>
               <div class="highlights-2">
-                <div class="highlights-card">
+                
+                <div class="highlights-card ">
                     <p class="highlights-card-heading">Humidity</p>
+                    
                 </div>
                 <div class="highlights-card">
                     <p class="highlights-card-heading">Sunrise & Sunset</p>

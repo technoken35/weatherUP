@@ -2,6 +2,10 @@
 
 // !! ADD OPEN WEATHER MAP ICONS. THEY HAVE SOME FOR DAY & NIGHT 
 
+// !! CHANGE ICONS WITH TIME OF DAY
+
+// !! SET UV INDEX TO 0 AT NIGHT OR CHANGE TO DISPLAY DIFFERENT DATA. API DOES NOT SEND UVI DATA AT NIGHT
+
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
@@ -71,6 +75,9 @@ function updateUI (){
     var icon2= document.querySelector(".forecast-day-2 i");
     var icon3= document.querySelector(".forecast-day-3 i");
 
+    var windSpeed= document.querySelector(".wind-speed p span");
+    var windDirection= document.querySelector('.wind-direction');
+
     
     
     
@@ -90,6 +97,11 @@ function updateUI (){
     var forecastDescriptionDataDay1 = weatherDataObj.daily[1].weather[0].main;
     var forecastDescriptionDataDay2 = weatherDataObj.daily[2].weather[0].main;
     var forecastDescriptionDataDay3 = weatherDataObj.daily[3].weather[0].main;
+
+    var windSpeedData= weatherDataObj.current.wind_speed;
+    var windDirectionData= weatherDataObj.current.wind_deg;
+
+   
    
     var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     let date = new Date();
@@ -116,11 +128,16 @@ function updateUI (){
 
     uvIndexText.textContent=uvIndexData; 
     console.log(weatherDataObj.current.uvi);
-    setProgress(uvIndexData);
+
+    windSpeed.textContent= Math.round(windSpeedData);
+    
+    setProgressBar(uvIndexData*10,progressBar);
+    /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
     setIcon(forecastDescriptionDataDay1,icon1);
     setIcon(forecastDescriptionDataDay2,icon2);
     setIcon(forecastDescriptionDataDay3,icon3);
     setIcon(currentDescriptionDataShort,showcaseIcon);
+    setDirection(windDirectionData,windDirection);
 
     /*  unix timestamp to UTC */
     let unix_timestamp = 1596545408;
@@ -140,28 +157,27 @@ function updateUI (){
     
 }
 
-function setProgress(uvi){
-    var uvi;
-
-    var uviWidth= uvi*10;
-    /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
+function setProgressBar(value,progressBar){
     
-    progressBar.style.width = uviWidth + "%";
+    
+    progressBar.style.width = value + "%";
 
     /* sets color based on uvi value */
-    if(uvi>0 && uvi<=2){
+    if(value>0 && value<=2){
         progressBar.style.background="#88D813";
         //low
-    } else if (uvi >= 3 && uvi <=5){
+    } else if (value >= 3 && value <=5){
         progressBar.style.background="#FEF200";
         //moderate
 
-    } else if (uvi >= 6 && uvi <=7) {
+    } else if (value >= 6 && value <=7) {
         progressBar.style.background="#FF7D09";
         //high
-    } else if(uvi >=8) {
+    } else if(value >=8) {
         progressBar.style.background="#E82F00";
         //very high
+    }  else {
+        progressBar.style.background="#FFFFFF";
     }
 
 }
@@ -179,6 +195,28 @@ function setIcon(conditions, uiElement) {
         uiElement.classList.add("fa-cloud-showers-heavy");
     }
 
+}
+
+function setDirection(degrees,uiElement){
+    /* Sets wind direction based on  degrees (compass) */
+    if(degrees >=0 && degrees <=44) {
+        uiElement.textContent='N';
+    } else if (degrees >= 45 && degrees <= 89 ) {
+        uiElement.textContent='NE';
+
+    } else if (degrees >=90 && degrees <=134){
+        uiElement.textContent='E';
+    } else if (degrees >=135 && degrees <=179) {
+        uiElement.textContent='SE';
+    } else if (degrees >=180 && degrees <=224) {
+        uiElement.textContent='S';
+    } else if (degrees >=225 && degrees <=269) {
+        uiElement.textContent='SW';
+    } else if (degrees >=270 && degrees <=315) {
+        uiElement.textContent='W';
+    } else {
+        uiElement.textContent='NW';
+    }
 }
 
 window.addEventListener('load',()=> {

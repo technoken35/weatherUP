@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 @import '_utilities';
 
+// refactor progress bar into class or mixin for two progress bars to share
+
+
+
 
 $primary-color: #FFFFFF;
 $secondary-color:  #E3E8EC;
@@ -10,6 +14,8 @@ $border-radius: 40px;
 $border-radius-small:15px;
 $small-column-height: 240px;
 $heading-font-size: 20px;
+
+
 
 * {
     /* CSS reset */
@@ -38,8 +44,8 @@ body{
     grid-template-columns: repeat(3,1fr) 1.5fr;
     align-items: space-between;
     justify-content: space-between;
-    gap: 50px;
-    background: #FFFFFF;
+    gap: 2.5rem;
+    background: $primary-color;
     height: 95%;
     padding: 50px;
     border-radius: $border-radius;
@@ -121,7 +127,7 @@ header{
 .forecast{
 
     &-heading{
-        margin: 0px 0px 20px 10px;
+        margin: 0px 0px 1rem 1rem;
         font-size: $heading-font-size;
 
         &-bold{
@@ -136,8 +142,9 @@ header{
         display: grid;
         flex-direction: column;
         grid-template-rows: 1fr;
-        gap: 1rem;
+        gap: 1.5rem;
         height: $small-column-height;
+        
     }
     
 
@@ -190,6 +197,23 @@ header{
     height: 100%;
     grid-column: 2/4;
 
+    .wind{
+       &-speed,&-direction{
+         align-self: center;
+       }
+
+       &-speed {
+            
+        span{
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+       }
+    }
+
+   
+
     .uv-index{
         width: 90%;
         height: 2rem;
@@ -204,6 +228,7 @@ header{
         &-progress{
            color: $primary-color;
             border-radius:$border-radius-small;
+            font-weight: bold;
         
             height: 100%;
 
@@ -216,6 +241,17 @@ header{
         }
 
      
+    }
+
+    &-heading{
+        margin: 0px 0px 1rem 1rem;
+        font-size: $heading-font-size;
+
+        &-bold{
+            font-weight: bold;
+            font-size: $heading-font-size;
+
+        }
     }
 
     &-container{
@@ -269,14 +305,14 @@ header{
     }
    
     h2{
-        font-size: $heading-font-size;
-        font-weight: normal;
+        font-size: 1.3rem;
+       font-weight: bold;
         margin-left: 0 auto;
         color: #0D0D24
 
         span {
-            font-weight: bold;
-            font-size: $heading-font-size;
+            font-weight: normal;
+            font-size: 2rem;
         }
     }
    
@@ -300,5 +336,65 @@ header{
     }
 
 }
+
+@media (prefers-color-scheme:dark){
+    // find better bg image for darkmode
+    $primary-color: #232733;
+    $secondary-color:  #2B2F3F;
+    $font-color: #ffffff;
+    $secondary-font-color:#7598BD;
+
+    * {
+        color: #b9babd;
+    }
+
+    header {
+        background: url('/img/henderson-night.jpeg') no-repeat center/cover;
+        
+    }
+
+
+    .main-container{
+        background: $primary-color;
+    }
+
+    .forecast-card,.highlights-card{ 
+        background: $secondary-color;
+        box-shadow: none;
+        border: none;
+        
+
+    }
+
+    .highlights{
+        .uv-index{
+            border: none;
+        }
+
+    }
+
+    
+
+
+    .forecast-num{
+        background: $secondary-font-color !important;
+        border: 10px solid $secondary-font-color;
+        height: 100%;
+        width: 110%;
+       
+        border-radius: $border-radius-small;
+        
+
+        p {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+       
+    }
+    
+    
+}
+
+
 
 @import '_mobile';
