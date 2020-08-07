@@ -85,6 +85,15 @@ header .location .fas {
   margin-top: 5px;
 }
 
+header .fa-sync-alt {
+  font-size: 1.5rem;
+}
+
+header .fa-sync-alt:active {
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
 .temp {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -387,6 +396,9 @@ header .location .fas {
   }
   header {
     background: url("/img/henderson-night.jpeg") no-repeat center/cover;
+  }
+  .fa-sync-alt {
+    color: #7598BD;
   }
   .main-container {
     background: #232733;

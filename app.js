@@ -194,6 +194,8 @@ function updateUI (){
 
     var sunsetData=weatherDataObj.current.sunset;
 
+    
+
     sunrise.textContent=formatTime(sunriseData);
     sunset.textContent= formatTime(sunsetData);
     console.log(sunsetData);
@@ -313,4 +315,9 @@ window.addEventListener('load',()=> {
     getData();
 
 });
+
+document.querySelector(".fa-sync-alt").onclick= function () {
+    getData();
+    
+}
 
