@@ -8,6 +8,8 @@
 
 // !! ICON only loads properly when you refresh page not when you toggle between light and dark
 
+// !! SELECT ELEMENTS IN A MORE DRY WAY
+
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
@@ -80,8 +82,53 @@ function updateUI (){
     var windSpeed= document.querySelector(".wind-speed p span");
     var windDirection= document.querySelector('.wind-direction');
 
+    var humidity=document.querySelector(".humidity-text span");
+
+    var sunrise=document.querySelector(".sunrise-text");
+    var sunset=document.querySelector(".sunset-text");
+
+   
+    /* var test=document.getElementsByTagName("p") */;
+
+     /*  getElementsByTagName stores all classes with shared classes in html array like structure. 
+        test
+    */
+
+
+    function selectLoop(tag) {
+        for(i=1; i<=3; i++) {
+            tag[i].style.color="#E82F00";
+            // build on this to select desired tags
+
+        }
+    }
+
+    function formatTime(timestamp){
+        /*  unix timestamp to UTC */
+        let unix_timestamp = timestamp;
     
-    
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        date = new Date(unix_timestamp * 1000);
+        // Hours part from the timestamp
+        var hours = date.getHours();
+
+        if (hours>12){
+            // if hours are over 12 subtracts 12 to get to 12 hr format. Returns military time otherwise
+            hours-= 12;
+        }
+
+         // Minutes part from the timestamp
+         var minutes = "0" + date.getMinutes();
+
+         // Will display time in 10:30 format
+         var formattedTime = hours + ':' + minutes.substr(-2);
+
+        return formattedTime;
+
+    }
+
+
     
     var descriptionData=weatherDataObj.current.weather[0].description;
     var currentDescriptionDataShort=weatherDataObj.current.weather[0].main;
@@ -103,7 +150,11 @@ function updateUI (){
     var windSpeedData= weatherDataObj.current.wind_speed;
     var windDirectionData= weatherDataObj.current.wind_deg;
 
-   
+    var humidityData=weatherDataObj.current.humidity;
+
+    var sunriseData=weatherDataObj.current.sunrise;
+
+
    
     var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     let date = new Date();
@@ -132,6 +183,16 @@ function updateUI (){
     console.log(weatherDataObj.current.uvi);
 
     windSpeed.textContent= Math.round(windSpeedData);
+
+    humidity.textContent=humidityData;
+
+    var sunsetData=weatherDataObj.current.sunset;
+
+    sunrise.textContent=formatTime(sunriseData);
+    sunset.textContent= formatTime(sunsetData);
+    console.log(sunsetData);
+   
+    
     
     setProgressBar(uvIndexData*10,progressBar);
     /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
@@ -141,21 +202,7 @@ function updateUI (){
     setIcon(currentDescriptionDataShort,showcaseIcon);
     setDirection(windDirectionData,windDirection);
 
-    /*  unix timestamp to UTC */
-    let unix_timestamp = 1596545408;
     
-    // Create a new JavaScript Date object based on the timestamp
-    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-    date = new Date(unix_timestamp * 1000);
-    // Hours part from the timestamp
-    var hours = date.getHours();
-     // Minutes part from the timestamp
-    var minutes = "0" + date.getMinutes();
-
-    // Will display time in 10:30:23 format
-    var formattedTime = hours + ':' + minutes.substr(-2);
-
-    console.log(formattedTime);
     
 }
 
@@ -182,13 +229,15 @@ function setProgressBar(value,progressBar){
         progressBar.style.background="#E82F00";
         //very high
     }  else {
-        
+
     }
 
 }
 
 function setIcon(conditions, uiElement) {
     // sets fontawesome icon class based on conditions in string form
+
+    //! refactor to include everyting for dark mode
 
     // sets conditions to uppercase to make sure it is the same
     if (conditions.toUpperCase()=='CLEAR') {
@@ -238,6 +287,7 @@ function setDirection(degrees,uiElement){
         uiElement.textContent='NW';
     }
 }
+
 
 window.addEventListener('load',()=> {
     getData();

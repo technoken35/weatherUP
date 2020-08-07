@@ -108,6 +108,10 @@ header .location .fas {
   color: #B8B9BD;
 }
 
+.fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
+  color: #FFDE4C;
+}
+
 .forecast-heading {
   margin: 0px 0px 1rem 1rem;
   font-size: 20px;
@@ -159,6 +163,10 @@ header .location .fas {
   color: #BFBFC4;
 }
 
+.forecast-card .day, .forecast-card .conditions {
+  padding: 0 2px;
+}
+
 .forecast-text {
   padding: 5px;
 }
@@ -194,6 +202,31 @@ header .location .fas {
   grid-column: 2/4;
 }
 
+.highlights .humidity-text {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.highlights .humidity-text span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.highlights .sunrise-sunset-text {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.highlights .sunrise-sunset-text .sunrise-text, .highlights .sunrise-sunset-text .sunset-text {
+  padding: 0 0.2rem 0rem 2rem;
+}
+
+.highlights .sunrise-sunset-text p {
+  padding: 0.3rem 0;
+}
+
 .highlights .wind-speed, .highlights .wind-direction {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -201,7 +234,7 @@ header .location .fas {
 }
 
 .highlights .wind-speed span {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
@@ -340,6 +373,9 @@ header .location .fas {
   .fa-moon {
     color: #adadc7;
   }
+  .fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
+    color: #adadc7;
+  }
   * {
     color: #b9babd;
   }
@@ -359,7 +395,7 @@ header .location .fas {
     border: none;
   }
   .forecast-num {
-    background: #7598BD !important;
+    background: #7598BD;
     border: 10px solid #7598BD;
     height: 100%;
     width: 110%;

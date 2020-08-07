@@ -117,11 +117,16 @@ header{
 }
 
 .fa-sun{
-    color: #FF8838;
+    color: #FF8838; 
+    
 }
 
 .fa-wind{
     color: #B8B9BD;
+}
+
+.fa-arrow-alt-circle-down,.fa-arrow-alt-circle-up{
+    color: #FFDE4C;
 }
 
 .forecast{
@@ -169,6 +174,10 @@ header{
             color: $secondary-font-color;
         }
 
+        .day,.conditions {
+            padding: 0 2px;
+        }
+
        
     }
 
@@ -201,7 +210,35 @@ header{
     height: 100%;
     grid-column: 2/4;
 
-    .wind{
+    .humidity{
+        &-text{
+            align-self: center;
+
+            span{
+                font-size: 2rem;
+                font-weight: bold;
+            }
+
+        }
+    }
+
+    .sunrise-sunset{
+        &-text{
+            align-self: center;
+            
+            .sunrise-text,.sunset-text{
+                padding: 0 0.2rem 0rem 2rem;
+            }
+
+            p {
+                padding: 0.3rem 0;
+            }
+        }
+
+        
+    }
+
+    .wind{  // add as mixin for .wind and humidity to share
        &-speed,&-direction{
          align-self: center;
        }
@@ -209,7 +246,7 @@ header{
        &-speed {
             
         span{
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
         }
         
@@ -352,6 +389,10 @@ header{
         color: #adadc7; // add better color
     }
 
+    .fa-arrow-alt-circle-down,.fa-arrow-alt-circle-up{
+        color: #adadc7;
+    }
+
     * {
         color: #b9babd;
     }
@@ -385,7 +426,7 @@ header{
 
 
     .forecast-num{
-        background: $secondary-font-color !important;
+        background: $secondary-font-color;
         border: 10px solid $secondary-font-color;
         height: 100%;
         width: 110%;
