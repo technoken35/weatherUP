@@ -3,6 +3,8 @@
 
 // refactor progress bar into class or mixin for two progress bars to share
 
+// !! Create mixin for basic card styles
+
 
 
 
@@ -228,6 +230,7 @@ header{
             
             .sunrise-text,.sunset-text{
                 padding: 0 0.2rem 0rem 2rem;
+                font-weight: bold;
             }
 
             p {
@@ -361,18 +364,24 @@ header{
 
 .cities{
     grid-row: 2/4;
-    z-index: 1;
+     z-index: 1;
     grid-column: 4/5;
-    max-height: 90vh;
-    border: 2px solid black;
-
+    max-height: 31.25rem;
+    
+   
     @include container;
     display: grid;
-    gap: 10px;
-    grid-template-rows: repeat(3,1.5fr);
+    gap: 1rem;
+    grid-template-rows: 1.5fr 1.5fr 1.5fr;
 
     &-selection{
-        border: 2px solid black;
+        box-shadow: 1px 1px 1px 1px $secondary-color; //put in mixin 
+        border: 1px solid $secondary-color;
+        border-radius:$border-radius-small;
+        min-height: 9rem;
+        background: $primary-color;
+        padding: 2rem;
+       
         
     }
 
@@ -407,7 +416,7 @@ header{
         background: $primary-color;
     }
 
-    .forecast-card,.highlights-card{ 
+    .forecast-card,.highlights-card,.cities-selection{ 
         background: $secondary-color;
         box-shadow: none;
         border: none;

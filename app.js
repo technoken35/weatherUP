@@ -10,6 +10,8 @@
 
 // !! SELECT ELEMENTS IN A MORE DRY WAY
 
+// !!  Add function to start countdown to sunrise/sunset
+
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
@@ -88,6 +90,8 @@ function updateUI (){
     var sunset=document.querySelector(".sunset-text");
 
    
+
+   
     /* var test=document.getElementsByTagName("p") */;
 
      /*  getElementsByTagName stores all classes with shared classes in html array like structure. 
@@ -103,7 +107,9 @@ function updateUI (){
         }
     }
 
+
     function formatTime(timestamp){
+       
         /*  unix timestamp to UTC */
         let unix_timestamp = timestamp;
     
@@ -205,6 +211,20 @@ function updateUI (){
     
     
 }
+
+var addLocation=document.querySelector(".add-location");
+
+addLocation.onclick= function (){
+   
+    let parent = document.createElement("div")
+    let p = document.createElement("p")
+    parent.append(p)
+    
+    console.log(parent.childNodes) // NodeList [ <p> ]
+
+}
+
+
 
 function setProgressBar(value,progressBar){
     
