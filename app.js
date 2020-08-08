@@ -12,10 +12,13 @@
 
 // !!  Add function to start countdown to sunrise/sunset
 
+// !! Add ALL methods and other properties to weatherDataObj
+
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
 var progressBar=document.querySelector(".uv-index-progress");
+let date = new Date();
 
 
 function getData () {
@@ -160,25 +163,39 @@ function updateUI (){
 
     var sunriseData=weatherDataObj.current.sunrise;
 
+   /* weatherDataObj.test= function (){
+        console.log("test");
 
+        weatherDataObj.test();
    
-    var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-    let date = new Date();
-    var day = date.getDay();
-    /* Date object has method to return day of week in integer form */
+    } */
 
-    // updated UI based on var day={value} and the corresponding daysOfWeek[] index
-    forecastHeaderDays1.textContent= daysOfWeek[day];
-    forecastHeaderDays2.textContent=daysOfWeek[day+1];
-    forecastHeaderDays3.textContent=daysOfWeek[day+2];
+    function getDay(unix_timestamp) {
+        var daysOfWeek=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+        var day;
+        
+        var getDayOfStamp = new Date(unix_timestamp*1000); //mutiply by 1000 to convert unix_timestamp to milliseconds
+        /* new Date () constructor method creates a date object. Returns currrent date if no arguments are passed to it EX: Fri Aug 07 2020 17:49:42 GMT-0700 (Pacific Daylight Time)
+        when new Date() is passed a timestamp it creates a date object with the date of the time stamp EX: console.log(date); OUTPUT:  01/01/2000 @ 12:00am (UTC)
+        */
+        
+        day=daysOfWeek[getDayOfStamp.getDay()];
+        // getDay() of date object returns the day in integer form. Possible day values are 0-6. (makes values convienent for indexes in data structures!)
+        
+        return day;
+        /* returns day of week string based on the index position of daysOfWeek array which is determined by timestamp passed */
+
+    }
     
-
+    forecastHeaderDays1.textContent=getDay(weatherDataObj.daily[1].dt);
     forecastTempDay1.textContent=forecastTempDataDay1High + "°" + "/" + "°"+ forecastTempDataDay1Low;
     forecastDescriptionDay1.textContent=forecastDescriptionDataDay1;
 
+    forecastHeaderDays2.textContent=getDay(weatherDataObj.daily[2].dt);
     forecastTempDay2.textContent=forecastTempDataDay2High + "°" + "/" + "°"+ forecastTempDataDay2Low;
     forecastDescriptionDay2.textContent=forecastDescriptionDataDay2;
 
+    forecastHeaderDays3.textContent=getDay(weatherDataObj.daily[3].dt);
     forecastTempDay3.textContent=forecastTempDataDay3High + "°" + "/" + "°"+ forecastTempDataDay3Low;
     forecastDescriptionDay3.textContent=forecastDescriptionDataDay3;
 
