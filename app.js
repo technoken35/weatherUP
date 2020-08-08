@@ -92,23 +92,7 @@ function updateUI (){
     var sunrise=document.querySelector(".sunrise-text");
     var sunset=document.querySelector(".sunset-text");
 
-   
 
-   
-    /* var test=document.getElementsByTagName("p") */;
-
-     /*  getElementsByTagName stores all classes with shared classes in html array like structure. 
-        test
-    */
-
-
-    function selectLoop(tag) {
-        for(i=1; i<=3; i++) {
-            tag[i].style.color="#E82F00";
-            // build on this to select desired tags
-
-        }
-    }
 
 
     function formatTime(timestamp){
@@ -221,7 +205,7 @@ function updateUI (){
    
     
     
-    setProgressBar(uvIndexData*10,progressBar);
+    setProgressBar(uvIndexData,progressBar);
     /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
     setIcon(forecastDescriptionDataDay1,icon1);
     setIcon(forecastDescriptionDataDay2,icon2);
@@ -235,44 +219,68 @@ function updateUI (){
 
 var addLocation=document.querySelector(".add-location");
 
+
 addLocation.onclick= function (){
-   
-    let parent = document.createElement("div")
-    let p = document.createElement("p")
-    parent.append(p)
-    
-    console.log(parent.childNodes) // NodeList [ <p> ]
+   //adds a new location div when user clicks
+    var citiesSection= document.querySelector(".cities");
+    var child = document.createElement("div");
+     /* creates new div html element and stores element in child var */
+        
+    child.classList.add("cities-selection");
+    //adds styling class to newly created child element
+          
+    citiesSection.appendChild(child);
+    //adds child div to parent. 
 
 }
 
 
 
-function setProgressBar(value,progressBar){
-    
-    var singleDigit= value/10;
-    /* Brings value back to 1-10 to set color for UVI. UVI is 1-10 scale */
-    
-    progressBar.style.width = value + "%";
-    console.log(value + "Progress");
+function setProgressBar(uvi,progressBar){
+     /* sets color & progress based on uvi value */
 
-    /* sets color based on uvi value */
-    if(singleDigit>0 && singleDigit<=2){
-        progressBar.style.background="#88D813";
-        //low
-    } else if (singleDigit >= 3 && singleDigit <=5){
-        progressBar.style.background="#FEF200";
-        //moderate
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        //checks for light mode/default
+    
+        progressBar.style.width = (uvi *10) + "%";
+        /* sets width value by making string with uv index value*10. EX Uv index of 2 would produce 20%
+                Javascript performs automatic type conversion
+            */
+        
+        if(uvi>0 && uvi<=2){
+            
+            progressBar.style.background="#88D813";
+            //low
+        } else if (uvi >= 3 && uvi <=5){
+           
+            progressBar.style.background="#FEF200";
+            //moderate
+    
+        } else if (uvi >= 6 && uvi <=7) {
+           
+            progressBar.style.background="#FF7D09";
+            //high
+        
+        } else if(uvi >=8 && uvi <=10) {
+            progressBar.style.background="#E82F00";
+            //very high
+        
+        }  else if(uvi>10) {
+            
+            uvIndexText.textContent="Very High"
+            progressBar.style.background="#E82F00";
+            progressBar.style.width = "100%";
+            document.querySelector(".uv-index-progress i").classList.add("fa-exclamation-triangle");
+            //over 10, dangerous!
+        }
 
-    } else if (singleDigit >= 6 && singleDigit <=7) {
-        progressBar.style.background="#FF7D09";
-        //high
-    } else if(singleDigit >=8 && singleDigit <=10) {
-        progressBar.style.background="#E82F00";
-        //very high
-    }  else {
-        uvIndexText.textContent="Very High"
-        progressBar.style.background="#E82F00";
-        document.querySelector(".uv-index-progress i").classList.add("fa-exclamation-triangle");
+    } else {
+        //dark mode, its nightime no UV index
+        progressBar.style.background="#7598BD";
+        progressBar.style.width="100%";
+        document.querySelector(".uv-index-progress i").classList.add("fa-moon");
+        uvIndexText.textContent="";
+
     }
 
 }
