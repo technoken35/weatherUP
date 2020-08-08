@@ -270,7 +270,9 @@ function setProgressBar(value,progressBar){
         progressBar.style.background="#E82F00";
         //very high
     }  else {
-
+        uvIndexText.textContent="Very High"
+        progressBar.style.background="#E82F00";
+        document.querySelector(".uv-index-progress i").classList.add("fa-exclamation-triangle");
     }
 
 }

@@ -78,6 +78,36 @@ header{
        padding-bottom: 10px;
     }
 
+    input {
+        background: none;
+        max-height: 4.5rem;
+        padding: 1rem;
+        border:none;
+      
+        
+        
+    }
+
+    input:active{
+        border: none;
+    }
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: red;
+        height: 50px;
+        width: 20px;
+        opacity: 1; /* Firefox */
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: red;
+      }
+      
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        color: red;
+      }
+
+
     h2{
         font-size: 1.5rem;
     }
@@ -101,11 +131,14 @@ header{
     .fa-sync-alt{
         font-size: 1.5rem;
         
+        
     }
 
     .fa-sync-alt:active{
         
         transform: translateY(4px);
+        color: green;
+        
     }
 
 }
@@ -190,6 +223,7 @@ header{
             padding: 0 2px;
         }
 
+
        
     }
 
@@ -241,6 +275,7 @@ header{
             .sunrise-text,.sunset-text{
                 padding: 0 0.2rem 0rem 2rem;
                 font-weight: bold;
+                font-size: 1.5rem;
             }
 
             p {
@@ -306,6 +341,7 @@ header{
             font-size: $heading-font-size;
 
         }
+
     }
 
     &-container{
@@ -438,6 +474,12 @@ header{
         
 
     }
+
+    .day{
+        font-weight: bold;
+    }
+
+    
 
     .highlights{
         .uv-index{

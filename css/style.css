@@ -63,6 +63,63 @@ header h1 {
   padding-bottom: 10px;
 }
 
+header input {
+  background: none;
+  max-height: 4.5rem;
+  padding: 1rem;
+  border: none;
+}
+
+header input:active {
+  border: none;
+}
+
+header ::-webkit-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  height: 50px;
+  width: 20px;
+  opacity: 1;
+  /* Firefox */
+}
+
+header :-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  height: 50px;
+  width: 20px;
+  opacity: 1;
+  /* Firefox */
+}
+
+header ::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  height: 50px;
+  width: 20px;
+  opacity: 1;
+  /* Firefox */
+}
+
+header ::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  height: 50px;
+  width: 20px;
+  opacity: 1;
+  /* Firefox */
+}
+
+header :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: red;
+}
+
+header ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: red;
+}
+
 header h2 {
   font-size: 1.5rem;
 }
@@ -92,6 +149,7 @@ header .fa-sync-alt {
 header .fa-sync-alt:active {
   -webkit-transform: translateY(4px);
           transform: translateY(4px);
+  color: green;
 }
 
 .temp {
@@ -231,6 +289,7 @@ header .fa-sync-alt:active {
 .highlights .sunrise-sunset-text .sunrise-text, .highlights .sunrise-sunset-text .sunset-text {
   padding: 0 0.2rem 0rem 2rem;
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .highlights .sunrise-sunset-text p {
@@ -408,6 +467,9 @@ header .fa-sync-alt:active {
     -webkit-box-shadow: none;
             box-shadow: none;
     border: none;
+  }
+  .day {
+    font-weight: bold;
   }
   .highlights .uv-index {
     border: none;
