@@ -63,6 +63,7 @@ function getData () {
 
 }
 
+
 function updateUI (){
 
     // gotta be a more DRY way of selecting elements
@@ -91,8 +92,6 @@ function updateUI (){
 
     var sunrise=document.querySelector(".sunrise-text");
     var sunset=document.querySelector(".sunset-text");
-
-
 
 
     function formatTime(timestamp){
@@ -128,7 +127,9 @@ function updateUI (){
     var currentTemp=Math.round(weatherDataObj.current.temp);
    
     var currentConditionsShort = weatherDataObj.current.weather[0].main;
-    var uvIndexData =Math.round(weatherDataObj.current.uvi);
+    var uvIndexData =Math.round(weatherDataObj.current.uvi); 
+
+   
     var forecastTempDataDay1High= Math.round( weatherDataObj.daily[1].temp.max);
     var forecastTempDataDay2High= Math.round(weatherDataObj.daily[2].temp.max);
     var forecastTempDataDay3High= Math.round( weatherDataObj.daily[3].temp.max);
@@ -154,14 +155,18 @@ function updateUI (){
    
     } */
 
+
+
     function getDayOfWeek(unix_timestamp) {
         var daysOfTheWeek=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         var stringDay;
         var stamp=unix_timestamp *1000; //mutiply by 1000 to convert unix_timestamp to milliseconds
         
         var getDayOfStamp = new Date(stamp); 
-        /* new Date () constructor method creates a date object. Returns currrent date if no arguments are passed to it EX: Fri Aug 07 2020 17:49:42 GMT-0700 (Pacific Daylight Time)
+        /* new Date () constructor method creates a date object. Returns currrent date if no arguments are passed to it EX: Fri Aug 07 2020 17:49:42 GMT-0700 (Pacific Daylight Time) 
         when new Date() is passed a timestamp it creates a date object with the date of the time stamp EX: console.log(date); OUTPUT:  01/01/2000 @ 12:00am (UTC)
+
+        (GMT=Greenwhich Mean Time. UTC= coordinated universal time. UTC & GMT have same meaning. Essentially UTC is new standard. GMT-0700 means 7 hours behind the universal time)
         */
         
         stringDay=daysOfTheWeek[getDayOfStamp.getDay()];
@@ -212,29 +217,68 @@ function updateUI (){
     setIcon(forecastDescriptionDataDay3,icon3);
     setIcon(currentDescriptionDataShort,showcaseIcon);
     setDirection(windDirectionData,windDirection);
-
-    
+   
     
 }
 
-var addLocation=document.querySelector(".add-location");
+var citiesSection= document.querySelector(".cities");
+function addCity(event){
+    //adds a new location div when user clicks
+    
+    //stops default action after event. Ex checkbox cant be checked. No text input into check box.
+    // here it stops page from refreshing after submit button is pressed
+    event.preventDefault();    
 
-
-addLocation.onclick= function (){
-   //adds a new location div when user clicks
-    var citiesSection= document.querySelector(".cities");
-    var child = document.createElement("div");
-     /* creates new div html element and stores element in child var */
-        
-    child.classList.add("cities-selection");
+    // Create city div
+    
+    var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
-          
-    citiesSection.appendChild(child);
-    //adds child div to parent. 
+    cityDiv.classList.add("cities-selection");
 
+    // create  paragraph for city name
+    var cityName= document.createElement("p");
+    cityName.innerText= document.querySelector("input").value;
+    cityDiv.appendChild(cityName);
+    // Create delete button
+    var button= document.createElement("button");
+    button.classList.add("trash-btn");
+   
+    // add fontawesome icon to button
+    button.innerHTML="<i class='fas fa-trash fa-lg '> </i>";
+    // append delete button to city card
+    cityDiv.appendChild(button);
+
+    // APPEND cities section
+    citiesSection.appendChild(cityDiv);
+
+    // clear input for next city
+    document.querySelector("input").value="";
+}
+
+//function accepts event as arguement. It is passed by event listener who called function
+function deleteCity(e) {
+   
+    // {event}.target method returns the html element that fired the event listener 
+    var htmlElement= e.target;
+  
+
+    console.log(htmlElement);
+
+    // checks the first class list array index of html element clicked. If it is not equal to trash then it does not delete
+    if (htmlElement.classList[0]==="trash-btn"){
+        // parentElement method allows you to grab an html elements parent
+        var cityElement = htmlElement.parentElement;
+        // remove method allows you to remove a html element (proably method of document object);
+        cityElement.remove();
+    }
+    
 }
 
 
+var addLocation=document.querySelector(".location-button");
+
+addLocation.addEventListener("click",addCity);
+citiesSection.addEventListener('click',deleteCity);
 
 function setProgressBar(uvi,progressBar){
      /* sets color & progress based on uvi value */
@@ -247,7 +291,7 @@ function setProgressBar(uvi,progressBar){
                 Javascript performs automatic type conversion
             */
         
-        if(uvi>0 && uvi<=2){
+        if(uvi >0 && uvi<=2){
             
             progressBar.style.background="#88D813";
             //low
@@ -339,14 +383,11 @@ function setDirection(degrees,uiElement){
     }
 }
 
-
 window.addEventListener('load',()=> {
     getData();
 
 });
 
-document.querySelector(".fa-sync-alt").onclick= function () {
+document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
-    
-}
-
+})

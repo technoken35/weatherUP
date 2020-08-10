@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <!--! ADD FAVICON-->
+    <!--FAVICON-->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <!--FONT AWESOME-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <title>WeatherUp</title>
 </head>
@@ -27,15 +28,15 @@
            </div>
            <p> </p>
         </header>
-
+    
+        <!--3 DAY FORECAST-->
         <div class="forecast">
-            
             <div class="forecast-container">
                 <p class="forecast-heading">  <span class="forecast-heading-bold"> 3 Day </span>Forecast </p>
                 <div class="forecast-card forecast-day-1">
                     <i class="fas fa-lg"></i>
                     <div class="forecast-text">
-                        <p class="day "></p>
+                        <p class="day"></p>
                         <p class="conditions"></p>
                     </div>
                     <div class="forecast-num">
@@ -65,10 +66,13 @@
             </div>
         </div>
         
+        <!--TODAYS HIGHLIGHTS-->
         <div class="highlights">
             <p class="highlights-heading">Today's <span class="highlights-heading-bold"> Highlights</span></p>
             <div class="highlights-container">
+               <!--HIGHLIGHTS COLUMN 1-->
                 <div class="highlights-1">
+                     <!--UV INDEX-->
                     <div class="highlights-card">
                         <p class="highlights-card-heading">UV Index<i class="fas fa-seedling fa-xs"></i></p>
                         <div class="uv-index">
@@ -78,18 +82,19 @@
 
                         </div>
                     </div>
+                    <!--WIND SPEED-->
                     <div class="highlights-card wind">
                         <p class="highlights-card-heading">Wind Speed<i class="fas fa-wind fa-xs"></i></p>
                         <div class="wind-speed">
                             <p> <span></span> MPH</p>
                         </div>
                         <p class="wind-direction"> </p>
-                       
                     </div>
                 
                 </div>
+                <!--HIGHLIGHTS COLUMN 2-->
               <div class="highlights-2">
-                
+                <!--HUMIDITY-->
                 <div class="highlights-card humidity">
                     <p class="highlights-card-heading">Humidity<i class="fas fa-tint fa-xs"></i></p>
                     <div class="humidity-text">
@@ -97,11 +102,14 @@
                         
                     </div>
                 </div>
+                <!--SUNRISE & SUNSET-->
                 <div class="highlights-card sunrise-sunset">
                     <p class="highlights-card-heading">Sunrise & Sunset<i class="fas fa-xs"></i></p>
                     <div class="sunrise-sunset-text">
                         <p><i class="far fa-arrow-alt-circle-up fa-lg"></i>Sunrise<span class="sunrise-text"></span>AM</p>
+                       
                         <p><i class="far fa-arrow-alt-circle-down fa-lg"></i>Sunset<span class="sunset-text"></span>PM</p>
+                       
                     </div>
                     
                 </div>
@@ -110,17 +118,17 @@
            
         </div>
 
+        <!--CITIES SECTION WITH DIFFERENT LOCATIONS-->
         <div class="cities">
-            <div class="cities-selection">
-               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-                <p></p>
-                <p></p>
-                <button class="add-location">Add location</button>
+            <!-- ADD LOCATION WITH FIRST DIV-->
+            <div class="cities-selection add">
+               <form>
+                   <input type="text" class="cities-selection-add-location" placeholder="Add Location">
+                   <button type="submit" class="location-button">
+                       <i class="fas fa-plus-square"></i>
+                   </button>
+                </form>
             </div>
-            <div class="cities-selection">
-                Lorem ipsum dolor sit amet consectetur adipisicing elite.
-            </div>
-            
             
         </div>
 

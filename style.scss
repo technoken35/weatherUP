@@ -175,7 +175,8 @@ header{
 }
 
 .forecast{
-
+   
+    
     &-heading{
         margin: 0px 0px 1rem 1rem;
         font-size: $heading-font-size;
@@ -203,7 +204,7 @@ header{
         border: 1px solid $secondary-color;
         border-radius:$border-radius-small;
         font-size: 20px;
-        height: 55px;
+        height: 4rem;
        
         display: grid;
         justify-content: center;
@@ -234,7 +235,7 @@ header{
     &-num{
         background:#DEE7F4;
         border: 10px solid #DEE7F4;
-        height: 100%;
+        height: 110%;
         width: 110%;
         color: #0D0D24;
         border-radius: $border-radius-small;
@@ -271,6 +272,9 @@ header{
     .sunrise-sunset{
         &-text{
             align-self: center;
+            display: flex;
+            flex-direction: column;
+            
             
             .sunrise-text,.sunset-text{
                 padding: 0 0.2rem 0rem 2rem;
@@ -282,6 +286,7 @@ header{
                 padding: 0.3rem 0;
             }
         }
+
 
         
     }
@@ -428,8 +433,20 @@ header{
         background: $primary-color;
         padding: 2rem;
        
+        .fa-trash{
+            pointer-events: none;
+            /* css property makes you not be be able to click on html element anymore */
+        }
+
+        &-add-location{
+            padding: 0.5rem;
+             border: 1px solid $secondary-color;
+            border-radius:10px;
+        }
         
     }
+
+  
 
 }
 
