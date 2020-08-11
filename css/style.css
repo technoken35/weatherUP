@@ -175,6 +175,10 @@ header .fa-sync-alt:active {
   color: #B8B9BD;
 }
 
+.fa-cloud-showers-heavy, .fa-cloud {
+  color: #7768E4;
+}
+
 .fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
   color: #FFDE4C;
 }
@@ -232,6 +236,12 @@ header .fa-sync-alt:active {
 
 .forecast-card .day, .forecast-card .conditions {
   padding: 0 2px;
+}
+
+.forecast-card .cloud-blue {
+  background: #7768E4;
+  border-color: #7768E4;
+  color: #FFFFFF;
 }
 
 .forecast-text {
@@ -460,9 +470,13 @@ header .fa-sync-alt:active {
   border-radius: 10px;
 }
 
+.cities-selection-add-location:active {
+  border: none;
+}
+
 @media (prefers-color-scheme: dark) {
   .fa-moon {
-    color: #adadc7;
+    color: #7F7D94;
   }
   .fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
     color: #adadc7;
@@ -490,6 +504,7 @@ header .fa-sync-alt:active {
   }
   .highlights .uv-index {
     border: none;
+    color: #ffffff;
   }
   .forecast-num {
     background: #7598BD;
@@ -530,6 +545,9 @@ header .fa-sync-alt:active {
         grid-template-rows: 1fr;
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+  }
+  .highlights-card {
+    padding: 1.5rem;
   }
   .highlights-1, .highlights-2 {
     width: 100%;

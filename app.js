@@ -1,18 +1,16 @@
 // !! ADD better DATA visualization 
 
-// !! ADD OPEN WEATHER MAP ICONS. THEY HAVE SOME FOR DAY & NIGHT 
-
 // !! CHANGE ICONS WITH TIME OF DAY
-
-// !! SET UV INDEX TO 0 AT NIGHT OR CHANGE TO DISPLAY DIFFERENT DATA. API DOES NOT SEND UVI DATA AT NIGHT
 
 // !! ICON only loads properly when you refresh page not when you toggle between light and dark
 
 // !! SELECT ELEMENTS IN A MORE DRY WAY
 
-// !!  Add function to start countdown to sunrise/sunset
-
 // !! Add ALL methods and other properties to weatherDataObj
+
+// !! Create better method for applying classes. EX add classes to array and pass them to a function as an arguement 
+
+//! Moon icon in progress bar stays when changing from dark mode to light mode.
 
 
 var weatherDataObj={};
@@ -255,7 +253,7 @@ function addCity(event){
     document.querySelector("input").value="";
 }
 
-//function accepts event as arguement. It is passed by event listener who called function
+//function accepts an event as arguement. It is passed by event listener who called this function
 function deleteCity(e) {
    
     // {event}.target method returns the html element that fired the event listener 
@@ -289,7 +287,7 @@ function setProgressBar(uvi,progressBar){
         progressBar.style.width = (uvi *10) + "%";
         /* sets width value by making string with uv index value*10. EX Uv index of 2 would produce 20%
                 Javascript performs automatic type conversion
-            */
+        */
         
         if(uvi >0 && uvi<=2){
             
@@ -342,6 +340,10 @@ function setIcon(conditions, uiElement) {
         
         } else {
             uiElement.classList.add("fa-sun");
+            
+            console.log()
+           
+        
         }
         
     
@@ -349,15 +351,18 @@ function setIcon(conditions, uiElement) {
         /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
 
         uiElement.classList.add("fa-cloud-showers-heavy");
+        uiElement.parentElement.children[2].classList.add("cloud-blue");
     
-    } else if(conditions.toUpperCase()=='CLOUDS') {
+    }else if(conditions.toUpperCase()=='CLOUDS') {
         /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
 
         uiElement.classList.add("fa-cloud");
-    } else if(conditions.toUpperCase()=='CLOUDS') {
-        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
-
-        uiElement.classList.add("fa-cloud");
+        
+        // JS <html element>.parentElement method returns parent of selected html element
+        // JS method <html element>.children returns the children of selected html element
+        // selecting parent and then listing children
+        // selecting div.forecast-num position in DOMTokenList and adding cloud-blue class to style to match conditions
+        uiElement.parentElement.children[2].classList.add("cloud-blue");
     }
 }
 
@@ -391,3 +396,20 @@ window.addEventListener('load',()=> {
 document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
 })
+
+
+/* USEFUL WAYS OF USING CLASS LIST 
+     add or remove multiple classes using spread syntax
+    const cls = ["foo", "bar"];
+    div.classList.add(...cls); 
+    div.classList.remove(...cls);
+
+    replace class "foo" with class "bar"
+    div.classList.replace("foo", "bar");
+V
+
+
+
+
+
+*/

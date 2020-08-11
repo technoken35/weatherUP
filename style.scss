@@ -9,7 +9,8 @@
 
 
 $primary-color: #FFFFFF;
-$secondary-color:  #E3E8EC;
+$secondary-color: #7768E4;
+$background-color:  #E3E8EC;
 $font-color: #0D0D24;
 $secondary-font-color: #BFBFC4;
 $border-radius: 40px;
@@ -31,7 +32,7 @@ $heading-font-size: 20px;
 
 body{
     font-family: 'Open Sans',sans-serif;
-    background: $secondary-color;
+    background: $background-color;
   
 }
 
@@ -170,6 +171,11 @@ header{
     color: #B8B9BD;
 }
 
+.fa-cloud-showers-heavy,.fa-cloud{
+    color: $secondary-color;
+    //  #91AAB4;
+}
+
 .fa-arrow-alt-circle-down,.fa-arrow-alt-circle-up{
     color: #FFDE4C;
 }
@@ -200,8 +206,8 @@ header{
     
 
     &-card{
-        box-shadow: 1px 1px 1px 1px $secondary-color; //put in mixin 
-        border: 1px solid $secondary-color;
+        box-shadow: 1px 1px 1px 1px $background-color; //put in mixin 
+        border: 1px solid $background-color;
         border-radius:$border-radius-small;
         font-size: 20px;
         height: 4rem;
@@ -222,6 +228,13 @@ header{
 
         .day,.conditions {
             padding: 0 2px;
+        }
+
+        .cloud-blue{
+            // background color for dark background for rainy/cloudy conditions. Used by JS to change color
+            background: $secondary-color;
+            border-color: $secondary-color;
+            color: $primary-color;
         }
 
 
@@ -311,7 +324,7 @@ header{
     .uv-index{
         width: 90%;
         height: 2rem;
-        border: 1px solid $secondary-color;
+        border: 1px solid $background-color;
         border-radius:$border-radius;
         background: #F9F9F9;
         margin: 0 auto;
@@ -375,8 +388,8 @@ header{
 
     &-card{
         min-height: 6rem;
-        box-shadow: 1px 1px 1px 1px $secondary-color;
-        border: 1px solid $secondary-color;
+        box-shadow: 1px 1px 1px 1px $background-color;
+        border: 1px solid $background-color;
         border-radius:$border-radius-small;
         padding: 1rem;
         margin: 0.5rem 0;
@@ -426,8 +439,8 @@ header{
     grid-template-rows: 1.5fr 1.5fr 1.5fr;
 
     &-selection{
-        box-shadow: 1px 1px 1px 1px $secondary-color; //put in mixin 
-        border: 1px solid $secondary-color;
+        box-shadow: 1px 1px 1px 1px $background-color; //put in mixin 
+        border: 1px solid $background-color;
         border-radius:$border-radius-small;
         min-height: 9rem;
         background: $primary-color;
@@ -440,9 +453,14 @@ header{
 
         &-add-location{
             padding: 0.5rem;
-             border: 1px solid $secondary-color;
+             border: 1px solid $background-color;
             border-radius:10px;
         }
+
+        &-add-location:active{
+            border:none;
+        }
+
         
     }
 
@@ -453,12 +471,12 @@ header{
 @media (prefers-color-scheme:dark){
     // find better bg image for darkmode
     $primary-color: #232733;
-    $secondary-color:  #2B2F3F;
+    $background-color:  #2B2F3F;
     $font-color: #ffffff;
     $secondary-font-color:#7598BD;
 
     .fa-moon{
-        color: #adadc7; // add better color
+        color: #7F7D94; // add better color
     }
 
     .fa-arrow-alt-circle-down,.fa-arrow-alt-circle-up{
@@ -466,7 +484,7 @@ header{
     }
 
     * {
-        color: #b9babd;
+        color: #b9babd; // !! REFACTOR THIS SELECTOR STORE IN A VARIABLE
     }
 
     header {
@@ -485,7 +503,7 @@ header{
     }
 
     .forecast-card,.highlights-card,.cities-selection{ 
-        background: $secondary-color;
+        background: $background-color;
         box-shadow: none;
         border: none;
         
@@ -501,6 +519,7 @@ header{
     .highlights{
         .uv-index{
             border: none;
+            color: $font-color ; // ! REFACTOR THIS SELECTOR IT ISNT WORKING WITHOUT IMPORTANT
         }
 
     }
