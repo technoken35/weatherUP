@@ -80,7 +80,7 @@ function updateUI (){
     var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
 
-    var showcaseIcon= document.querySelector("header .temp i");
+    var showcaseIcon= document.querySelector("header .temp img");
     var icon1 = document.querySelector(".weather-icon-1");
     var icon2= document.querySelector(".weather-icon-2");
     var icon3= document.querySelector(".weather-icon-3");
@@ -123,6 +123,7 @@ function updateUI (){
     var descriptionData=weatherDataObj.current.weather[0].description;
     var currentDescriptionDataShort=weatherDataObj.current.weather[0].main;
     var currentTemp=Math.round(weatherDataObj.current.temp);
+    var currentIconData=weatherDataObj.current.weather[0].icon;
    
     var currentConditionsShort = weatherDataObj.current.weather[0].main;
     var uvIndexData =Math.round(weatherDataObj.current.uvi); 
@@ -180,18 +181,24 @@ function updateUI (){
     forecastHeaderDays1.textContent=getDayOfWeek(weatherDataObj.daily[1].dt); 
     forecastTempDay1.textContent=forecastTempDataDay1High + "°" + "/" + "°"+ forecastTempDataDay1Low;
     forecastDescriptionDay1.textContent=forecastDescriptionDataDay1;
+    var forecastWeatherID1= weatherDataObj.daily[1].weather[0].id;
+    var forecastIconDataDay1= weatherDataObj.daily[1].weather[0].icon
 
     forecastHeaderDays2.textContent=getDayOfWeek(weatherDataObj.daily[2].dt);
     forecastTempDay2.textContent=forecastTempDataDay2High + "°" + "/" + "°"+ forecastTempDataDay2Low;
     forecastDescriptionDay2.textContent=forecastDescriptionDataDay2;
+    var forecastWeatherID2= weatherDataObj.daily[2].weather[0].id;
+    var forecastIconDataDay2= weatherDataObj.daily[2].weather[0].icon
 
     forecastHeaderDays3.textContent=getDayOfWeek(weatherDataObj.daily[3].dt);
     forecastTempDay3.textContent=forecastTempDataDay3High + "°" + "/" + "°"+ forecastTempDataDay3Low;
     forecastDescriptionDay3.textContent=forecastDescriptionDataDay3;
+    var forecastWeatherID3= weatherDataObj.daily[3].weather[0].id;
+    var forecastIconDataDay3= weatherDataObj.daily[3].weather[0].icon
 
     tempHeader.textContent= currentTemp;
     currentConditions.textContent=descriptionData;
-    currentWeatherID= weatherDataObj.current.weather[0].id;
+   
     
 
     uvIndexText.textContent=uvIndexData; 
@@ -208,10 +215,13 @@ function updateUI (){
     
     setProgressBar(uvIndexData,progressBar);
    /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
-    setIcon(icon1,forecastDescriptionDataDay1,currentWeatherID);
-    setIcon(forecastDescriptionDataDay2,icon2);
-    setIcon(forecastDescriptionDataDay3,icon3);
-    setIcon(currentDescriptionDataShort,showcaseIcon); 
+    setIcon(icon1,forecastIconDataDay1);
+    setIcon(icon2,forecastIconDataDay2);
+    setIcon(icon3,forecastIconDataDay3);
+    setIcon(showcaseIcon,currentIconData);
+   // setIcon(forecastDescriptionDataDay2,icon2);
+    //setIcon(forecastDescriptionDataDay3,icon3);
+   // setIcon(currentDescriptionDataShort,showcaseIcon); 
     setDirection(windDirectionData,windDirection);
    
    
@@ -325,61 +335,14 @@ function setProgressBar(uvi,progressBar){
 }
 
 
- function setIcon(uiElement,weatherConditons,weatherConditionsID) {
-    // sets icons from open weather map API based on a conditions code from open weather map
-    // captures sunset unix timestamp into variable 
-    var sunsetUnixTimeStamp=sunsetData;
-    
-    //convert unix timestmap to milliseconds 
-    var sunset = new Date(sunsetUnixTimeStamp*1000);
-    
-    // getTime returns milleseconds since Jan,1,1970 00:00:00.000 GMT (Unix Epoch)
-    var sunsetTime= sunset.getTime();
-    var currentTime = new Date();
-    currentTime= currentTime.getTime();    
-    
-    var iconCode;
+//! ICONS ARE POPULATING. IF STATEMENTS ARENT NEEDED WEATHER OBJ INCLUDES ICON CODES FOR & switches DAY/NIGHT AUTOMATICALLY
+ function setIcon(uiElement,iconCodeData) {
+    // sets icons from open weather map API based on a icon code from open weather map. 
+    // EX the response "01d" requests clear sky icon from openweather map icons
 
-    if(weatherConditionsUpperCase=='Thunderstorm'){
-        iconCode=11;
-    } else if (weatherConditionsUpperCase=='Drizzle'){
-        iconCode=09;
-    } else if (weatherConditionsUpperCase=='Rain'){
-        iconCode=10;
-    } else if (weatherConditionsUpperCase=='Snow'){
-        iconCode=13;
-    } else if (weatherConditionsUpperCase=='Clear'){
-        iconCode=01;
-    } else if (weatherConditionsUpperCase=='Clouds'){
-        // breaking main description down to select icons based on weather conditions ID. There are different cloud icons depending on the percentage of cloud cover
-        if(weatherConditionsUpperCaseID==801){
-            iconCode=02
-        } else if(weatherConditionsUpperCaseID==802){
-            iconCode=03
-        } else if (weatherConditonsID==803 || weatherConditonsID==804){
-            iconCode=04;
-        }             
-    } else {
-        // sets icon for atmospheric conditions such as mist,fog,sand etc. It is the fail for all the other tests because icon is being used for a variety of descriptions
-        iconCode=50;
-    }
-   
-    // checks if current time has passed the sunset time and adds day or night to request for pictures.
-    // only difference between a daytime & nightime icon src is 'n' &'d' in src address
-    if (currentTime>=sunsetTime ) {
-        // nightime
-        // add conditions icon code
-        iconCode += 'n';
-        console.log("it is dark",iconCode);
-        console.log(weatherConditionsID)
-    } else if(currentTime<=sunsetTime) {
-        console.log("it is light");
-        //daytime
-        iconCode +='d';
-    }
-
-    // set icon src url based on conditons description & time of day
-    var iconSrc=  "http://openweathermap.org/img/wn/"+iconCode+"@2x.png";
+    // set icon src url based on icon code passed to function from weatherDataOBJ
+    var iconSrc=  "http://openweathermap.org/img/wn/"+iconCodeData+"@2x.png";
+    // update html element 
     uiElement.src=iconSrc;
 } 
 
@@ -427,6 +390,50 @@ V
 
 
 
+ console.log(currentTime-sunsetData)
+    console.log(weatherConditions)
 
+    if(weatherConditions=="Thunderstorm"){
+        iconCode='11';
+    } else if (weatherConditions=="Drizzle"){
+        iconCode='09';
+    } else if (weatherConditions=="Rain"){
+        iconCode='10';
+    } else if (weatherConditions=="Snow"){
+        iconCode='13';
+    } else if (weatherConditions=="Clear"){
+        iconCode='01';
+       
+    } else if (weatherConditions=="Clouds"){
+        // breaking main description down to select icons based on weather conditions ID. There are different cloud icons depending on the percentage of cloud cover
+        console.log("Inside clouds",weatherConditionsID,weatherConditions)
+        if(weatherConditionsID==801){
+            iconCode='01'
+        } else if(weatherConditionsID==802){
+            iconCode='03'
+        } else if (weatherConditionsID==803 || weatherConditionsID==804){
+            iconCode='04';
+        }             
+    } else {
+        // sets icon for atmospheric conditions such as mist,fog,sand etc. It is the fail for all the other tests because icon is being used for a variety of descriptions
+        iconCode=50;
+    }
+
+    console.log(iconCode)
+   
+    // checks if current time has passed the sunset time and adds day or night to request for pictures.
+    // only difference between a daytime & nightime icon src is 'n' &'d' in src address
+    if (currentTime>=sunsetTime ) {
+        // nightime
+        // add conditions icon code
+       iconCode= iconCode + 'n';
+        console.log("it is dark",iconCode);
+        console.log(weatherConditionsID)
+    } else if(currentTime<=sunsetTime) {
+        console.log("it is light",iconCode);
+        //daytime
+        iconCode +='d';
+        console.log(weatherConditionsID)
+    }
 
 */
