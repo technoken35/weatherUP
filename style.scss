@@ -41,6 +41,15 @@ body{
    
 } 
 
+@mixin city-card{
+    box-shadow: 1px 1px 1px 1px $background-color; //put in mixin 
+    border: 1px solid $background-color;
+    border-radius:$border-radius-small;
+    min-height: 9rem;
+    background: $primary-color;
+    padding: 2rem;
+}
+
 .main-container{
    @include container;
     display: grid;
@@ -171,13 +180,20 @@ header{
     color: #B8B9BD;
 }
 
-.fa-cloud-showers-heavy,.fa-cloud{
+.fa-cloud-showers-heavy,.fa-cloud,.fa-cloud-sun{
     color: $secondary-color;
     //  #91AAB4;
 }
 
 .fa-arrow-alt-circle-down,.fa-arrow-alt-circle-up{
     color: #FFDE4C;
+}
+
+.weather-icon{
+    // weather icon from open weather map
+    
+    width: 50px;
+    height: 50px;
 }
 
 .forecast{
@@ -439,15 +455,14 @@ header{
     grid-template-rows: 1.5fr 1.5fr 1.5fr;
 
     &-selection{
-        box-shadow: 1px 1px 1px 1px $background-color; //put in mixin 
-        border: 1px solid $background-color;
-        border-radius:$border-radius-small;
-        min-height: 9rem;
-        background: $primary-color;
-        padding: 2rem;
+       
+        @include city-card;
+        display: grid;
+      
        
         .fa-trash{
             pointer-events: none;
+            
             /* css property makes you not be be able to click on html element anymore */
         }
 
@@ -459,6 +474,11 @@ header{
 
         &-add-location:active{
             border:none;
+        }
+
+        &-selection-city{
+            grid-template-rows: 1.5fr 0.5fr;
+            @include city-card;
         }
 
         

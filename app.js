@@ -18,6 +18,8 @@ var uvIndexText= document.querySelector(".uv-index-text");
 var progressBar=document.querySelector(".uv-index-progress");
 let date = new Date();
 
+var sunsetData;
+var currentWeatherID;
 
 function getData () {
 
@@ -79,9 +81,9 @@ function updateUI (){
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
 
     var showcaseIcon= document.querySelector("header .temp i");
-    var icon1 = document.querySelector(".forecast-day-1 i");
-    var icon2= document.querySelector(".forecast-day-2 i");
-    var icon3= document.querySelector(".forecast-day-3 i");
+    var icon1 = document.querySelector(".weather-icon-1");
+    var icon2= document.querySelector(".weather-icon-2");
+    var icon3= document.querySelector(".weather-icon-3");
 
     var windSpeed= document.querySelector(".wind-speed p span");
     var windDirection= document.querySelector('.wind-direction');
@@ -117,8 +119,6 @@ function updateUI (){
         return formattedTime;
 
     }
-
-
     
     var descriptionData=weatherDataObj.current.weather[0].description;
     var currentDescriptionDataShort=weatherDataObj.current.weather[0].main;
@@ -145,6 +145,7 @@ function updateUI (){
     var humidityData=weatherDataObj.current.humidity;
 
     var sunriseData=weatherDataObj.current.sunrise;
+    sunsetData=weatherDataObj.current.sunrise;
 
    /* weatherDataObj.test= function (){
         console.log("test");
@@ -190,6 +191,8 @@ function updateUI (){
 
     tempHeader.textContent= currentTemp;
     currentConditions.textContent=descriptionData;
+    currentWeatherID= weatherDataObj.current.weather[0].id;
+    
 
     uvIndexText.textContent=uvIndexData; 
     console.log(weatherDataObj.current.uvi);
@@ -198,25 +201,20 @@ function updateUI (){
 
     humidity.textContent=humidityData;
 
-    var sunsetData=weatherDataObj.current.sunset;
-
-    
 
     sunrise.textContent=formatTime(sunriseData);
     sunset.textContent= formatTime(sunsetData);
-    console.log(sunsetData);
-   
     
     
     setProgressBar(uvIndexData,progressBar);
-    /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
-    setIcon(forecastDescriptionDataDay1,icon1);
+   /* sets width based on uvi for ex 6 uvi will be 6*10= 60% */
+    setIcon(icon1,forecastDescriptionDataDay1,currentWeatherID);
     setIcon(forecastDescriptionDataDay2,icon2);
     setIcon(forecastDescriptionDataDay3,icon3);
-    setIcon(currentDescriptionDataShort,showcaseIcon);
+    setIcon(currentDescriptionDataShort,showcaseIcon); 
     setDirection(windDirectionData,windDirection);
    
-    
+   
 }
 
 var citiesSection= document.querySelector(".cities");
@@ -237,10 +235,10 @@ function addCity(event){
     var cityName= document.createElement("p");
     cityName.innerText= document.querySelector("input").value;
     cityDiv.appendChild(cityName);
+   
     // Create delete button
     var button= document.createElement("button");
     button.classList.add("trash-btn");
-   
     // add fontawesome icon to button
     button.innerHTML="<i class='fas fa-trash fa-lg '> </i>";
     // append delete button to city card
@@ -259,7 +257,6 @@ function deleteCity(e) {
     // {event}.target method returns the html element that fired the event listener 
     var htmlElement= e.target;
   
-
     console.log(htmlElement);
 
     // checks the first class list array index of html element clicked. If it is not equal to trash then it does not delete
@@ -275,7 +272,7 @@ function deleteCity(e) {
 
 var addLocation=document.querySelector(".location-button");
 
-addLocation.addEventListener("click",addCity);
+//addLocation.addEventListener("click",addCity);
 citiesSection.addEventListener('click',deleteCity);
 
 function setProgressBar(uvi,progressBar){
@@ -327,44 +324,64 @@ function setProgressBar(uvi,progressBar){
 
 }
 
-function setIcon(conditions, uiElement) {
-    // sets fontawesome icon class based on conditions in string form
 
-    //! refactor to include everyting for dark mode
-
-    // sets conditions to uppercase to make sure it is the same
-    if (conditions.toUpperCase()=='CLEAR') {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            uiElement.classList.add("fa-moon");
-            // dark mode
-        
-        } else {
-            uiElement.classList.add("fa-sun");
-            
-            console.log()
-           
-        
-        }
-        
+ function setIcon(uiElement,weatherConditons,weatherConditionsID) {
+    // sets icons from open weather map API based on a conditions code from open weather map
+    // captures sunset unix timestamp into variable 
+    var sunsetUnixTimeStamp=sunsetData;
     
-    } else if(conditions.toUpperCase()=='RAIN') {
-        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
-
-        uiElement.classList.add("fa-cloud-showers-heavy");
-        uiElement.parentElement.children[2].classList.add("cloud-blue");
+    //convert unix timestmap to milliseconds 
+    var sunset = new Date(sunsetUnixTimeStamp*1000);
     
-    }else if(conditions.toUpperCase()=='CLOUDS') {
-        /* "Thunderstorm" "Snow" "Rain" "Clouds" "Clear" "Drizzle" "Everything else"*/
+    // getTime returns milleseconds since Jan,1,1970 00:00:00.000 GMT (Unix Epoch)
+    var sunsetTime= sunset.getTime();
+    var currentTime = new Date();
+    currentTime= currentTime.getTime();    
+    
+    var iconCode;
 
-        uiElement.classList.add("fa-cloud");
-        
-        // JS <html element>.parentElement method returns parent of selected html element
-        // JS method <html element>.children returns the children of selected html element
-        // selecting parent and then listing children
-        // selecting div.forecast-num position in DOMTokenList and adding cloud-blue class to style to match conditions
-        uiElement.parentElement.children[2].classList.add("cloud-blue");
+    if(weatherConditionsUpperCase=='Thunderstorm'){
+        iconCode=11;
+    } else if (weatherConditionsUpperCase=='Drizzle'){
+        iconCode=09;
+    } else if (weatherConditionsUpperCase=='Rain'){
+        iconCode=10;
+    } else if (weatherConditionsUpperCase=='Snow'){
+        iconCode=13;
+    } else if (weatherConditionsUpperCase=='Clear'){
+        iconCode=01;
+    } else if (weatherConditionsUpperCase=='Clouds'){
+        // breaking main description down to select icons based on weather conditions ID. There are different cloud icons depending on the percentage of cloud cover
+        if(weatherConditionsUpperCaseID==801){
+            iconCode=02
+        } else if(weatherConditionsUpperCaseID==802){
+            iconCode=03
+        } else if (weatherConditonsID==803 || weatherConditonsID==804){
+            iconCode=04;
+        }             
+    } else {
+        // sets icon for atmospheric conditions such as mist,fog,sand etc. It is the fail for all the other tests because icon is being used for a variety of descriptions
+        iconCode=50;
     }
-}
+   
+    // checks if current time has passed the sunset time and adds day or night to request for pictures.
+    // only difference between a daytime & nightime icon src is 'n' &'d' in src address
+    if (currentTime>=sunsetTime ) {
+        // nightime
+        // add conditions icon code
+        iconCode += 'n';
+        console.log("it is dark",iconCode);
+        console.log(weatherConditionsID)
+    } else if(currentTime<=sunsetTime) {
+        console.log("it is light");
+        //daytime
+        iconCode +='d';
+    }
+
+    // set icon src url based on conditons description & time of day
+    var iconSrc=  "http://openweathermap.org/img/wn/"+iconCode+"@2x.png";
+    uiElement.src=iconSrc;
+} 
 
 function setDirection(degrees,uiElement){
     /* Sets wind direction based on  degrees (compass) */

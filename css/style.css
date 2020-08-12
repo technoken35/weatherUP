@@ -175,12 +175,17 @@ header .fa-sync-alt:active {
   color: #B8B9BD;
 }
 
-.fa-cloud-showers-heavy, .fa-cloud {
+.fa-cloud-showers-heavy, .fa-cloud, .fa-cloud-sun {
   color: #7768E4;
 }
 
 .fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
   color: #FFDE4C;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
 }
 
 .forecast-heading {
@@ -457,6 +462,8 @@ header .fa-sync-alt:active {
   min-height: 9rem;
   background: #FFFFFF;
   padding: 2rem;
+  display: -ms-grid;
+  display: grid;
 }
 
 .cities-selection .fa-trash {
@@ -472,6 +479,18 @@ header .fa-sync-alt:active {
 
 .cities-selection-add-location:active {
   border: none;
+}
+
+.cities-selection-selection-city {
+  -ms-grid-rows: 1.5fr 0.5fr;
+      grid-template-rows: 1.5fr 0.5fr;
+  -webkit-box-shadow: 1px 1px 1px 1px #E3E8EC;
+          box-shadow: 1px 1px 1px 1px #E3E8EC;
+  border: 1px solid #E3E8EC;
+  border-radius: 15px;
+  min-height: 9rem;
+  background: #FFFFFF;
+  padding: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
