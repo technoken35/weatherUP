@@ -352,7 +352,7 @@ function setProgressBar(uvi,progressBar){
     // EX the response "01d" requests clear sky icon from openweather map icons
 
     // set icon src url based on icon code passed to function from weatherDataOBJ
-    var iconSrc=  "http://openweathermap.org/img/wn/"+iconCodeData+"@2x.png";
+    var iconSrc=  "/img/open-weather-icons/"+iconCodeData+"@2x.png";
     // update html element 
     uiElement.src=iconSrc;
 } 
