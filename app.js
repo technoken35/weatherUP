@@ -68,8 +68,9 @@ function updateUI (){
 
     // gotta be a more DRY way of selecting elements
 
-    var currentConditions=  document.querySelector("header p");
-    var tempHeader=  document.querySelector("header h2");
+    var currentConditions=  document.querySelector(".current-conditions");
+    var tempHeader=  document.querySelector(".current-temp-showcase");
+    var tempHeader2=  document.querySelector(".current-temp-showcase-2");
     var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
     var forecastDescriptionDay2= document.querySelector(".forecast-day-2 .conditions");
     var forecastDescriptionDay3= document.querySelector(".forecast-day-3 .conditions");
@@ -80,7 +81,8 @@ function updateUI (){
     var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
 
-    var showcaseIcon= document.querySelector("header .temp img");
+    var showcaseIcon= document.querySelector(".showcase-icon");
+    var showcaseIcon2= document.querySelector(".showcase-icon-2");
     var icon1 = document.querySelector(".weather-icon-1");
     var icon2= document.querySelector(".weather-icon-2");
     var icon3= document.querySelector(".weather-icon-3");
@@ -120,7 +122,13 @@ function updateUI (){
 
     }
     
-    var descriptionData=weatherDataObj.current.weather[0].description;
+    var currentDescriptionData=weatherDataObj.current.weather[0].description;
+    
+    // captures first char index of string and sets to uppercase
+    //Slices string and captures all chars except index 0 (first letter of string)
+    // concatenates string 
+    var currentDescription= currentDescriptionData[0].toUpperCase() + currentDescriptionData.slice(1);
+    
     var currentDescriptionDataShort=weatherDataObj.current.weather[0].main;
     var currentTemp=Math.round(weatherDataObj.current.temp);
     var currentIconData=weatherDataObj.current.weather[0].icon;
@@ -197,7 +205,8 @@ function updateUI (){
     var forecastIconDataDay3= weatherDataObj.daily[3].weather[0].icon
 
     tempHeader.textContent= currentTemp;
-    currentConditions.textContent=descriptionData;
+    tempHeader2.textContent= currentTemp;
+    currentConditions.textContent=currentDescription;
    
     
 
@@ -219,6 +228,8 @@ function updateUI (){
     setIcon(icon2,forecastIconDataDay2);
     setIcon(icon3,forecastIconDataDay3);
     setIcon(showcaseIcon,currentIconData);
+    setIcon(showcaseIcon2,currentIconData);
+    console.log(showcaseIcon)
    // setIcon(forecastDescriptionDataDay2,icon2);
     //setIcon(forecastDescriptionDataDay3,icon3);
    // setIcon(currentDescriptionDataShort,showcaseIcon); 
@@ -386,54 +397,5 @@ document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
 
     replace class "foo" with class "bar"
     div.classList.replace("foo", "bar");
-V
-
-
-
- console.log(currentTime-sunsetData)
-    console.log(weatherConditions)
-
-    if(weatherConditions=="Thunderstorm"){
-        iconCode='11';
-    } else if (weatherConditions=="Drizzle"){
-        iconCode='09';
-    } else if (weatherConditions=="Rain"){
-        iconCode='10';
-    } else if (weatherConditions=="Snow"){
-        iconCode='13';
-    } else if (weatherConditions=="Clear"){
-        iconCode='01';
-       
-    } else if (weatherConditions=="Clouds"){
-        // breaking main description down to select icons based on weather conditions ID. There are different cloud icons depending on the percentage of cloud cover
-        console.log("Inside clouds",weatherConditionsID,weatherConditions)
-        if(weatherConditionsID==801){
-            iconCode='01'
-        } else if(weatherConditionsID==802){
-            iconCode='03'
-        } else if (weatherConditionsID==803 || weatherConditionsID==804){
-            iconCode='04';
-        }             
-    } else {
-        // sets icon for atmospheric conditions such as mist,fog,sand etc. It is the fail for all the other tests because icon is being used for a variety of descriptions
-        iconCode=50;
-    }
-
-    console.log(iconCode)
-   
-    // checks if current time has passed the sunset time and adds day or night to request for pictures.
-    // only difference between a daytime & nightime icon src is 'n' &'d' in src address
-    if (currentTime>=sunsetTime ) {
-        // nightime
-        // add conditions icon code
-       iconCode= iconCode + 'n';
-        console.log("it is dark",iconCode);
-        console.log(weatherConditionsID)
-    } else if(currentTime<=sunsetTime) {
-        console.log("it is light",iconCode);
-        //daytime
-        iconCode +='d';
-        console.log(weatherConditionsID)
-    }
 
 */

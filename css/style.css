@@ -4,7 +4,7 @@
   /* CSS reset */
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  /* border-box  makes padding not effect the width/height of elements hi */
+  /* border-box makes padding not effect the width/height of elements*/
   margin: 0;
   padding: 0;
   font-size: 16px;
@@ -14,6 +14,73 @@
 body {
   font-family: 'Open Sans',sans-serif;
   background: #E3E8EC;
+}
+
+.current-temp-side {
+  height: 14rem;
+  width: 7rem;
+  position: absolute;
+  top: 120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.current-temp-side .current-icon {
+  background: #353688;
+  opacity: 0.9;
+  height: 100%;
+  z-index: 1;
+  width: 100%;
+  border-radius: 0% 20% 20% 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.current-temp-side .current-conditions {
+  color: #FFFFFF;
+}
+
+.current-temp-side .showcase-icon {
+  height: 70%;
+  width: 70%;
+  border-radius: 50px;
+  padding: 0rem;
+}
+
+.current-temp-side .current-temp {
+  background: #7768E4;
+  opacity: 0.9;
+  color: #FFFFFF;
+  height: 100%;
+  width: 100%;
+  border-radius: 0% 20% 20% 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.current-temp-side .current-temp p {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .main-container {
@@ -56,11 +123,26 @@ header {
   padding: 2rem;
 }
 
+header .current-temp-showcase-2 {
+  font-size: 1.5rem;
+}
+
+header .showcase-icon-2 {
+  height: 3.5rem;
+  width: 3.5rem;
+  padding-bottom: 10px;
+  border: none;
+}
+
 header h1 {
   font-size: 2rem;
   text-shadow: 1px white;
   font-weight: normal;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
+}
+
+header h2 {
+  margin-top: 5px;
 }
 
 header input {
@@ -155,11 +237,6 @@ header .fa-sync-alt:active {
   padding-left: 2rem;
 }
 
-.temp h2 {
-  padding: 0;
-  font-size: 1.5rem;
-}
-
 .column-small {
   height: 240px;
 }
@@ -182,7 +259,7 @@ header .fa-sync-alt:active {
 
 .weather-icon {
   width: 3.125rem;
-  height: 3.125rem;
+  height: 3.124rem;
   border: none;
 }
 
@@ -190,7 +267,6 @@ header .fa-sync-alt:active {
   border: none;
   width: 3.5rem;
   height: 3.5rem;
-  padding-bottom: 10px;
 }
 
 .forecast-heading {
@@ -446,7 +522,6 @@ header .fa-sync-alt:active {
   -ms-grid-row: 2;
   -ms-grid-row-span: 2;
   grid-row: 2/4;
-  z-index: 1;
   -ms-grid-column: 4;
   -ms-grid-column-span: 1;
   grid-column: 4/5;
@@ -554,6 +629,13 @@ header .fa-sync-alt:active {
     border-radius: 0px;
     border: none;
     gap: 1rem;
+  }
+  .current-temp-side {
+    display: none;
+    position: fixed;
+  }
+  .current-temp-side p {
+    font-size: 0.8rem;
   }
   .highlights {
     margin-top: 3rem;

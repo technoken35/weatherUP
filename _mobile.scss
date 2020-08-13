@@ -12,6 +12,16 @@
        
     }
 
+    .current-temp-side{
+        display: none;
+        position: fixed;
+        p{
+            font-size: 0.8rem;
+        }
+       
+    }
+
+
     .highlights {
        
         margin-top: 3rem;
