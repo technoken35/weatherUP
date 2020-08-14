@@ -15,6 +15,7 @@
 </head>
 <body>
     <!-- ! remove html parents and css selectors that aren't needed-->
+    <!-- ! MAKE CITY CARDS SMALLER-->
     <div class="current-temp-side">
         <div class="current-icon">
            
@@ -29,17 +30,26 @@
     </div>
     <div class="main-container">
         <header>
-           <div class="location">
-            <i class="fas fa-map-marker-alt fa-lg"></i>
-          <!--<input type="text" name="" id="" placeholder="Viva Las Vegas"> -->  
-            <h1>Las Vegas <i class="fas fa-sync-alt "></i></h1>
-           </div>
-          
-            <div class="temp">
-                <h2 class="current-temp-showcase-2"></h2>
-                <img class="showcase-icon-2" src="" alt="">
-               
+           <!-- <div class="video-container">
+                VIDEO SRC AND HTML 5 VIDEO ATTRIBUTES
+              <video src="/img/vid/rain-fall-day-generic.mp4" autoplay muted loop >
+
+                </video>
+            </div> -->
+            <div class="header-content">
+                <div class="location">
+                    <i class="fas fa-map-marker-alt fa-lg"></i>
+                  <!--<input type="text" name="" id="" placeholder="Viva Las Vegas"> -->  
+                    <h1 class="showcase-location">Las Vegas <i class="fas fa-sync-alt "></i></h1>
+                   </div>
+                  
+                    <div class="temp">
+                        <h2 class="current-temp-showcase-2"></h2>
+                        <img class="showcase-icon-2" src="" alt="">
+                        <p class="current-conditions-2"></p>
+                    </div>
             </div>
+           
           
         </header>
        
@@ -142,7 +152,37 @@
                        <i class="fas fa-plus-square"></i> 
                    </button>  
                 </form> -->
-                <img class="weather-icon"></img>
+                <div class="cities-main-data">
+                    <div class="cities-icon-container">
+                        <img class="weather-icon-cities" src="/img/open-weather-icons/04n@2x.png"></img>
+                    </div>
+                    <p class="cities-temp">75°F</p>
+                    <p class="city">Los Angeles, CA</p>
+                  
+                </div>
+                <div class="cities-advanced-data">
+                    <p>Humidity 2%</p>
+                    <p class="middle-data">West</p>
+                    <p>9.3MPH</p>
+                </div>
+                
+            </div>
+            <div class="cities-selection"> 
+               
+                <div class="cities-main-data">
+                    <div class="cities-icon-container">
+                        <img class="weather-icon-cities" src="/img/open-weather-icons/04n@2x.png"></img>
+                    </div>
+                    <p class="cities-temp">75°F</p>
+                    <p class="city">Los Angeles, CA</p>
+                  
+                </div>
+                <div class="cities-advanced-data">
+                    <p>Humidity 2%</p>
+                    <p class="middle-data">West</p>
+                    <p>9.3MPH</p>
+                </div>
+                
             </div>
             
         </div>

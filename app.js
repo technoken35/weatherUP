@@ -1,9 +1,5 @@
 // !! ADD better DATA visualization 
 
-// !! CHANGE ICONS WITH TIME OF DAY
-
-// !! ICON only loads properly when you refresh page not when you toggle between light and dark
-
 // !! SELECT ELEMENTS IN A MORE DRY WAY
 
 // !! Add ALL methods and other properties to weatherDataObj
@@ -11,7 +7,6 @@
 // !! Create better method for applying classes. EX add classes to array and pass them to a function as an arguement 
 
 //! Moon icon in progress bar stays when changing from dark mode to light mode.
-
 
 var weatherDataObj={};
 var uvIndexText= document.querySelector(".uv-index-text");
@@ -69,6 +64,8 @@ function updateUI (){
     // gotta be a more DRY way of selecting elements
 
     var currentConditions=  document.querySelector(".current-conditions");
+    // one for large and one for mobile. Gotta be a better way of giving multiple elements the same content.
+    var currentConditions2=  document.querySelector(".current-conditions-2");
     var tempHeader=  document.querySelector(".current-temp-showcase");
     var tempHeader2=  document.querySelector(".current-temp-showcase-2");
     var forecastDescriptionDay1= document.querySelector(".forecast-day-1 .conditions");
@@ -207,6 +204,7 @@ function updateUI (){
     tempHeader.textContent= currentTemp;
     tempHeader2.textContent= currentTemp;
     currentConditions.textContent=currentDescription;
+    currentConditions2.textContent=currentDescription;
    
     
 
@@ -346,16 +344,17 @@ function setProgressBar(uvi,progressBar){
 }
 
 
-//! ICONS ARE POPULATING. IF STATEMENTS ARENT NEEDED WEATHER OBJ INCLUDES ICON CODES FOR & switches DAY/NIGHT AUTOMATICALLY
  function setIcon(uiElement,iconCodeData) {
-    // sets icons from open weather map API based on a icon code from open weather map. 
-    // EX the response "01d" requests clear sky icon from openweather map icons
+    // sets icons from open weather map API based on a icon img name inside img folder. Names are given by icon code from open weather
+   
 
-    // set icon src url based on icon code passed to function from weatherDataOBJ
+    // set icon img src based on icon code passed to function from weatherDataOBJ.
+    // icons located in local img folder and are saved under the given icon code name
     var iconSrc=  "/img/open-weather-icons/"+iconCodeData+"@2x.png";
     // update html element 
     uiElement.src=iconSrc;
 } 
+
 
 function setDirection(degrees,uiElement){
     /* Sets wind direction based on  degrees (compass) */

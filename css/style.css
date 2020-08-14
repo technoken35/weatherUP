@@ -11,6 +11,10 @@
   /* font-size for rem */
 }
 
+img {
+  border: 0;
+}
+
 body {
   font-family: 'Open Sans',sans-serif;
   background: #E3E8EC;
@@ -109,7 +113,6 @@ body {
 }
 
 header {
-  background: url("/img/vegas.jpeg") no-repeat center/cover;
   width: 80vw;
   height: 30vh;
   margin: 0 auto;
@@ -134,79 +137,19 @@ header .showcase-icon-2 {
   border: none;
 }
 
-header h1 {
+header .temp {
+  display: none;
+}
+
+header .showcase-location {
   font-size: 2rem;
   text-shadow: 1px white;
   font-weight: normal;
   padding-bottom: 0px;
 }
 
-header h2 {
+header .current-temp-showcase-2 {
   margin-top: 5px;
-}
-
-header input {
-  background: none;
-  max-height: 4.5rem;
-  padding: 1rem;
-  border: none;
-}
-
-header input:active {
-  border: none;
-}
-
-header ::-webkit-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  height: 50px;
-  width: 20px;
-  opacity: 1;
-  /* Firefox */
-}
-
-header :-ms-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  height: 50px;
-  width: 20px;
-  opacity: 1;
-  /* Firefox */
-}
-
-header ::-ms-input-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  height: 50px;
-  width: 20px;
-  opacity: 1;
-  /* Firefox */
-}
-
-header ::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  height: 50px;
-  width: 20px;
-  opacity: 1;
-  /* Firefox */
-}
-
-header :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: red;
-}
-
-header ::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: red;
-}
-
-header p {
-  /* @extend .ml-10; using a class within another class */
-  margin-left: 3.5rem;
-  padding: 0.5rem;
-  text-transform: uppercase;
 }
 
 header .location {
@@ -541,9 +484,13 @@ header .fa-sync-alt:active {
   border-radius: 15px;
   min-height: 9rem;
   background: #FFFFFF;
-  padding: 2rem;
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .cities-selection .fa-trash {
@@ -561,16 +508,59 @@ header .fa-sync-alt:active {
   border: none;
 }
 
-.cities-selection-selection-city {
-  -ms-grid-rows: 1.5fr 0.5fr;
-      grid-template-rows: 1.5fr 0.5fr;
-  -webkit-box-shadow: 1px 1px 1px 1px #E3E8EC;
-          box-shadow: 1px 1px 1px 1px #E3E8EC;
-  border: 1px solid #E3E8EC;
+.cities-selection .weather-icon-cities {
+  width: 5rem;
+  height: 5rem;
+}
+
+.cities-selection .cities-icon-container {
+  background: #DEE7F4;
+  border: 1px solid #DEE7F4;
   border-radius: 15px;
-  min-height: 9rem;
-  background: #FFFFFF;
-  padding: 2rem;
+  justify-self: flex-start;
+  margin-right: 1.5rem;
+}
+
+.cities-main-data .cities-temp {
+  border-right: 1px solid #BFBFC4;
+  padding: 0 0.5rem;
+}
+
+.cities-main-data .cities-temp {
+  font-size: 2rem;
+}
+
+.cities-main-data .city {
+  padding-left: 0.5rem;
+}
+
+.cities-advanced-data {
+  /* x axis */
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-left: 1rem;
+}
+
+.cities-advanced-data .middle-data {
+  border-right: 1px solid #BFBFC4;
+  border-left: 1px solid #BFBFC4;
+  padding: 0 1rem;
+}
+
+.cities-advanced-data p {
+  color: #BFBFC4;
+}
+
+.cities-main-data, .cities-advanced-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -673,8 +663,14 @@ header .fa-sync-alt:active {
     padding: 2rem;
     margin-bottom: 0;
   }
-  header p {
-    display: none;
+  header .temp {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  header .current-conditions-2 {
+    margin: 10px 0 0 0;
+    padding: 0rem;
   }
   .forecast {
     -ms-grid-row: 2;
