@@ -236,7 +236,13 @@ function updateUI (){
    
 }
 
-var citiesSection= document.querySelector(".cities");
+var addLocation=document.querySelector(".location-button");
+addLocation.addEventListener("click",addCity);
+
+var citiesSection=document.querySelector(".cities")
+
+
+// accepts event from event listener that called this function as arguement 
 function addCity(event){
     //adds a new location div when user clicks
     
@@ -244,27 +250,74 @@ function addCity(event){
     // here it stops page from refreshing after submit button is pressed
     event.preventDefault();    
 
-    // Create city div
-    
+    // Create city card and add styling
     var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
     cityDiv.classList.add("cities-selection");
-
-    // create  paragraph for city name
+    
+    // creating the two main parent html elements of city card, adding styling, and appending to city card container  
+    var cityAdvancedDataDiv=document.createElement("div");
+    var cityMainDataDiv= document.createElement("div");
+    cityMainDataDiv.classList.add("cities-main-data");
+    cityAdvancedDataDiv.classList.add("cities-advanced-data");
+    
+    //add child elements to cities-main-data 
+    var imgContainer=document.createElement("div");
+     //create image wrapper
+    imgContainer.classList.add("cities-icon-container");
+    cityMainDataDiv.appendChild(imgContainer);
+    // add icon image to image wrapper
+    var img=document.createElement("img");
+    img.classList.add("weather-icon-cities");
+    img.src="/img/open-weather-icons/01d@2x.png";
+    imgContainer.appendChild(img);
+    // create p elements inside of cities-main-data
+    var citiesTemp= document.createElement("p");
+    citiesTemp.classList.add("cities-temp");
+    citiesTemp.textContent="75";
+    cityMainDataDiv.appendChild(citiesTemp);
+    // city selected
     var cityName= document.createElement("p");
+    cityName.classList.add("city")
     cityName.innerText= document.querySelector("input").value;
-    cityDiv.appendChild(cityName);
-   
-    // Create delete button
-    var button= document.createElement("button");
-    button.classList.add("trash-btn");
-    // add fontawesome icon to button
-    button.innerHTML="<i class='fas fa-trash fa-lg '> </i>";
-    // append delete button to city card
-    cityDiv.appendChild(button);
+    cityMainDataDiv.appendChild(cityName); 
 
-    // APPEND cities section
+    // Create delete button
+    var deleteButton= document.createElement("button");
+    deleteButton.classList.add("trash-btn");
+    // add fontawesome icon to button
+    deleteButton.innerHTML='<i class="fas fa-times-circle"></i>';
+    // append delete button 
+    cityMainDataDiv.appendChild(deleteButton);
+    // select delete button and listen
+    deleteButton.addEventListener('click',deleteCity);  
+    
+
+    //add child elements to cities-advanced-data
+    var citiesData1= document.createElement("p");
+    citiesData1.classList.add("cities-data-1");
+    citiesData1.textContent="Humidity"
+    cityAdvancedDataDiv.appendChild(citiesData1);
+    //data section 2
+    var citiesData2= document.createElement("p");
+    citiesData2.classList.add("cities-data-2");
+    citiesData2.textContent="Northwest"
+    cityAdvancedDataDiv.appendChild(citiesData2);
+    //data section 3
+    var citiesData3= document.createElement("p");
+    citiesData3.classList.add("cities-data-3");
+    citiesData1.textContent="25mph"
+    cityAdvancedDataDiv.appendChild(citiesData3);
+
+
+    cityDiv.appendChild(cityMainDataDiv);
+    cityDiv.appendChild(cityAdvancedDataDiv);
+
+    // APPEND  MAIN PARENT ELEMENT THAT CONTAINS ALL CITY CARDS
     citiesSection.appendChild(cityDiv);
+
+    //ADD A VALUE TO LOCAL STORAGE
+    saveCity(document.querySelector("input").value);
 
     // clear input for next city
     document.querySelector("input").value="";
@@ -272,27 +325,53 @@ function addCity(event){
 
 //function accepts an event as arguement. It is passed by event listener who called this function
 function deleteCity(e) {
+    // !! ADD ARE YOU SURE YOU WANT TO DELTE 
+    // !! TOGGLE a grayed out effect (element.classListToggle({class})) css: transition: all 1s ease 
    
     // {event}.target method returns the html element that fired the event listener 
     var htmlElement= e.target;
   
-    console.log(htmlElement);
-
     // checks the first class list array index of html element clicked. If it is not equal to trash then it does not delete
     if (htmlElement.classList[0]==="trash-btn"){
+        console.log(htmlElement);
         // parentElement method allows you to grab an html elements parent
-        var cityElement = htmlElement.parentElement;
-        // remove method allows you to remove a html element (proably method of document object);
-        cityElement.remove();
+        // button is nested inside two html elements
+        // select buttons parent
+        var cityMainDataDiv = htmlElement.parentElement;
+        // select main parent
+        var cityDiv=cityMainDataDiv.parentElement
+        // adding classlist for delete animation
+        cityDiv.classList.add("fall");
+
+        // this event listener waits until the transition has ended to fire 
+        // you can also set to animaionend if you have a css animation
+        cityDiv.addEventListener('transitionend',function(){
+            cityDiv.remove();
+        });
     }
     
 }
 
+function saveCity(city){
+    // Checks if there are any cities already stored in local storage 
+    var cities;
+    if(localStorage.getItem('cities')===null){
+        //if local storage empty create empty array containing cities
+        cities=[];
+    } else {
+        // else there are existing cities in local storage 
+        //converts local storage JSON into a JS object and places existing data back into cities array
+        cities=JSON.parse(localStorage.getItem('cities'));
+    }
 
-var addLocation=document.querySelector(".location-button");
+    // adds new city to the end of the city array
+    cities.push(city);
+    // saves item named city in local storage. JSON.stringify() converts JS values in JSONs
+    localStorage.setItem('cities',JSON.stringify(cities));
+    
+}
 
-//addLocation.addEventListener("click",addCity);
-citiesSection.addEventListener('click',deleteCity);
+
 
 function setProgressBar(uvi,progressBar){
      /* sets color & progress based on uvi value */
