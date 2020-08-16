@@ -248,12 +248,19 @@ function addCity(event){
     
     //stops default action after event. Ex checkbox cant be checked. No text input into check box.
     // here it stops page from refreshing after submit button is pressed
-    event.preventDefault();    
+    event.preventDefault();  
+
+    // ? Number to keep track of cities add
+    var citiesAdded=0;
+    citiesAdded++;
+    console.log(citiesAdded);
+    var addedClass = "city"+citiesAdded;
 
     // Create city card and add styling
     var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
     cityDiv.classList.add("cities-selection");
+    cityDiv.classList.add(addedClass);
     
     // creating the two main parent html elements of city card, adding styling, and appending to city card container  
     var cityAdvancedDataDiv=document.createElement("div");
@@ -318,7 +325,17 @@ function addCity(event){
 
     //ADD A VALUE TO LOCAL STORAGE
     saveCity(document.querySelector("input").value);
+    
+    var testArr=[ {
+        tacos: function(){
+            console.log("2.2");
+        },
 
+        burgers:"freddys double bacon with cheese"
+    }
+
+    ,"Second index is a string",3];
+    
     // clear input for next city
     document.querySelector("input").value="";
 }
@@ -343,9 +360,24 @@ function deleteCity(e) {
         // adding classlist for delete animation
         cityDiv.classList.add("fall");
 
+        var cityDivContainer= cityDiv.parentElement;
+        var cityDivContainerChildren= cityDivContainer.childNodes;
+        
+        /* cityDivContainerChildren.forEach( 
+            function(currentValue, currentIndex, listObj) { 
+              console.log(currentValue + ', ' + currentIndex + ', ' + this); 
+              console.log(currentValue.classList)
+            },
+            'myThisArg'
+        ); */
+        
+        console.log(cityDivContainer, "cities section inside main container & its kids!");
+        console.log(cityDivContainerChildren,"cities container kid who called them on christmas?")
+
         // this event listener waits until the transition has ended to fire 
         // you can also set to animaionend if you have a css animation
         cityDiv.addEventListener('transitionend',function(){
+            
             cityDiv.remove();
         });
     }
@@ -354,21 +386,111 @@ function deleteCity(e) {
 
 function saveCity(city){
     // Checks if there are any cities already stored in local storage 
+
     var cities;
-    if(localStorage.getItem('cities')===null){
+    
+    if(localStorage.getItem("cities")===null){
         //if local storage empty create empty array containing cities
         cities=[];
     } else {
         // else there are existing cities in local storage 
         //converts local storage JSON into a JS object and places existing data back into cities array
-        cities=JSON.parse(localStorage.getItem('cities'));
+        cities=JSON.parse(localStorage.getItem("cities"));
     }
 
     // adds new city to the end of the city array
     cities.push(city);
-    // saves item named city in local storage. JSON.stringify() converts JS values in JSONs
-    localStorage.setItem('cities',JSON.stringify(cities));
+    // saves key named cities with an array of city names as the value. JSON.stringify() converts JS values in JSON 
+    //setItem stores data in Storage object 
+    localStorage.setItem("cities",JSON.stringify(cities));
+
     
+}
+
+function getCities(){
+    var cities;
+    console.log("inside get cities");
+    
+    if(localStorage.getItem("cities")===null){
+        //if local storage does not have KEY named "cities" create an empty ARRAY named cities
+        cities=[];
+    } else {
+        // else there are exisiting values in cities key in local storage 
+        //converts local storage JSON into a JS object and places existing data back into cities array
+        cities=JSON.parse(localStorage.getItem("cities"));
+    }
+
+    // loop over all values in city array
+    cities.forEach(function(city){
+        //      REPOPULATE UI WITH OLD CITYIES
+        // Create city card and add styling
+    var cityDiv = document.createElement("div");
+    //adds styling class to newly created child element
+    cityDiv.classList.add("cities-selection");
+    
+    // creating the two main parent html elements of city card, adding styling, and appending to city card container  
+    var cityAdvancedDataDiv=document.createElement("div");
+    var cityMainDataDiv= document.createElement("div");
+    cityMainDataDiv.classList.add("cities-main-data");
+    cityAdvancedDataDiv.classList.add("cities-advanced-data");
+    
+    //add child elements to cities-main-data 
+    var imgContainer=document.createElement("div");
+     //create image wrapper
+    imgContainer.classList.add("cities-icon-container");
+    cityMainDataDiv.appendChild(imgContainer);
+    // add icon image to image wrapper
+    var img=document.createElement("img");
+    img.classList.add("weather-icon-cities");
+    img.src="/img/open-weather-icons/01d@2x.png";
+    imgContainer.appendChild(img);
+    // create p elements inside of cities-main-data
+    var citiesTemp= document.createElement("p");
+    citiesTemp.classList.add("cities-temp");
+    citiesTemp.textContent="75";
+    cityMainDataDiv.appendChild(citiesTemp);
+    // city selected
+    var cityName= document.createElement("p");
+    cityName.classList.add("city")
+    // set inner text value to value of current city in loop 
+    cityName.innerText= city;
+    cityMainDataDiv.appendChild(cityName); 
+
+    // Create delete button
+    var deleteButton= document.createElement("button");
+    deleteButton.classList.add("trash-btn");
+    // add fontawesome icon to button
+    deleteButton.innerHTML='<i class="fas fa-times-circle"></i>';
+    // append delete button 
+    cityMainDataDiv.appendChild(deleteButton);
+    // select delete button and listen
+    deleteButton.addEventListener('click',deleteCity);  
+    
+
+    //add child elements to cities-advanced-data
+    var citiesData1= document.createElement("p");
+    citiesData1.classList.add("cities-data-1");
+    citiesData1.textContent="Humidity"
+    cityAdvancedDataDiv.appendChild(citiesData1);
+    //data section 2
+    var citiesData2= document.createElement("p");
+    citiesData2.classList.add("cities-data-2");
+    citiesData2.textContent="Northwest"
+    cityAdvancedDataDiv.appendChild(citiesData2);
+    //data section 3
+    var citiesData3= document.createElement("p");
+    citiesData3.classList.add("cities-data-3");
+    citiesData1.textContent="25mph"
+    cityAdvancedDataDiv.appendChild(citiesData3);
+
+
+    cityDiv.appendChild(cityMainDataDiv);
+    cityDiv.appendChild(cityAdvancedDataDiv);
+
+    // APPEND  MAIN PARENT ELEMENT THAT CONTAINS ALL CITY CARDS
+    citiesSection.appendChild(cityDiv);
+
+    })
 }
 
 
@@ -430,6 +552,7 @@ function setProgressBar(uvi,progressBar){
     // set icon img src based on icon code passed to function from weatherDataOBJ.
     // icons located in local img folder and are saved under the given icon code name
     var iconSrc=  "/img/open-weather-icons/"+iconCodeData+"@2x.png";
+    // !! BETTER WAY TO SET ATTRITUBUTES LIKE IMG SRC:  imgElem.setAttribute('src', currentImage);
     // update html element 
     uiElement.src=iconSrc;
 } 
@@ -461,6 +584,10 @@ window.addEventListener('load',()=> {
     getData();
 
 });
+
+// EVENT LISTENER TO CHECK IF ALL DOM CONTENT HAS LOADED
+// if it has get cities
+window.addEventListener('DOMContentLoaded',getCities);
 
 document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
