@@ -529,7 +529,6 @@ header .fa-sync-alt:active {
   -webkit-transform: translateY(8rem) rotateZ(20deg);
           transform: translateY(8rem) rotateZ(20deg);
   opacity: 0;
-  background: blue !important;
 }
 
 .cities-main-data .cities-temp {

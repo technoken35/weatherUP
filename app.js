@@ -323,18 +323,19 @@ function addCity(event){
     // APPEND  MAIN PARENT ELEMENT THAT CONTAINS ALL CITY CARDS
     citiesSection.appendChild(cityDiv);
 
-    //ADD A VALUE TO LOCAL STORAGE
-    saveCity(document.querySelector("input").value);
-    
-    var testArr=[ {
-        tacos: function(){
-            console.log("2.2");
-        },
 
-        burgers:"freddys double bacon with cheese"
+   
+    // store data for each card in their own objects
+    var cityData={
+        img: 01,
+        city: document.querySelector("input").value,
+        temp: 75
     }
 
-    ,"Second index is a string",3];
+    //ADD CITY DATA OBJ TO LOCAL STORAGE
+    saveCity(cityData);
+    //saveCity(document.querySelector("input").value);
+    
     
     // clear input for next city
     document.querySelector("input").value="";
@@ -360,26 +361,43 @@ function deleteCity(e) {
         // adding classlist for delete animation
         cityDiv.classList.add("fall");
 
-        var cityDivContainer= cityDiv.parentElement;
-        var cityDivContainerChildren= cityDivContainer.childNodes;
+        // variable with array value to store local storage city values
+        var cities;
         
-        /* cityDivContainerChildren.forEach( 
-            function(currentValue, currentIndex, listObj) { 
-              console.log(currentValue + ', ' + currentIndex + ', ' + this); 
-              console.log(currentValue.classList)
-            },
-            'myThisArg'
-        ); */
+        /* storing the city text of current card being deleted in variable by selecting the 
+        parent elements children and going to the 2nd index in
+        childNodes which contains the paragraph html element that has city text */
+        var cityText= cityMainDataDiv.childNodes[2].textContent;
+        console.log(cityText);
         
-        console.log(cityDivContainer, "cities section inside main container & its kids!");
-        console.log(cityDivContainerChildren,"cities container kid who called them on christmas?")
+        // get cities array from local storage and parse from JSON
+       cities=JSON.parse(localStorage.getItem("cities"));
 
+       // loop over cities array 
+       // !! CHANGE TO FOR EACH LOOP
+       for (i=0; i<cities.length;i++){
+        
+        // data for each city is stored as an object inside cities array 
+         // check if current citiies index has city property equal to city text
+           if(cities[i].city===cityText){
+
+               // remove current object from array
+               // start at current index, remove 1 item
+               cities.splice(i,1);
+           };
+       }
+       
+       //push updated array back to local storage
+       localStorage.setItem("cities",JSON.stringify(cities));
+           
         // this event listener waits until the transition has ended to fire 
         // you can also set to animaionend if you have a css animation
         cityDiv.addEventListener('transitionend',function(){
             
             cityDiv.remove();
         });
+
+
     }
     
 }
@@ -418,11 +436,14 @@ function getCities(){
         // else there are exisiting values in cities key in local storage 
         //converts local storage JSON into a JS object and places existing data back into cities array
         cities=JSON.parse(localStorage.getItem("cities"));
+       
     }
 
     // loop over all values in city array
-    cities.forEach(function(city){
-        //      REPOPULATE UI WITH OLD CITYIES
+    // index is optional argument produces current index of array
+    cities.forEach(function(city,index){
+        // REPOPULATE UI WITH OLD CITIES
+        
         // Create city card and add styling
     var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
@@ -453,7 +474,7 @@ function getCities(){
     var cityName= document.createElement("p");
     cityName.classList.add("city")
     // set inner text value to value of current city in loop 
-    cityName.innerText= city;
+    cityName.innerText= cities[index].city;
     cityMainDataDiv.appendChild(cityName); 
 
     // Create delete button
