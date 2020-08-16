@@ -16,10 +16,13 @@ let date = new Date();
 var sunsetData;
 var currentWeatherID;
 
+
+
 function getData () {
 
-    let longitude;
-    let latitude;
+    
+    var longitude;
+    var latitude;
     
     if(navigator.geolocation){
         /* navigator object which is property of window object (contains document object too)
@@ -78,6 +81,7 @@ function updateUI (){
     var forecastTempDay2= document.querySelector(".forecast-day-2 .forecast-num p");
     var forecastTempDay3= document.querySelector(".forecast-day-3 .forecast-num p");
 
+    var showcaseLocation=document.querySelector(".showcase-location");
     var showcaseIcon= document.querySelector(".showcase-icon");
     var showcaseIcon2= document.querySelector(".showcase-icon-2");
     var icon1 = document.querySelector(".weather-icon-1");
@@ -201,6 +205,8 @@ function updateUI (){
     var forecastWeatherID3= weatherDataObj.daily[3].weather[0].id;
     var forecastIconDataDay3= weatherDataObj.daily[3].weather[0].icon
 
+    // updating showcase city with current city returned from reverse geocoding api 
+    showcaseLocation.textContent=reverseGeoObj.city
     tempHeader.textContent= currentTemp;
     tempHeader2.textContent= currentTemp;
     currentConditions.textContent=currentDescription;
@@ -233,7 +239,10 @@ function updateUI (){
    // setIcon(currentDescriptionDataShort,showcaseIcon); 
     setDirection(windDirectionData,windDirection);
    
-   
+   console.log(weatherDataObj," ","weather data obj")
+
+    console.log(reverseGeoObj," "," Storing returned object from function")
+
 }
 
 var addLocation=document.querySelector(".location-button");
@@ -324,13 +333,13 @@ function addCity(event){
     citiesSection.appendChild(cityDiv);
 
 
-   
     // store data for each card in their own objects
     var cityData={
         img: 01,
         city: document.querySelector("input").value,
         temp: 75
     }
+
 
     //ADD CITY DATA OBJ TO LOCAL STORAGE
     saveCity(cityData);
@@ -343,7 +352,7 @@ function addCity(event){
 
 //function accepts an event as arguement. It is passed by event listener who called this function
 function deleteCity(e) {
-    // !! ADD ARE YOU SURE YOU WANT TO DELTE 
+    // !! ADD ARE YOU SURE YOU WANT TO DELETE 
     // !! TOGGLE a grayed out effect (element.classListToggle({class})) css: transition: all 1s ease 
    
     // {event}.target method returns the html element that fired the event listener 
@@ -515,7 +524,6 @@ function getCities(){
 }
 
 
-
 function setProgressBar(uvi,progressBar){
      /* sets color & progress based on uvi value */
 
@@ -613,6 +621,37 @@ window.addEventListener('DOMContentLoaded',getCities);
 document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
 })
+
+// !! STORE REVERSE GEO LOCATION FETCH IN A FUNCTION
+
+    var latitudeReverseGeo;
+    var longitudeReverseGeo;
+    var reverseGeoObj={};
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+
+            latitudeReverseGeo= position.coords.latitude;
+            longitudeReverseGeo= position.coords.longitude;
+        
+            const API = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitudeReverseGeo}&longitude=${longitudeReverseGeo}&localityLanguage=en`;
+            /* function for requests/responses returns a promise that is a response object */
+            fetch(API)
+                .then(function(response) {
+                /* then waits for data to return before executing. (response is arbitrary parameter for data returned from call) 
+                parse response into JSON
+                */
+                return response.json();
+
+            })
+                .then(function(data) {
+                    reverseGeoObj=data;
+                    console.log('recieved reverse geo', reverseGeoObj);
+    
+                })
+            ;   
+        })
+    }
 
 
 /* USEFUL WAYS OF USING CLASS LIST 
