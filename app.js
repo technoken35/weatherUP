@@ -1,4 +1,3 @@
-// !! ADD better DATA visualization 
 
 // !! SELECT ELEMENTS IN A MORE DRY WAY
 
@@ -243,6 +242,9 @@ function updateUI (){
 
     console.log(reverseGeoObj," "," Storing returned object from function")
 
+    
+   
+
 }
 
 var addLocation=document.querySelector(".location-button");
@@ -259,17 +261,10 @@ function addCity(event){
     // here it stops page from refreshing after submit button is pressed
     event.preventDefault();  
 
-    // ? Number to keep track of cities add
-    var citiesAdded=0;
-    citiesAdded++;
-    console.log(citiesAdded);
-    var addedClass = "city"+citiesAdded;
-
     // Create city card and add styling
     var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
     cityDiv.classList.add("cities-selection");
-    cityDiv.classList.add(addedClass);
     
     // creating the two main parent html elements of city card, adding styling, and appending to city card container  
     var cityAdvancedDataDiv=document.createElement("div");
@@ -340,6 +335,10 @@ function addCity(event){
         temp: 75
     }
 
+    var userInput=document.querySelector("input").value;
+    
+    //calling geocode function and passing user input as argument
+    geoCode(userInput);
 
     //ADD CITY DATA OBJ TO LOCAL STORAGE
     saveCity(cityData);
@@ -434,6 +433,47 @@ function saveCity(city){
     
 }
 
+function geoCode(input) {
+    // GEOCODING WITH TRUE WAY VIA RAPID API
+
+    var queryInput;
+
+    console.log(input.length)
+    // loop through user input to check each char for a space 
+    for (i=0;i<input.length;i++){
+        // query cannot accept space characters. All spaces are replaced "%20"
+        if(input[i]===" "){
+            // function to replace all matching values with another 
+            queryInput=input.replace(/ /g,"%20");
+        };
+    }
+
+    //concatenate query string
+    fetch("https://trueway-geocoding.p.rapidapi.com/Geocode?language=en&country=US&address="+queryInput, 
+    
+    {
+        // query parameters 
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "trueway-geocoding.p.rapidapi.com",
+            "x-rapidapi-key": "dbff5aa8f8mshcffb7b6cbc1a605p183a15jsn83584005fee5"
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data =>{
+        var cityGeoObj=data;
+        console.log(cityGeoObj.results[0].locality)
+        
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
+}
+
 function getCities(){
     var cities;
     console.log("inside get cities");
@@ -496,7 +536,6 @@ function getCities(){
     // select delete button and listen
     deleteButton.addEventListener('click',deleteCity);  
     
-
     //add child elements to cities-advanced-data
     var citiesData1= document.createElement("p");
     citiesData1.classList.add("cities-data-1");
@@ -623,6 +662,7 @@ document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
 })
 
 // !! STORE REVERSE GEO LOCATION FETCH IN A FUNCTION
+// !! REPLACE WITH RAPID API REVERSE GEO CODE
 
     var latitudeReverseGeo;
     var longitudeReverseGeo;
@@ -652,6 +692,7 @@ document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
             ;   
         })
     }
+
 
 
 /* USEFUL WAYS OF USING CLASS LIST 
