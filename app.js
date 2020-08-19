@@ -61,6 +61,36 @@ function getData () {
 }
 
 
+// API call to get weather data for user selected city location
+// Accepts latitude and longitude as arguments from getCity() which originally got geo coords from geoCode()
+function getCitiesData (latitude,longitude){
+    var citiesWeatherDataArr=[];
+    var citiesWeatherDataObj={};
+    
+    // query open weather map based on latitude and longitude passed to function
+    const API=  `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=4a9721a8067a91cc5de8f90d6c9d4c16`;
+
+    fetch(API)
+        .then(function(response){
+            // return response obect as JSON
+            return response.json();
+        })
+        .then (function(data){
+            // store data in weather object
+            citiesWeatherDataObj=data;
+            console.log(citiesWeatherDataObj.main,"results")
+            // push object to weatherDataArr
+            citiesWeatherDataArr.push(citiesWeatherDataObj);
+            console.log(citiesWeatherDataArr)
+            
+        })
+    ;    
+   // return array containing weather data object to getCities which populates city cards
+   return citiesWeatherDataArr;
+    
+}
+
+
 function updateUI (){
 
     // gotta be a more DRY way of selecting elements
@@ -164,7 +194,6 @@ function updateUI (){
     } */
 
 
-
     function getDayOfWeek(unix_timestamp) {
         var daysOfTheWeek=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         var stringDay;
@@ -248,18 +277,20 @@ function updateUI (){
 }
 
 var addLocation=document.querySelector(".location-button");
-addLocation.addEventListener("click",addCity);
+addLocation.addEventListener("click",geoCode);
 
 var citiesSection=document.querySelector(".cities")
 
 
-// accepts event from event listener that called this function as arguement 
-function addCity(event){
-    //adds a new location div when user clicks
-    
-    //stops default action after event. Ex checkbox cant be checked. No text input into check box.
-    // here it stops page from refreshing after submit button is pressed
-    event.preventDefault();  
+// accepts lattitude and longitude from geoCode function that called this function
+ function addCity(latitude,longitude){
+    //adds a new location div with correct weather data 
+
+    var citiesWeatherData=[];
+    // calls getCitiesData which accepts geo coords and returns ARRAY holding SINGLE weather data OBJECT for city     
+   citiesWeatherData=getCitiesData(latitude,longitude);
+   console.log(citiesWeatherData,"cities weather data in add city")
+   console.log(citiesWeatherData.main,"cities icon data")
 
     // Create city card and add styling
     var cityDiv = document.createElement("div");
@@ -280,7 +311,7 @@ function addCity(event){
     // add icon image to image wrapper
     var img=document.createElement("img");
     img.classList.add("weather-icon-cities");
-    img.src="/img/open-weather-icons/01d@2x.png";
+    img.src=setIcon(img,citiesWeatherData[0].weather[0].icon);
     imgContainer.appendChild(img);
     // create p elements inside of cities-main-data
     var citiesTemp= document.createElement("p");
@@ -332,13 +363,12 @@ function addCity(event){
     var cityData={
         img: 01,
         city: document.querySelector("input").value,
-        temp: 75
     }
 
     var userInput=document.querySelector("input").value;
     
     //calling geocode function and passing user input as argument
-    geoCode(userInput);
+    //geoCode(userInput);
 
     //ADD CITY DATA OBJ TO LOCAL STORAGE
     saveCity(cityData);
@@ -433,10 +463,20 @@ function saveCity(city){
     
 }
 
-function geoCode(input) {
+// accepts event from event listener that called this function as arguement 
+function geoCode(event) {
     // GEOCODING WITH TRUE WAY VIA RAPID API
+    
+    //stops default action after event. Ex checkbox cant be checked. No text input into check box.
+    // here it stops page from refreshing after submit button is pressed
+    event.preventDefault();
+
+    // save user input in variable 
+    var input=document.querySelector("input").value;
 
     var queryInput;
+    var cityGeoObj={};
+    var cityLatLong=[];
 
     console.log(input.length)
     // loop through user input to check each char for a space 
@@ -460,17 +500,29 @@ function geoCode(input) {
         }
     })
     .then(response => {
+        // return response from rapid API as JSON
         return response.json();
     })
     .then(data =>{
-        var cityGeoObj=data;
+        // store data in object
+        cityGeoObj=data;
+        console.log("fresh object right of the press",cityGeoObj)
         console.log(cityGeoObj.results[0].locality)
+       
+        // store lattitude and longitude retun in array 
+        cityLatLong= [cityGeoObj.results[0].location.lat,cityGeoObj.results[0].location.lng];
+        
+        // call add city and pass it geo coords
+       addCity(cityLatLong[0],cityLatLong[1]);
+        
         
     })
     .catch(err => {
         console.log(err);
     });
-
+    
+   
+    
 
 }
 
@@ -512,7 +564,7 @@ function getCities(){
     // add icon image to image wrapper
     var img=document.createElement("img");
     img.classList.add("weather-icon-cities");
-    img.src="/img/open-weather-icons/01d@2x.png";
+    //img.src=setIcon(img,citiesWeatherData[0].weather[0].icon);
     imgContainer.appendChild(img);
     // create p elements inside of cities-main-data
     var citiesTemp= document.createElement("p");
