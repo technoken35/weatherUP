@@ -7,7 +7,12 @@
 
 //! Moon icon in progress bar stays when changing from dark mode to light mode.
 
+// global variables that contain all city & weather data for page
 var weatherDataObj={};
+var cityGeoObj={}
+
+
+// !! move these selectors
 var uvIndexText= document.querySelector(".uv-index-text");
 var progressBar=document.querySelector(".uv-index-progress");
 let date = new Date();
@@ -62,10 +67,11 @@ function getData () {
 
 
 // API call to get weather data for user selected city location
-// Accepts latitude and longitude as arguments from getCity() which originally got geo coords from geoCode()
+// Accepts latitude and longitude as arguments 
 function getCitiesData (latitude,longitude){
-    var citiesWeatherDataArr=[];
+    // ? remove this object, push response JSON straight to array 
     var citiesWeatherDataObj={};
+    var citiesWeatherDataArr=[];
     
     // query open weather map based on latitude and longitude passed to function
     const API=  `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=4a9721a8067a91cc5de8f90d6c9d4c16`;
@@ -78,15 +84,16 @@ function getCitiesData (latitude,longitude){
         .then (function(data){
             // store data in weather object
             citiesWeatherDataObj=data;
-            console.log(citiesWeatherDataObj.main,"results")
+            console.log(citiesWeatherDataObj,"results");
+            
             // push object to weatherDataArr
             citiesWeatherDataArr.push(citiesWeatherDataObj);
-            console.log(citiesWeatherDataArr)
+            console.log(citiesWeatherDataArr[0].main,"lord is it you?")
+            // call add city to update UI and pass selected city data in array
+            addCity(citiesWeatherDataArr);
             
         })
     ;    
-   // return array containing weather data object to getCities which populates city cards
-   return citiesWeatherDataArr;
     
 }
 
@@ -151,6 +158,8 @@ function updateUI (){
         return formattedTime;
 
     }
+
+    
     
     var currentDescriptionData=weatherDataObj.current.weather[0].description;
     
@@ -281,17 +290,21 @@ addLocation.addEventListener("click",geoCode);
 
 var citiesSection=document.querySelector(".cities")
 
+function kelvinToFh(temp){
+    var fahrenheit;
+    fahrenheit= Math.round((temp - 273.15) * 9/5 + 32) ;
+    return fahrenheit;
+}
 
-// accepts lattitude and longitude from geoCode function that called this function
- function addCity(latitude,longitude){
-    //adds a new location div with correct weather data 
 
-    var citiesWeatherData=[];
-    // calls getCitiesData which accepts geo coords and returns ARRAY holding SINGLE weather data OBJECT for city     
-   citiesWeatherData=getCitiesData(latitude,longitude);
-   console.log(citiesWeatherData,"cities weather data in add city")
-   console.log(citiesWeatherData.main,"cities icon data")
+// optional parameter geoCoords
+function addCity(weatherData){
+    //adds a new location div with weather data array passed
 
+    console.log(weatherData[0],"add city")
+    console.log(cityGeoObj.results,"add city")
+    console.log()
+   
     // Create city card and add styling
     var cityDiv = document.createElement("div");
     //adds styling class to newly created child element
@@ -309,19 +322,23 @@ var citiesSection=document.querySelector(".cities")
     imgContainer.classList.add("cities-icon-container");
     cityMainDataDiv.appendChild(imgContainer);
     // add icon image to image wrapper
-    var img=document.createElement("img");
-    img.classList.add("weather-icon-cities");
-    img.src=setIcon(img,citiesWeatherData[0].weather[0].icon);
-    imgContainer.appendChild(img);
+    var imgIcon=document.createElement("img");
+    imgIcon.classList.add("weather-icon-cities");
+    // set Icon img src
+    setIcon(imgIcon,weatherData[0].weather[0].icon);
+    console.log("cities Icon")
+    imgContainer.appendChild(imgIcon);
     // create p elements inside of cities-main-data
     var citiesTemp= document.createElement("p");
     citiesTemp.classList.add("cities-temp");
-    citiesTemp.textContent="75";
+    // convert kelvins returned by API and returns rounded fahrenheit value
+    citiesTemp.textContent=kelvinToFh(weatherData[0].main.temp);
     cityMainDataDiv.appendChild(citiesTemp);
     // city selected
     var cityName= document.createElement("p");
     cityName.classList.add("city")
-    cityName.innerText= document.querySelector("input").value;
+    // update card with requested city name and country
+    cityName.innerText= weatherData[0].name;
     cityMainDataDiv.appendChild(cityName); 
 
     // Create delete button
@@ -357,27 +374,61 @@ var citiesSection=document.querySelector(".cities")
 
     // APPEND  MAIN PARENT ELEMENT THAT CONTAINS ALL CITY CARDS
     citiesSection.appendChild(cityDiv);
+    
+    // Saving data as object
+   var cityData={
+        city:  weatherData[0].name,
+        geoCoords: {lat:weatherData[0].coord.lat, lng:weatherData[0].coord.lon}
+   }
+    var inArray;
+    if(localStorage.getItem("cities")!==null){
+        var cities=[];
+        
 
+        cities=JSON.parse(localStorage.getItem("cities"));
+        console.log(cities,"cities local storage inside add city")
 
-    // store data for each card in their own objects
-    var cityData={
-        img: 01,
-        city: document.querySelector("input").value,
+        // loop through all city objects
+        for (i=0; i<cities.length;i++){
+        
+            // data for each city is stored as an object inside cities array 
+             // check if current citiies index has city property equal to city text
+             // loop through each city string at current index
+            if(cities[i].city !== weatherData[0].name){
+                (console.log(cities[i].city," ",weatherData[0].name));
+                inArray=false;
+            } 
+        }
+
+        // if item is not in array saveCity
+        if(inArray==false){
+            saveCity(cityData);
+
+        } else{
+            console.log("duplicate no need to save city")
+        }
+    
+    } else {
+        // first city
+       
+        var test=true;
+        if(!test){
+            console.log("you not going crazy")
+        }
+        saveCity(cityData)
+        console.log("first case test")
     }
 
-    var userInput=document.querySelector("input").value;
-    
-    //calling geocode function and passing user input as argument
-    //geoCode(userInput);
+   // saveCity(cityData);
+}
 
-    //ADD CITY DATA OBJ TO LOCAL STORAGE
-    saveCity(cityData);
-    //saveCity(document.querySelector("input").value);
     
+    
+   
     
     // clear input for next city
     document.querySelector("input").value="";
-}
+
 
 //function accepts an event as arguement. It is passed by event listener who called this function
 function deleteCity(e) {
@@ -464,6 +515,7 @@ function saveCity(city){
 }
 
 // accepts event from event listener that called this function as arguement 
+// USER INPUT TO GEO COORDS
 function geoCode(event) {
     // GEOCODING WITH TRUE WAY VIA RAPID API
     
@@ -475,15 +527,14 @@ function geoCode(event) {
     var input=document.querySelector("input").value;
 
     var queryInput;
-    var cityGeoObj={};
-    var cityLatLong=[];
+  
 
     console.log(input.length)
     // loop through user input to check each char for a space 
     for (i=0;i<input.length;i++){
         // query cannot accept space characters. All spaces are replaced "%20"
         if(input[i]===" "){
-            // function to replace all matching values with another 
+            // function to replace all matching values with another. / /g = replace all spaces globaly in string 
             queryInput=input.replace(/ /g,"%20");
         };
     }
@@ -499,25 +550,21 @@ function geoCode(event) {
             "x-rapidapi-key": "dbff5aa8f8mshcffb7b6cbc1a605p183a15jsn83584005fee5"
         }
     })
-    .then(response => {
+    .then(function(response) {
         // return response from rapid API as JSON
         return response.json();
     })
-    .then(data =>{
+    .then(function(data){
         // store data in object
         cityGeoObj=data;
         console.log("fresh object right of the press",cityGeoObj)
         console.log(cityGeoObj.results[0].locality)
-       
-        // store lattitude and longitude retun in array 
-        cityLatLong= [cityGeoObj.results[0].location.lat,cityGeoObj.results[0].location.lng];
-        
-        // call add city and pass it geo coords
-       addCity(cityLatLong[0],cityLatLong[1]);
-        
-        
+    
+        // calls getCitiesData which accepts geo coords and querys openWeatherMap
+        getCitiesData(cityGeoObj.results[0].location.lat,cityGeoObj.results[0].location.lng);   
+
     })
-    .catch(err => {
+    .catch(function(err) {
         console.log(err);
     });
     
@@ -525,6 +572,8 @@ function geoCode(event) {
     
 
 }
+
+// ! Get cities data should call add city to update UI
 
 function getCities(){
     var cities;
@@ -536,82 +585,24 @@ function getCities(){
     } else {
         // else there are exisiting values in cities key in local storage 
         //converts local storage JSON into a JS object and places existing data back into cities array
+        // this works because an array is a special kind of object
         cities=JSON.parse(localStorage.getItem("cities"));
        
     }
 
     // loop over all values in city array
     // index is optional argument produces current index of array
+    
     cities.forEach(function(city,index){
-        // REPOPULATE UI WITH OLD CITIES
-        
-        // Create city card and add styling
-    var cityDiv = document.createElement("div");
-    //adds styling class to newly created child element
-    cityDiv.classList.add("cities-selection");
-    
-    // creating the two main parent html elements of city card, adding styling, and appending to city card container  
-    var cityAdvancedDataDiv=document.createElement("div");
-    var cityMainDataDiv= document.createElement("div");
-    cityMainDataDiv.classList.add("cities-main-data");
-    cityAdvancedDataDiv.classList.add("cities-advanced-data");
-    
-    //add child elements to cities-main-data 
-    var imgContainer=document.createElement("div");
-     //create image wrapper
-    imgContainer.classList.add("cities-icon-container");
-    cityMainDataDiv.appendChild(imgContainer);
-    // add icon image to image wrapper
-    var img=document.createElement("img");
-    img.classList.add("weather-icon-cities");
-    //img.src=setIcon(img,citiesWeatherData[0].weather[0].icon);
-    imgContainer.appendChild(img);
-    // create p elements inside of cities-main-data
-    var citiesTemp= document.createElement("p");
-    citiesTemp.classList.add("cities-temp");
-    citiesTemp.textContent="75";
-    cityMainDataDiv.appendChild(citiesTemp);
-    // city selected
-    var cityName= document.createElement("p");
-    cityName.classList.add("city")
-    // set inner text value to value of current city in loop 
-    cityName.innerText= cities[index].city;
-    cityMainDataDiv.appendChild(cityName); 
+        //cities array kept in local storage
+        // call geoCode to geoCode city name 
+         
+        getCitiesData(cities[index].geoCoords.lat, cities[index].geoCoords.lng);
+        console.log("get cities is the culprit")
 
-    // Create delete button
-    var deleteButton= document.createElement("button");
-    deleteButton.classList.add("trash-btn");
-    // add fontawesome icon to button
-    deleteButton.innerHTML='<i class="fas fa-times-circle"></i>';
-    // append delete button 
-    cityMainDataDiv.appendChild(deleteButton);
-    // select delete button and listen
-    deleteButton.addEventListener('click',deleteCity);  
-    
-    //add child elements to cities-advanced-data
-    var citiesData1= document.createElement("p");
-    citiesData1.classList.add("cities-data-1");
-    citiesData1.textContent="Humidity"
-    cityAdvancedDataDiv.appendChild(citiesData1);
-    //data section 2
-    var citiesData2= document.createElement("p");
-    citiesData2.classList.add("cities-data-2");
-    citiesData2.textContent="Northwest"
-    cityAdvancedDataDiv.appendChild(citiesData2);
-    //data section 3
-    var citiesData3= document.createElement("p");
-    citiesData3.classList.add("cities-data-3");
-    citiesData1.textContent="25mph"
-    cityAdvancedDataDiv.appendChild(citiesData3);
-
-
-    cityDiv.appendChild(cityMainDataDiv);
-    cityDiv.appendChild(cityAdvancedDataDiv);
-
-    // APPEND  MAIN PARENT ELEMENT THAT CONTAINS ALL CITY CARDS
-    citiesSection.appendChild(cityDiv);
-
+      
     })
+
 }
 
 
@@ -672,6 +663,7 @@ function setProgressBar(uvi,progressBar){
     // set icon img src based on icon code passed to function from weatherDataOBJ.
     // icons located in local img folder and are saved under the given icon code name
     var iconSrc=  "/img/open-weather-icons/"+iconCodeData+"@2x.png";
+    
     // !! BETTER WAY TO SET ATTRITUBUTES LIKE IMG SRC:  imgElem.setAttribute('src', currentImage);
     // update html element 
     uiElement.src=iconSrc;
@@ -702,12 +694,14 @@ function setDirection(degrees,uiElement){
 
 window.addEventListener('load',()=> {
     getData();
+  
+   
 
 });
 
 // EVENT LISTENER TO CHECK IF ALL DOM CONTENT HAS LOADED
 // if it has get cities
-window.addEventListener('DOMContentLoaded',getCities);
+window.addEventListener('DOMContentLoaded',  getCities());
 
 document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
