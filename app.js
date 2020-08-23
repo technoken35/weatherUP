@@ -381,6 +381,8 @@ function addCity(weatherData){
         geoCoords: {lat:weatherData[0].coord.lat, lng:weatherData[0].coord.lon}
    }
     var inArray;
+     
+    // Determine of added city needs to be saved 
     if(localStorage.getItem("cities")!==null){
         var cities=[];
         
@@ -388,38 +390,34 @@ function addCity(weatherData){
         cities=JSON.parse(localStorage.getItem("cities"));
         console.log(cities,"cities local storage inside add city")
 
-        // loop through all city objects
+        // loop through all city objects in array
         for (i=0; i<cities.length;i++){
         
             // data for each city is stored as an object inside cities array 
              // check if current citiies index has city property equal to city text
-             // loop through each city string at current index
-            if(cities[i].city !== weatherData[0].name){
+             // loop through each city name at current index in array
+            if(cities[i].city === weatherData[0].name){
                 (console.log(cities[i].city," ",weatherData[0].name));
-                inArray=false;
+                inArray=true;
+                // break out of loop current city name matches local storage
+                break;
             } 
         }
 
         // if item is not in array saveCity
-        if(inArray==false){
+        if(!inArray){
             saveCity(cityData);
 
         } else{
             console.log("duplicate no need to save city")
         }
-    
-    } else {
-        // first city
-       
-        var test=true;
-        if(!test){
-            console.log("you not going crazy")
-        }
+        // save first city if local storage is empty
+    } else if(localStorage.getItem("cities")==null) {
+        
         saveCity(cityData)
-        console.log("first case test")
+        
     }
 
-   // saveCity(cityData);
 }
 
     
@@ -536,7 +534,11 @@ function geoCode(event) {
         if(input[i]===" "){
             // function to replace all matching values with another. / /g = replace all spaces globaly in string 
             queryInput=input.replace(/ /g,"%20");
-        };
+            
+            // input is a string with no spaces
+        } else {
+            queryInput=input;
+        }
     }
 
     //concatenate query string
@@ -566,10 +568,7 @@ function geoCode(event) {
     })
     .catch(function(err) {
         console.log(err);
-    });
-    
-   
-    
+    }); 
 
 }
 
@@ -587,21 +586,27 @@ function getCities(){
         //converts local storage JSON into a JS object and places existing data back into cities array
         // this works because an array is a special kind of object
         cities=JSON.parse(localStorage.getItem("cities"));
+
+        
+         // loop over all values in city array
+        // index is optional argument produces current index of array
+        cities.forEach(function(city,index){
+            //cities array kept in local storage
+            // call geoCode to geoCode city name 
+             
+            getCitiesData(cities[index].geoCoords.lat, cities[index].geoCoords.lng);
+            console.log("get cities is the culprit")
+    
+          
+        })
        
     }
 
-    // loop over all values in city array
-    // index is optional argument produces current index of array
-    
-    cities.forEach(function(city,index){
-        //cities array kept in local storage
-        // call geoCode to geoCode city name 
-         
-        getCitiesData(cities[index].geoCoords.lat, cities[index].geoCoords.lng);
-        console.log("get cities is the culprit")
+   
 
-      
-    })
+    // ? if city in local index dont save 
+    
+   
 
 }
 
@@ -694,6 +699,7 @@ function setDirection(degrees,uiElement){
 
 window.addEventListener('load',()=> {
     getData();
+    getCities();
   
    
 
@@ -701,7 +707,7 @@ window.addEventListener('load',()=> {
 
 // EVENT LISTENER TO CHECK IF ALL DOM CONTENT HAS LOADED
 // if it has get cities
-window.addEventListener('DOMContentLoaded',  getCities());
+//window.addEventListener('DOMContentLoaded',  getCities);
 
 document.querySelector(".fa-sync-alt").addEventListener('click',()=> {
     getData();
