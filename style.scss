@@ -54,6 +54,7 @@ body{
     border-radius:$border-radius-small;
     max-height: 8rem;
     background: $primary-color;
+    // transition for being deleted
     transition: all 1s ease;
   
 }
@@ -199,7 +200,6 @@ header{
 
 }
 
-
 .temp{
     display: flex;
     padding-left: 2rem;
@@ -236,6 +236,14 @@ header{
     width: 3.125rem;
     height: 3.124rem;
     border:none;
+}
+
+.fa-location-arrow{
+    color: $secondary-color;
+}
+
+.fa-plus-square{
+    color:$icon-showcase-color;
 }
 
 .showcase-icon{
@@ -502,6 +510,22 @@ header{
     @include container;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    .add{
+        padding: 0.5rem;
+
+        input{
+            min-width: 85%;
+            min-height: 100%;
+            border: none;
+        }
+
+        // css property for when text fields are in use, similar to active
+        input:focus{
+           outline: none;
+        }
+    }
 
     &-selection{
        
@@ -517,6 +541,14 @@ header{
             /* css property makes you not be be able to click on html element anymore 
                 We use this so icon tag does not block button event listener 
             */
+
+            color:#FF6259;
+            
+        }
+
+        .location-button{
+            background: none;
+            border: none;
         }
 
         &-add-location{
@@ -555,9 +587,12 @@ header{
     }
 
     &-main-data{
+       
+        padding-bottom: 1rem;
+        justify-content: space-between;
        .cities-temp{
         border-right: 1px solid $secondary-font-color;
-        padding: 0 0.5rem;
+       
        }
 
        .cities-temp{
@@ -566,12 +601,25 @@ header{
 
        .city{
            padding-left: 0.5rem;
+           font-size: 1.1rem;
        }
 
-       .trash-btn{
+       button{
+        /* x*/
         justify-self: flex-end;
-        margin-left: 20%;
+        //y
+        align-self: flex-start;
+
+        position: relative;
+        
+        border:none;
+        background: none;
+        margin-right: 0.5rem;
+        margin-top: 0.5rem;
+
+
        }
+       
 
       
 
@@ -581,7 +629,7 @@ header{
     &-advanced-data{
         /* x axis */
         justify-content: space-between;
-        padding-left: 1rem;
+        padding: 0 1rem;
         .middle-data{
             border-right: 1px solid $secondary-font-color;
             border-left: 1px solid $secondary-font-color;
@@ -595,12 +643,13 @@ header{
       
     }
 
+  
+
     &-main-data,&-advanced-data{
         display: flex;
         align-items: center;
         //justify-content: space-between;
-        padding-bottom: 1rem;
-        padding-right: 1rem;
+       
     }
 
   

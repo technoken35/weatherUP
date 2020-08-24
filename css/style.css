@@ -207,6 +207,14 @@ header .fa-sync-alt:active {
   border: none;
 }
 
+.fa-location-arrow {
+  color: #7768E4;
+}
+
+.fa-plus-square {
+  color: #353688;
+}
+
 .showcase-icon {
   border: none;
   width: 3.5rem;
@@ -475,6 +483,21 @@ header .fa-sync-alt:active {
   display: grid;
   -ms-grid-rows: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.cities .add {
+  padding: 0.5rem;
+}
+
+.cities .add input {
+  min-width: 85%;
+  min-height: 100%;
+  border: none;
+}
+
+.cities .add input:focus {
+  outline: none;
 }
 
 .cities-selection {
@@ -500,6 +523,12 @@ header .fa-sync-alt:active {
   /* css property makes you not be be able to click on html element anymore 
                 We use this so icon tag does not block button event listener 
             */
+  color: #FF6259;
+}
+
+.cities-selection .location-button {
+  background: none;
+  border: none;
 }
 
 .cities-selection-add-location {
@@ -531,9 +560,15 @@ header .fa-sync-alt:active {
   opacity: 0;
 }
 
+.cities-main-data {
+  padding-bottom: 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .cities-main-data .cities-temp {
   border-right: 1px solid #BFBFC4;
-  padding: 0 0.5rem;
 }
 
 .cities-main-data .cities-temp {
@@ -542,11 +577,19 @@ header .fa-sync-alt:active {
 
 .cities-main-data .city {
   padding-left: 0.5rem;
+  font-size: 1.1rem;
 }
 
-.cities-main-data .trash-btn {
+.cities-main-data button {
+  /* x*/
   justify-self: flex-end;
-  margin-left: 20%;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  position: relative;
+  border: none;
+  background: none;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .cities-advanced-data {
@@ -554,7 +597,7 @@ header .fa-sync-alt:active {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding-left: 1rem;
+  padding: 0 1rem;
 }
 
 .cities-advanced-data .middle-data {
@@ -574,8 +617,6 @@ header .fa-sync-alt:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-bottom: 1rem;
-  padding-right: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {

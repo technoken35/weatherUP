@@ -125,12 +125,15 @@ function updateUI (){
     var icon3= document.querySelector(".weather-icon-3");
 
     var windSpeed= document.querySelector(".wind-speed p span");
-    var windDirection= document.querySelector('.wind-direction');
+    var windDirection= document.querySelector('.wind-direction-data');
+    var windDirArrow= document.querySelector(".fa-location-arrow");
 
     var humidity=document.querySelector(".humidity-text span");
 
     var sunrise=document.querySelector(".sunrise-text");
     var sunset=document.querySelector(".sunset-text");
+   
+   
 
 
     function formatTime(timestamp){
@@ -271,10 +274,13 @@ function updateUI (){
     setIcon(showcaseIcon,currentIconData);
     setIcon(showcaseIcon2,currentIconData);
     console.log(showcaseIcon)
-   // setIcon(forecastDescriptionDataDay2,icon2);
-    //setIcon(forecastDescriptionDataDay3,icon3);
-   // setIcon(currentDescriptionDataShort,showcaseIcon); 
-    setDirection(windDirectionData,windDirection);
+  
+    // setDirection for text
+   setDirection(windDirectionData,windDirection);
+   //-45 sets font awesome icon to true north before we apply rotation
+   var windDirForArrow= -45+ windDirectionData
+   // rotate font awesome icon to poin to correct direction
+    windDirArrow.style.transform="rotate("+windDirForArrow+"deg)"
    
    console.log(weatherDataObj," ","weather data obj")
 
@@ -345,7 +351,7 @@ function addCity(weatherData){
     var deleteButton= document.createElement("button");
     deleteButton.classList.add("trash-btn");
     // add fontawesome icon to button
-    deleteButton.innerHTML='<i class="fas fa-times-circle"></i>';
+    deleteButton.innerHTML='<i class="far fa-times-circle fa-lg"></i>';
     // append delete button 
     cityMainDataDiv.appendChild(deleteButton);
     // select delete button and listen
@@ -355,17 +361,20 @@ function addCity(weatherData){
     //add child elements to cities-advanced-data
     var citiesData1= document.createElement("p");
     citiesData1.classList.add("cities-data-1");
-    citiesData1.textContent="Humidity"
+    //       description
+    citiesData1.textContent=weatherData[0].weather[0].main;
     cityAdvancedDataDiv.appendChild(citiesData1);
     //data section 2
     var citiesData2= document.createElement("p");
     citiesData2.classList.add("cities-data-2");
-    citiesData2.textContent="Northwest"
+    //          High/Low
+    citiesData2.textContent= kelvinToFh(weatherData[0].main.temp_max)+"°"+"/"+  kelvinToFh(weatherData[0].main.temp_min)+"°";
     cityAdvancedDataDiv.appendChild(citiesData2);
     //data section 3
     var citiesData3= document.createElement("p");
     citiesData3.classList.add("cities-data-3");
-    citiesData1.textContent="25mph"
+    //          humidity
+    citiesData3.textContent= "Humidity"+" "+weatherData[0].main.humidity+"%";
     cityAdvancedDataDiv.appendChild(citiesData3);
 
 
@@ -676,9 +685,13 @@ function setProgressBar(uvi,progressBar){
 
 
 function setDirection(degrees,uiElement){
+
+    // -45 degrees sets the font awesome icon arrow to point true north (0°)
+  
     /* Sets wind direction based on  degrees (compass) */
     if(degrees >=0 && degrees <=44) {
         uiElement.textContent='N';
+       
     } else if (degrees >= 45 && degrees <= 89 ) {
         uiElement.textContent='NE';
 
@@ -696,6 +709,7 @@ function setDirection(degrees,uiElement){
         uiElement.textContent='NW';
     }
 }
+
 
 window.addEventListener('load',()=> {
     getData();
