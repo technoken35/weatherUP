@@ -488,12 +488,14 @@ header .fa-sync-alt:active {
 
 .cities .add {
   padding: 0.5rem;
+  max-height: 4.5rem;
 }
 
 .cities .add input {
   min-width: 85%;
   min-height: 100%;
   border: none;
+  background-color: #FFFFFF;
 }
 
 .cities .add input:focus {
@@ -582,9 +584,9 @@ header .fa-sync-alt:active {
 
 .cities-main-data button {
   /* x*/
-  justify-self: flex-end;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   position: relative;
   border: none;
   background: none;
@@ -633,6 +635,18 @@ header .fa-sync-alt:active {
     background: url("/img/henderson-night.jpeg") no-repeat center/cover;
   }
   .fa-sync-alt {
+    color: #7598BD;
+  }
+  .cities .add input {
+    background-color: #232733;
+  }
+  .cities .add button {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    padding: 0.5rem;
+  }
+  .cities .add .fa-plus-square {
     color: #7598BD;
   }
   .main-container {

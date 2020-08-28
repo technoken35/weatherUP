@@ -514,11 +514,14 @@ header{
 
     .add{
         padding: 0.5rem;
+        max-height: 4.5rem;
 
         input{
             min-width: 85%;
             min-height: 100%;
             border: none;
+            background-color: $primary-color;
+        
         }
 
         // css property for when text fields are in use, similar to active
@@ -606,9 +609,9 @@ header{
 
        button{
         /* x*/
-        justify-self: flex-end;
+        
         //y
-        align-self: flex-start;
+        align-self: center;
 
         position: relative;
         
@@ -616,12 +619,14 @@ header{
         background: none;
         margin-right: 0.5rem;
         margin-top: 0.5rem;
+        padding:0.5rem;
 
 
        }
        
 
-      
+       
+    }
 
        
     }
@@ -683,6 +688,20 @@ header{
     .fa-sync-alt{
         color: $secondary-font-color;
         
+    }
+
+    .cities{
+        .add{
+            input{
+                background-color: $primary-color;
+               
+            }
+    
+            .fa-plus-square{
+                color: $secondary-font-color;
+              
+               
+            }
     }
 
 

@@ -578,6 +578,9 @@ function geoCode(event) {
     .catch(function(err) {
         console.log(err);
     }); 
+    
+    // clear input for next city 
+    input.textContent="";
 
 }
 
