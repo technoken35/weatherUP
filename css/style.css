@@ -16,8 +16,8 @@ img {
 }
 
 body {
-  font-family: 'Open Sans',sans-serif;
-  background: #E3E8EC;
+  font-family: 'Open Sans', sans-serif;
+  background: #e3e8ec;
 }
 
 .current-temp-side {
@@ -54,7 +54,7 @@ body {
 }
 
 .current-temp-side .current-conditions {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .current-temp-side .showcase-icon {
@@ -65,9 +65,9 @@ body {
 }
 
 .current-temp-side .current-temp {
-  background: #7768E4;
+  background: #7768e4;
   opacity: 0.9;
-  color: #FFFFFF;
+  color: #ffffff;
   height: 100%;
   width: 100%;
   border-radius: 0% 20% 20% 0%;
@@ -100,7 +100,7 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   gap: 2.5rem;
-  background: #FFFFFF;
+  background: #ffffff;
   height: 95%;
   padding: 50px;
   border-radius: 40px;
@@ -186,19 +186,22 @@ header .fa-sync-alt:active {
 }
 
 .fa-sun {
-  color: #FF8838;
+  color: #ff8838;
 }
 
 .fa-wind {
-  color: #B8B9BD;
+  color: #b8b9bd;
 }
 
-.fa-cloud-showers-heavy, .fa-cloud, .fa-cloud-sun {
-  color: #7768E4;
+.fa-cloud-showers-heavy,
+.fa-cloud,
+.fa-cloud-sun {
+  color: #7768e4;
 }
 
-.fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
-  color: #FFDE4C;
+.fa-arrow-alt-circle-down,
+.fa-arrow-alt-circle-up {
+  color: #ffde4c;
 }
 
 .weather-icon {
@@ -208,7 +211,7 @@ header .fa-sync-alt:active {
 }
 
 .fa-location-arrow {
-  color: #7768E4;
+  color: #7768e4;
 }
 
 .fa-plus-square {
@@ -245,9 +248,9 @@ header .fa-sync-alt:active {
 }
 
 .forecast-card {
-  -webkit-box-shadow: 1px 1px 1px 1px #E3E8EC;
-          box-shadow: 1px 1px 1px 1px #E3E8EC;
-  border: 1px solid #E3E8EC;
+  -webkit-box-shadow: 1px 1px 1px 1px #e3e8ec;
+          box-shadow: 1px 1px 1px 1px #e3e8ec;
+  border: 1px solid #e3e8ec;
   border-radius: 15px;
   font-size: 20px;
   height: 4rem;
@@ -269,17 +272,18 @@ header .fa-sync-alt:active {
 
 .forecast-card .conditions {
   font-size: 0.8rem;
-  color: #BFBFC4;
+  color: #bfbfc4;
 }
 
-.forecast-card .day, .forecast-card .conditions {
+.forecast-card .day,
+.forecast-card .conditions {
   padding: 0 2px;
 }
 
 .forecast-card .cloud-blue {
-  background: #7768E4;
-  border-color: #7768E4;
-  color: #FFFFFF;
+  background: #7768e4;
+  border-color: #7768e4;
+  color: #ffffff;
 }
 
 .forecast-text {
@@ -287,11 +291,11 @@ header .fa-sync-alt:active {
 }
 
 .forecast-num {
-  background: #DEE7F4;
-  border: 10px solid #DEE7F4;
+  background: #dee7f4;
+  border: 10px solid #dee7f4;
   height: 110%;
   width: 110%;
-  color: #0D0D24;
+  color: #0d0d24;
   border-radius: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -340,7 +344,8 @@ header .fa-sync-alt:active {
           flex-direction: column;
 }
 
-.highlights .sunrise-sunset-text .sunrise-text, .highlights .sunrise-sunset-text .sunset-text {
+.highlights .sunrise-sunset-text .sunrise-text,
+.highlights .sunrise-sunset-text .sunset-text {
   padding: 0 0.2rem 0rem 2rem;
   font-weight: bold;
   font-size: 1.5rem;
@@ -364,9 +369,9 @@ header .fa-sync-alt:active {
 .highlights .uv-index {
   width: 90%;
   height: 2rem;
-  border: 1px solid #E3E8EC;
+  border: 1px solid #e3e8ec;
   border-radius: 40px;
-  background: #F9F9F9;
+  background: #f9f9f9;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -378,7 +383,7 @@ header .fa-sync-alt:active {
 }
 
 .highlights .uv-index-progress {
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 15px;
   font-weight: bold;
   height: 100%;
@@ -434,9 +439,9 @@ header .fa-sync-alt:active {
 
 .highlights-card {
   min-height: 6rem;
-  -webkit-box-shadow: 1px 1px 1px 1px #E3E8EC;
-          box-shadow: 1px 1px 1px 1px #E3E8EC;
-  border: 1px solid #E3E8EC;
+  -webkit-box-shadow: 1px 1px 1px 1px #e3e8ec;
+          box-shadow: 1px 1px 1px 1px #e3e8ec;
+  border: 1px solid #e3e8ec;
   border-radius: 15px;
   padding: 1rem;
   margin: 0.5rem 0;
@@ -453,7 +458,7 @@ header .fa-sync-alt:active {
 }
 
 .highlights-card-heading {
-  color: #BFBFC4;
+  color: #bfbfc4;
   padding: 0 0 2% 5%;
 }
 
@@ -465,7 +470,7 @@ header .fa-sync-alt:active {
   font-size: 1.3rem;
   font-weight: bold;
   margin-left: 0 auto;
-  color: #0D0D24 span;
+  color: #0d0d24 span;
   color-font-weight: normal;
   color-font-size: 2rem;
 }
@@ -489,26 +494,41 @@ header .fa-sync-alt:active {
 .cities .add {
   padding: 0.5rem;
   max-height: 4.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* X */
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
+  /* y */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .cities .add input {
-  min-width: 85%;
+  max-width: 80%;
   min-height: 100%;
+  min-width: 70%;
   border: none;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .cities .add input:focus {
   outline: none;
 }
 
+.cities .add .fa-plus-square {
+  margin: 0 auto 0 3rem;
+}
+
 .cities-selection {
-  -webkit-box-shadow: 1px 1px 1px 1px #E3E8EC;
-          box-shadow: 1px 1px 1px 1px #E3E8EC;
-  border: 1px solid #E3E8EC;
+  -webkit-box-shadow: 1px 1px 1px 1px #e3e8ec;
+          box-shadow: 1px 1px 1px 1px #e3e8ec;
+  border: 1px solid #e3e8ec;
   border-radius: 15px;
   max-height: 8rem;
-  background: #FFFFFF;
+  background: #ffffff;
   -webkit-transition: all 1s ease;
   transition: all 1s ease;
   display: -webkit-box;
@@ -525,17 +545,18 @@ header .fa-sync-alt:active {
   /* css property makes you not be be able to click on html element anymore 
                 We use this so icon tag does not block button event listener 
             */
-  color: #FF6259;
+  color: #ff6259;
 }
 
 .cities-selection .location-button {
   background: none;
   border: none;
+  margin-top: 0.3rem;
 }
 
 .cities-selection-add-location {
   padding: 0.5rem;
-  border: 1px solid #E3E8EC;
+  border: 1px solid #e3e8ec;
   border-radius: 10px;
 }
 
@@ -549,8 +570,8 @@ header .fa-sync-alt:active {
 }
 
 .cities-selection .cities-icon-container {
-  background: #DEE7F4;
-  border: 1px solid #DEE7F4;
+  background: #dee7f4;
+  border: 1px solid #dee7f4;
   border-radius: 15px;
   justify-self: flex-start;
   margin-right: 1.5rem;
@@ -570,7 +591,7 @@ header .fa-sync-alt:active {
 }
 
 .cities-main-data .cities-temp {
-  border-right: 1px solid #BFBFC4;
+  border-right: 1px solid #bfbfc4;
 }
 
 .cities-main-data .cities-temp {
@@ -592,6 +613,7 @@ header .fa-sync-alt:active {
   background: none;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
 .cities-advanced-data {
@@ -603,13 +625,13 @@ header .fa-sync-alt:active {
 }
 
 .cities-advanced-data .middle-data {
-  border-right: 1px solid #BFBFC4;
-  border-left: 1px solid #BFBFC4;
+  border-right: 1px solid #bfbfc4;
+  border-left: 1px solid #bfbfc4;
   padding: 0 1rem;
 }
 
 .cities-advanced-data p {
-  color: #BFBFC4;
+  color: #bfbfc4;
 }
 
 .cities-main-data, .cities-advanced-data {
@@ -623,9 +645,10 @@ header .fa-sync-alt:active {
 
 @media (prefers-color-scheme: dark) {
   .fa-moon {
-    color: #7F7D94;
+    color: #7f7d94;
   }
-  .fa-arrow-alt-circle-down, .fa-arrow-alt-circle-up {
+  .fa-arrow-alt-circle-down,
+  .fa-arrow-alt-circle-up {
     color: #adadc7;
   }
   * {
@@ -635,25 +658,21 @@ header .fa-sync-alt:active {
     background: url("/img/henderson-night.jpeg") no-repeat center/cover;
   }
   .fa-sync-alt {
-    color: #7598BD;
+    color: #7598bd;
   }
   .cities .add input {
     background-color: #232733;
   }
-  .cities .add button {
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
-    padding: 0.5rem;
-  }
   .cities .add .fa-plus-square {
-    color: #7598BD;
+    color: #7598bd;
   }
   .main-container {
     background: #232733;
   }
-  .forecast-card, .highlights-card, .cities-selection {
-    background: #2B2F3F;
+  .forecast-card,
+  .highlights-card,
+  .cities-selection {
+    background: #2b2f3f;
     -webkit-box-shadow: none;
             box-shadow: none;
     border: none;
@@ -666,8 +685,8 @@ header .fa-sync-alt:active {
     color: #ffffff;
   }
   .forecast-num {
-    background: #7598BD;
-    border: 10px solid #7598BD;
+    background: #7598bd;
+    border: 10px solid #7598bd;
     height: 100%;
     width: 110%;
     border-radius: 15px;
@@ -678,7 +697,7 @@ header .fa-sync-alt:active {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .main-container {
     -ms-grid-rows: 1fr;
         grid-template-rows: 1fr;

@@ -1,101 +1,82 @@
-@media(max-width:768px) {
-    
-    .main-container{
-        grid-template-rows: 1fr;
-        height: 100%;
-        max-width: 100%;
-        padding: 2rem;
-        margin: 0 auto;
-        border-radius: 0px;
-        border: none;
-        gap: 1rem;
-       
+@media (max-width: 1024px) {
+  .main-container {
+    grid-template-rows: 1fr;
+    height: 100%;
+    max-width: 100%;
+    padding: 2rem;
+    margin: 0 auto;
+    border-radius: 0px;
+    border: none;
+    gap: 1rem;
+  }
+
+  .current-temp-side {
+    display: none;
+    position: fixed;
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .highlights {
+    margin-top: 3rem;
+    grid-row: 3/3;
+    grid-column: 1/5;
+    width: 100%;
+
+    &-container {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr;
     }
 
-    .current-temp-side{
-        display: none;
-        position: fixed;
-        p{
-            font-size: 0.8rem;
-        }
-       
+    &-card {
+      padding: 1.5rem;
     }
 
-
-
-    .highlights {
-       
-        margin-top: 3rem;
-        grid-row: 3/3;
-        grid-column: 1/5;
-        width: 100%;
-
-
-        &-container{
-            grid-template-rows: 1fr;
-            grid-template-columns: 1fr;
-            
-        }
-
-        &-card{
-            padding: 1.5rem;
-        }
-       
-        &-1,&-2{
-        
-            width: 100%;
-            height: 100%;
-            padding: 0;
-        
-        }
-
-        .wind{
-
-            .highlights-card-heading{
-                padding-top: 1rem;
-            }
-            
-        }
-
-    
+    &-1,
+    &-2 {
+      width: 100%;
+      height: 100%;
+      padding: 0;
     }
 
-    
-    header {
-        grid-row: 1/1;
-        grid-column: 1/5;
-        width: 100%;
-        padding:2rem;
-        margin-bottom: 0;
-       
+    .wind {
+      .highlights-card-heading {
+        padding-top: 1rem;
+      }
+    }
+  }
 
-       .temp{
-           display: flex;
-          
-           
-        }
+  header {
+    grid-row: 1/1;
+    grid-column: 1/5;
+    width: 100%;
+    padding: 2rem;
+    margin-bottom: 0;
 
-        .current-conditions-2{
-            margin: 10px 0 0 0;
-            padding: 0rem;
-        }
+    .temp {
+      display: flex;
     }
 
-    .forecast{
-        grid-row: 2/2;
-        grid-column: 1/5;
-
-        margin-bottom: 1rem;
-
-        &-heading{
-            margin-bottom: 0;
-        }
-
-       
+    .current-conditions-2 {
+      margin: 10px 0 0 0;
+      padding: 0rem;
     }
+  }
 
-    .cities{
-        grid-row: 4/4;
-       grid-column: 1/5; 
+  .forecast {
+    grid-row: 2/2;
+    grid-column: 1/5;
+
+    margin-bottom: 1rem;
+
+    &-heading {
+      margin-bottom: 0;
     }
+  }
+
+  .cities {
+    grid-row: 4/4;
+    grid-column: 1/5;
+  }
 }
