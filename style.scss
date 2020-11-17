@@ -33,6 +33,10 @@ img {
   border: 0;
 }
 
+.loader {
+  background: url('/img/loader.gif') no-repeat center/cover;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   background: $background-color;

@@ -31,11 +31,6 @@ function getData() {
     navigator.geolocation.getCurrentPosition((position) => {
       /* this parameter(position) is the object containing geolocation data that gets returned from getCurrentPosition()  */
 
-      longitude = position.coords.longitude;
-      latitude = position.coords.latitude;
-
-      console.log(position); /* geolocation position data  */
-
       const API = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=minutely&appid=4a9721a8067a91cc5de8f90d6c9d4c16`;
       /* function for requests/responses returns a promise that is a response object */
       fetch(API)
@@ -45,7 +40,6 @@ function getData() {
         })
         .then((data) => {
           weatherDataObj = data;
-          console.log('recieved data', weatherDataObj);
           updateUI();
         });
     });
@@ -72,11 +66,9 @@ function getCitiesData(latitude, longitude) {
     .then(function (data) {
       // store data in weather object
       citiesWeatherDataObj = data;
-      console.log(citiesWeatherDataObj, 'results');
 
       // push object to weatherDataArr
       citiesWeatherDataArr.push(citiesWeatherDataObj);
-      console.log(citiesWeatherDataArr[0].main, 'lord is it you?');
       // call add city to update UI and pass selected city data in array
       addCity(citiesWeatherDataArr);
     });
@@ -239,7 +231,6 @@ function updateUI() {
   currentConditions2.textContent = currentDescription;
 
   uvIndexText.textContent = uvIndexData;
-  console.log(weatherDataObj.current.uvi);
 
   windSpeed.textContent = Math.round(windSpeedData);
 
@@ -255,7 +246,6 @@ function updateUI() {
   setIcon(icon3, forecastIconDataDay3);
   setIcon(showcaseIcon, currentIconData);
   setIcon(showcaseIcon2, currentIconData);
-  console.log(showcaseIcon);
 
   // setDirection for text
   setDirection(windDirectionData, windDirection);
@@ -263,10 +253,6 @@ function updateUI() {
   var windDirForArrow = -45 + windDirectionData;
   // rotate font awesome icon to poin to correct direction
   windDirArrow.style.transform = 'rotate(' + windDirForArrow + 'deg)';
-
-  console.log(weatherDataObj, ' ', 'weather data obj');
-
-  console.log(reverseGeoObj, ' ', ' Storing returned object from function');
 }
 
 var addLocation = document.querySelector('.location-button');
@@ -283,10 +269,6 @@ function kelvinToFh(temp) {
 // optional parameter geoCoords
 function addCity(weatherData) {
   //adds a new location div with weather data array passed
-
-  console.log(weatherData[0], 'add city');
-  console.log(cityGeoObj.results, 'add city');
-  console.log();
 
   // Create city card and add styling
   var cityDiv = document.createElement('div');
@@ -309,7 +291,6 @@ function addCity(weatherData) {
   imgIcon.classList.add('weather-icon-cities');
   // set Icon img src
   setIcon(imgIcon, weatherData[0].weather[0].icon);
-  console.log('cities Icon');
   imgContainer.appendChild(imgIcon);
   // create p elements inside of cities-main-data
   var citiesTemp = document.createElement('p');
@@ -386,7 +367,6 @@ function addCity(weatherData) {
       // check if current citiies index has city property equal to city text
       // loop through each city name at current index in array
       if (cities[i].city === weatherData[0].name) {
-        console.log(cities[i].city, ' ', weatherData[0].name);
         inArray = true;
         // break out of loop current city name matches local storage
         break;
@@ -434,7 +414,6 @@ function deleteCity(e) {
         parent elements children and going to the 2nd index in
         childNodes which contains the paragraph html element that has city text */
     var cityText = cityMainDataDiv.childNodes[2].textContent;
-    console.log(cityText);
 
     // get cities array from local storage and parse from JSON
     cities = JSON.parse(localStorage.getItem('cities'));
@@ -476,28 +455,17 @@ function saveCity(city) {
     cities = JSON.parse(localStorage.getItem('cities'));
   }
 
-  // adds new city to the end of the city array
   cities.push(city);
-  // saves key named cities with an array of city names as the value. JSON.stringify() converts JS values to JSON
-  //setItem stores data in Storage object
   localStorage.setItem('cities', JSON.stringify(cities));
 }
 
-// accepts event from event listener that called this function as arguement
-// USER INPUT TO GEO COORDS
 function geoCode(event) {
-  // GEOCODING WITH TRUE WAY VIA RAPID API
-
-  //stops default action after event. Ex checkbox cant be checked. No text input into check box.
-  // here it stops page from refreshing after submit button is pressed
   event.preventDefault();
 
-  // save user input in variable
   var input = document.querySelector('input').value;
 
   var queryInput;
 
-  console.log(input.length);
   // loop through user input to check each char for a space
   for (i = 0; i < input.length; i++) {
     // query cannot accept space characters. All spaces are replaced "%20"
@@ -532,8 +500,6 @@ function geoCode(event) {
     .then(function (data) {
       // store data in object
       cityGeoObj = data;
-      console.log('fresh object right of the press', cityGeoObj);
-      console.log(cityGeoObj.results[0].locality);
 
       // calls getCitiesData which accepts geo coords and querys openWeatherMap
       getCitiesData(
@@ -689,10 +655,26 @@ if (navigator.geolocation) {
       })
       .then(function (data) {
         reverseGeoObj = data;
-        console.log('recieved reverse geo', reverseGeoObj);
       });
   });
 }
+
+const getTodos = () => {
+  let loader = `<div class="boxLoading"></div>`;
+  document.querySelector('.loading').innerHTML = loader;
+  document.querySelector('.asyncbutton').textContent = 'Loading..';
+  fetch('https://jsonplaceholder.typicode.com/todos/100')
+    .then((response) => response.json())
+    .then((json) => {
+      let data = json;
+      console.log(data);
+      document.querySelector('.loading').innerHTML = 'All done loading';
+      document.querySelector('.asyncbutton').textContent =
+        'Click me to send request and change UI';
+    });
+};
+
+document.querySelector('.asyncbutton').addEventListener('click', getTodos);
 
 /* USEFUL WAYS OF USING CLASS LIST 
      add or remove multiple classes using spread syntax
