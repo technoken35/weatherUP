@@ -199,7 +199,6 @@ function updateUI() {
     var getDayOfStamp = new Date(stamp);
     /* new Date () constructor method creates a date object. Returns currrent date if no arguments are passed to it EX: Fri Aug 07 2020 17:49:42 GMT-0700 (Pacific Daylight Time) 
         when new Date() is passed a timestamp it creates a date object with the date of the time stamp EX: console.log(date); OUTPUT:  01/01/2000 @ 12:00am (UTC)
-
         (GMT=Greenwhich Mean Time. UTC= coordinated universal time. UTC & GMT have same meaning. Essentially UTC is new standard. GMT-0700 means 7 hours behind the universal time)
         */
 
@@ -693,14 +692,3 @@ if (navigator.geolocation) {
       });
   });
 }
-
-/* USEFUL WAYS OF USING CLASS LIST 
-     add or remove multiple classes using spread syntax
-    const cls = ["foo", "bar"];
-    div.classList.add(...cls); 
-    div.classList.remove(...cls);
-
-    replace class "foo" with class "bar"
-    div.classList.replace("foo", "bar");
-
-*/

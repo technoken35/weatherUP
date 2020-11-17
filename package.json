@@ -1,0 +1,34 @@
+{
+  "name": "weatherup",
+  "version": "1.0.0",
+  "description": "\"Weather app that gives you weather of current geolocation & also allows you to add other locations. Vanilla JS, HTML5, SCSS \"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technoken35/weatherUP.git"
+  },
+  "keywords": [
+    "OpenWeatherMap",
+    "Reverse",
+    "Geocoding",
+    "Geocoding",
+    "Geolocation"
+  ],
+  "author": "Kendall Hayes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/technoken35/weatherUP/issues"
+  },
+  "homepage": "https://github.com/technoken35/weatherUP#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^3.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
