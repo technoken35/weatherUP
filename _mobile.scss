@@ -18,6 +18,12 @@
     }
   }
 
+  .video-container {
+    video {
+      border-radius: 20px;
+    }
+  }
+
   .highlights {
     margin-top: 3rem;
     grid-row: 3/3;

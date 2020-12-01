@@ -804,6 +804,9 @@ header .fa-sync-alt:active {
   .current-temp-side p {
     font-size: 0.8rem;
   }
+  .video-container video {
+    border-radius: 20px;
+  }
   .highlights {
     margin-top: 3rem;
     -ms-grid-row: 3;
