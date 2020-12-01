@@ -198,7 +198,6 @@ header {
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   grid-row: 1/3;
-  background: url("/img/vegas.jpeg") no-repeat center/cover;
 }
 
 header .current-temp-showcase-2 {
@@ -722,7 +721,8 @@ header .fa-sync-alt:active {
 }
 
 @media (prefers-color-scheme: light) {
-  .showcase-location {
+  .showcase-location,
+  .temp {
     color: white;
   }
 }
@@ -732,7 +732,7 @@ header .fa-sync-alt:active {
     color: #b9babd;
   }
   body {
-    background: #5f6673;
+    background: #6d7e8c;
   }
   .fa-moon {
     color: #7f7d94;
@@ -743,9 +743,6 @@ header .fa-sync-alt:active {
   }
   * {
     color: #b9babd;
-  }
-  header {
-    background: url("/img/henderson-night.jpeg") no-repeat center/cover;
   }
   .fa-sync-alt {
     color: #7598bd;
