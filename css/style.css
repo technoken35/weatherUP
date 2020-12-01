@@ -797,11 +797,7 @@ header .fa-sync-alt:active {
     border: none;
     gap: 1rem;
   }
-  .data {
-    padding: 2rem;
-    width: 100vw;
-  }
-  .video-container,
+  .data .video-container,
   .showcase-container,
   .video-container::after,
   video {
@@ -830,6 +826,7 @@ header .fa-sync-alt:active {
     -ms-grid-column-span: 4;
     grid-column: 1/5;
     width: 100%;
+    padding: 2rem;
   }
   .highlights-container {
     -ms-grid-rows: 1fr;
@@ -880,6 +877,9 @@ header .fa-sync-alt:active {
   .forecast-heading {
     margin-bottom: 0;
   }
+  .forecast-container {
+    padding: 2rem;
+  }
   .cities {
     -ms-grid-row: 4;
     grid-row: 4/4;
@@ -887,6 +887,7 @@ header .fa-sync-alt:active {
     -ms-grid-column-span: 4;
     grid-column: 1/5;
     margin-top: 2rem;
+    padding: 2rem;
   }
 }
 /*# sourceMappingURL=style.css.map */

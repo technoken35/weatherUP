@@ -10,12 +10,7 @@
     gap: 1rem;
   }
 
-  .data {
-    padding: 2rem;
-    width: 100vw;
-  }
-
-  .video-container,
+  .data .video-container,
   .showcase-container,
   .video-container::after,
   video {
@@ -44,6 +39,7 @@
     grid-row: 3/3;
     grid-column: 1/5;
     width: 100%;
+    padding: 2rem;
 
     &-container {
       grid-template-rows: 1fr;
@@ -96,11 +92,16 @@
     &-heading {
       margin-bottom: 0;
     }
+
+    &-container {
+      padding: 2rem;
+    }
   }
 
   .cities {
     grid-row: 4/4;
     grid-column: 1/5;
     margin-top: 2rem;
+    padding: 2rem;
   }
 }
