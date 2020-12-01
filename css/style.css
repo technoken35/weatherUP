@@ -409,6 +409,10 @@ header .fa-sync-alt:active {
   font-weight: bold;
 }
 
+.highlights .fas {
+  padding: 0px;
+}
+
 .highlights .sunrise-sunset-text {
   -ms-flex-item-align: center;
       align-self: center;
