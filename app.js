@@ -110,6 +110,7 @@ function updateUI() {
   );
 
   var showcaseLocation = document.querySelector('.showcase-location');
+  var showcaseBackground = document.querySelector('.showcase-container');
   var showcaseIcon = document.querySelector('.showcase-icon');
   var showcaseIcon2 = document.querySelector('.showcase-icon-2');
   var icon1 = document.querySelector('.weather-icon-1');
@@ -254,6 +255,7 @@ function updateUI() {
   setIcon(icon3, forecastIconDataDay3);
   setIcon(showcaseIcon, currentIconData);
   setIcon(showcaseIcon2, currentIconData);
+  setVideo(currentDescriptionData);
   console.log(showcaseIcon);
 
   // setDirection for text
@@ -627,6 +629,45 @@ function setIcon(uiElement, iconCodeData) {
   // !! BETTER WAY TO SET ATTRITUBUTES LIKE IMG SRC:  imgElem.setAttribute('src', currentImage);
   // update html element
   uiElement.src = iconSrc;
+}
+
+function setVideo(string) {
+  // accepts current conditions as string and sets background image
+  var conditions = {
+    clearsky:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797204/weather-up/Palm_Trees_Swaying_With_The_Wind_qgspet.mp4',
+    fewclouds:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797755/weather-up/Time_Lapse_Video_Of_Clouds_And_Sun_tfqgh9.mp4',
+    scatteredclouds:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797849/weather-up/Pexels_Videos_1110142_q6biwt.mp4',
+    brokenclouds:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797849/weather-up/Pexels_Videos_1110142_q6biwt.mp4',
+    showerrain:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797985/weather-up/Pexels_Videos_3839_m0wlux.mp4',
+    rain:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797985/weather-up/Pexels_Videos_3839_m0wlux.mp4',
+    thunderstorm:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606797933/weather-up/CG_Animation_Of_Thunderstorm_dzdxgq.mp4',
+    snow:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606798715/weather-up/Snow_Falling_Down_1_reyvlo.mp4',
+    mist:
+      'https://res.cloudinary.com/dev-sandbox/video/upload/v1606798853/weather-up/Pexels_Videos_1405527_fyagjx.mp4',
+  };
+
+  console.log(string);
+
+  if (string.search(' ') === -1) {
+    // if no space string does not need formatting
+    console.log(conditions[string]);
+    document.querySelector('.showcase-video').src = conditions[string];
+  } else {
+    const spaceIndex = string.search(' ');
+    const formattedString =
+      string.slice(0, spaceIndex) + string.slice(spaceIndex + 1);
+    // using bracket notation to dynamically select object properties
+    document.querySelector('.showcase-video').src = conditions[formattedString];
+    console.log(conditions[formattedString]);
+  }
 }
 
 function setDirection(degrees, uiElement) {

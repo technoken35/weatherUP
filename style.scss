@@ -121,6 +121,72 @@ body {
   max-width: 90%;
 }
 
+.showcase-container {
+  max-width: 80vw;
+  max-height: 30vh;
+  position: relative;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+
+  /* overflow hidden so no scroll bar on extra content that overflows its container */
+  overflow: hidden;
+}
+
+.showcase-container video {
+  min-width: 100%;
+  min-height: 100%;
+  /* similar to background positioning */
+  object-fit: cover;
+
+  /* This block of code fixes effect where the video was not scaling with the size of the device */
+  position: absolute;
+  /* moves this down from the top 50% and left 50%
+    The video element winds up in bottom right corner after this but 
+    it is the CENTER of the video frame like we want because we want the frame to scale and always stay in the middle */
+  top: 50%;
+  left: 50%;
+  /* This property translates along the x & y axis. Same concept of translating triangles in math.
+    By using translate we are able to move the video back to normal position
+    */
+  transform: translate(-50%, -50%);
+}
+
+.video-container:after {
+  /* content goes here if you want but CSS needs the content property whether you put some or not */
+  content: '';
+  /* absolute positioning to take out of document flow and position like video container */
+  position: absolute;
+  /* since we dont want element to move from top left corner we set the top and left properties to 0
+  and then set the width and height to 100% so element takes up entire vh & vw */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* rgba = Red, green,blue, alpha 
+      using rgba colors is a more elegant way of achieving the same transluscent effect opacity gives
+      the last value, the a value is the value for OPACITY of the color  
+  */
+  background: rgba(4, 6, 13, 0.6);
+}
+
+.content {
+  /* Sets the container wrapping the content to a high z index to be placed on top of the video container.
+  This is possible because of the video containers absolute positioning. It is removed out of document flow and content container takes its place */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
 header {
   width: 80vw;
   height: 30vh;
@@ -128,7 +194,7 @@ header {
   border-radius: $border-radius;
   grid-column: 1/5;
   grid-row: 1/3;
-  padding: 2rem;
+  // padding: 2rem;
   background: url('/img/vegas.jpeg') no-repeat center/cover;
 
   .current-temp-showcase-2 {
@@ -149,6 +215,7 @@ header {
   .showcase-location {
     font-size: 2rem;
     text-shadow: 1px white;
+    //color: white;
     font-weight: normal;
     padding-bottom: 0px;
   }
@@ -159,10 +226,12 @@ header {
 
   .location {
     display: flex;
+    z-index: 11;
 
     .fas {
       padding: 10px;
       margin-top: 5px;
+      color: $secondary-color;
     }
   }
 
@@ -178,6 +247,7 @@ header {
 
 .temp {
   display: flex;
+  z-index: 11;
   padding-left: 2rem;
 }
 
@@ -446,6 +516,8 @@ header {
   grid-row: 2/4;
   grid-column: 4/5;
   max-height: 31.25rem;
+  // higher z-index to sit on top of header with background video
+  z-index: 12;
 
   @include container;
   display: grid;
@@ -585,12 +657,27 @@ header {
   }
 }
 
+// you shouldnt have to add media query here
+@media (prefers-color-scheme: light) {
+  .showcase-location {
+    color: white;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   // find better bg image for darkmode
   $primary-color: #232733;
   $background-color: #2b2f3f;
   $font-color: #ffffff;
   $secondary-font-color: #7598bd;
+
+  .showcase-location {
+    color: #b9babd;
+  }
+
+  body {
+    background: #5f6673;
+  }
 
   .fa-moon {
     color: #7f7d94; // add better color
