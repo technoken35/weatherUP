@@ -791,11 +791,25 @@ header .fa-sync-alt:active {
         grid-template-rows: 1fr;
     height: 100%;
     max-width: 100%;
-    padding: 2rem;
+    padding: 0rem;
     margin: 0 auto;
     border-radius: 0px;
     border: none;
     gap: 1rem;
+  }
+  .data {
+    padding: 2rem;
+    width: 100vw;
+  }
+  .video-container,
+  .showcase-container,
+  .video-container::after,
+  video {
+    border-radius: 0px !important;
+  }
+  .showcase-container {
+    margin: 0;
+    padding: 0;
   }
   .current-temp-side {
     display: none;
@@ -804,8 +818,9 @@ header .fa-sync-alt:active {
   .current-temp-side p {
     font-size: 0.8rem;
   }
-  .video-container video {
-    border-radius: 20px;
+  .showcase-container,
+  header {
+    max-width: 100vw;
   }
   .highlights {
     margin-top: 3rem;
@@ -825,6 +840,9 @@ header .fa-sync-alt:active {
   .highlights-card {
     padding: 1.5rem;
   }
+  .highlights-heading {
+    padding-top: 2.5rem;
+  }
   .highlights-1, .highlights-2 {
     width: 100%;
     height: 100%;
@@ -842,7 +860,6 @@ header .fa-sync-alt:active {
     width: 100%;
     padding: 2rem;
     margin-bottom: 0;
-    border-radius: 20px;
   }
   header .temp {
     display: -webkit-box;
@@ -859,7 +876,6 @@ header .fa-sync-alt:active {
     -ms-grid-column: 1;
     -ms-grid-column-span: 4;
     grid-column: 1/5;
-    margin-bottom: 1rem;
   }
   .forecast-heading {
     margin-bottom: 0;
@@ -870,6 +886,7 @@ header .fa-sync-alt:active {
     -ms-grid-column: 1;
     -ms-grid-column-span: 4;
     grid-column: 1/5;
+    margin-top: 2rem;
   }
 }
 /*# sourceMappingURL=style.css.map */
